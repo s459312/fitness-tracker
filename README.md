@@ -1,1 +1,1 @@
-# fitness-tracker-backend
+# fitness-tracker
