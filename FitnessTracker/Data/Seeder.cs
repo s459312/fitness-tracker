@@ -15,6 +15,15 @@ namespace FitnessTracker.Data
             );
         }
 
+        public static void SeedGoals(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Goal>().HasData(
+                new Goal { Id = 1, Name = "Redukcja tkanki tłuszczowej" },
+                new Goal { Id = 2, Name = "Przybranie masy mięśniowej" },
+                new Goal { Id = 3, Name = "Rekompozycja sylwetki" }
+            );
+        }
+
         public static void SeedUsers(ModelBuilder modelBuilder, IAuthHelper authHelper)
         {
             authHelper.CreatePasswordHash("Password#2!",  out byte[] passwordHash, out byte[] passwordSalt);
@@ -27,7 +36,8 @@ namespace FitnessTracker.Data
                 Surname = "Admin Surname",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                RoleId = 1
+                RoleId = 1,
+                GoalId = 2
             };
             
             User moderatorUser = new User
@@ -38,7 +48,8 @@ namespace FitnessTracker.Data
                 Surname = "Moderator Surname",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                RoleId = 2
+                RoleId = 2,
+                GoalId = 3
             };
             
             User user = new User
@@ -49,7 +60,8 @@ namespace FitnessTracker.Data
                 Surname = "User Surname",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                RoleId = 3
+                RoleId = 3,
+                GoalId = 1
             };
             
             modelBuilder.Entity<User>().HasData(

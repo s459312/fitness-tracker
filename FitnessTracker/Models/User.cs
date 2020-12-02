@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTracker.Models
 {
+
     public class User
     {
+
         [Key]
         public int Id { get; set; }
         
@@ -35,5 +35,17 @@ namespace FitnessTracker.Models
         
         [ForeignKey(nameof(RoleId))]
         public Role Role { get; set; }
+
+        [Required]
+        public int GoalId { get; set; }
+
+        [ForeignKey(nameof(GoalId))]
+        public Goal Goal { get; set; }
+
+        public virtual ICollection<Training> IdTraining { get; set; }
+
+        public virtual ICollection<History> IdHistory { get; set; }
+
     }
+
 }
