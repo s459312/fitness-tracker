@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FitnessTracker.Models;
+﻿using FitnessTracker.Models;
 using FitnessTracker.Models.Filters;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Services.Interfaces
 {

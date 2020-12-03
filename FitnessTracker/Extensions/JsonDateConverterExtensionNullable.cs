@@ -8,7 +8,7 @@ namespace FitnessTracker.Extensions
     public class JsonDateConverterExtensionNullable : JsonConverter<DateTime?>
     {
         public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        { 
+        {
             return DateTime.ParseExact(reader.GetString(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 

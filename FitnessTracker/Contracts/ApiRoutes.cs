@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace FitnessTracker.Contracts
+﻿namespace FitnessTracker.Contracts
 {
     public static class ApiRoutes
     {
         private const string Base = "api/";
-        
+
         public static class Example
         {
             public const string GetAll = Base + "example";
@@ -14,7 +12,7 @@ namespace FitnessTracker.Contracts
             public const string Update = Base + "example/{exampleId}";
             public const string Delete = Base + "example/{exampleId}";
         }
-        
+
         public static class User
         {
             public const string GetAll = Base + "user/all";
@@ -22,13 +20,14 @@ namespace FitnessTracker.Contracts
             public const string Update = Base + "user";
             public const string UpdateRole = Base + "user/{userId}";
             public const string Delete = Base + "user/{userId}";
+            public const string Test = Base + "user/Test";
         }
 
         public static class Role
         {
             public const string GetAll = Base + "role";
         }
-        
+
         public static class Auth
         {
             public const string Login = Base + "auth/login";
@@ -36,6 +35,6 @@ namespace FitnessTracker.Contracts
             public const string Refresh = Base + "auth/refresh";
             public const string ChangePassword = Base + "user/updatePassword";
         }
-        
+
     }
 }

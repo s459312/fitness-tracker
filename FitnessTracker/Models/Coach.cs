@@ -12,7 +12,7 @@ namespace FitnessTracker.Models
 
         [MaxLength(60)]
         public string Name { get; set; }
-        
+
         [MaxLength(60)]
         public string Surname { get; set; }
 
@@ -21,12 +21,11 @@ namespace FitnessTracker.Models
 
         [Phone]
         public string Phone { get; set; }
-        
-        public int GoalId { get; set; }
 
-        // [ForeignKey(nameof(GoalId))]
-        // FK ustawiony w DatabaseContext
-        public Goal Goal { get; set; }
+        public int? GoalId { get; set; }
+
+        [ForeignKey(nameof(GoalId))]
+        public virtual Goal Goal { get; set; }
 
     }
 

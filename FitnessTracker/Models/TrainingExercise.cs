@@ -7,19 +7,12 @@ namespace FitnessTracker.Models
     public class TrainingExercise
     {
 
-        [Required]
-        [Key, Column(Order = 0)]
-        public int IdExercise { get; set; }
-
-        [ForeignKey(nameof(IdExercise))]
-        public Exercise Exercise { get; set; }
-
-        [Required]
-        [Key, Column(Order = 1)]
-        public int IdTraining { get; set; }
-
-        [ForeignKey(nameof(IdTraining))]
-        public Training Training { get; set; }
+        public int ExerciseId { get; set; }
+        
+        [ForeignKey(nameof(ExerciseId))]
+        public virtual Exercise Exercise { get; set; }
+        
+        public int TrainingId { get; set; }
 
     }
 

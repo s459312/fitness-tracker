@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using FitnessTracker.Contracts.Request.Auth;
+﻿using FitnessTracker.Contracts.Request.Auth;
 using FitnessTracker.Models;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Services.Interfaces
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTracker.Models
 {
@@ -20,9 +21,7 @@ namespace FitnessTracker.Models
         [MaxLength(1000)]
         public string Description { get; set; }
 
-        public ICollection<TrainingExercise> TrainingExercises { get; set; }
-        
-        public ICollection<UserTraining> UserTrainings { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
 
     }
 

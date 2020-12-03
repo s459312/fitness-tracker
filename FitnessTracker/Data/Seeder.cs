@@ -1,7 +1,7 @@
-﻿﻿using System;
-using FitnessTracker.Helpers;
+﻿using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace FitnessTracker.Data
 {
@@ -10,9 +10,9 @@ namespace FitnessTracker.Data
         public static void SeedRoles(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(
-                new Role {Id = 1, Name = "Admin"},
-                new Role {Id = 2, Name = "Moderator"},
-                new Role {Id = 3, Name = "User"}
+                new Role { Id = 1, Name = "Admin" },
+                new Role { Id = 2, Name = "Moderator" },
+                new Role { Id = 3, Name = "User" }
             );
         }
 
@@ -28,19 +28,19 @@ namespace FitnessTracker.Data
         public static void SeedCoach(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Coach>().HasData(
-                new Coach { Id = 1, Email = "coach_1@example.com", Name = "CoachName_1", Surname = "CoachSurname_1", Phone = "123456789", GoalId = 1},
-                new Coach { Id = 2, Email = "coach_2@example.com", Name = "CoachName_2", Surname = "CoachSurname_2", Phone = "987654321", GoalId = 2}
+                new Coach { Id = 1, Email = "coach_1@example.com", Name = "CoachName_1", Surname = "CoachSurname_1", Phone = "123456789", GoalId = 1 },
+                new Coach { Id = 2, Email = "coach_2@example.com", Name = "CoachName_2", Surname = "CoachSurname_2", Phone = "987654321", GoalId = 2 }
             );
         }
 
         public static void SeedExercise(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Exercise>().HasData(
-                new Exercise { Id = 1, Name = "Exercise_1", Serie = 1, Powtorzenia = 1, GoalId = 1},
-                new Exercise { Id = 2, Name = "Exercise_2", Serie = 2, Powtorzenia = 2, GoalId = 2}
+                new Exercise { Id = 1, Name = "Exercise_1", Serie = 1, Powtorzenia = 1, GoalId = 1 },
+                new Exercise { Id = 2, Name = "Exercise_2", Serie = 2, Powtorzenia = 2, GoalId = 2 }
             );
         }
-        
+
         public static void SeedTraining(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Training>().HasData(
@@ -48,39 +48,39 @@ namespace FitnessTracker.Data
                 new Training { Id = 2, IsPublic = false, Name = "Trening_Prywatny_1" },
                 new Training { Id = 3, IsPublic = false, Name = "Trening_Prywatny_2" }
             );
-            
+
             modelBuilder.Entity<TrainingExercise>().HasData(
-                new TrainingExercise { IdExercise = 1, IdTraining = 1 },
-                new TrainingExercise { IdExercise = 2, IdTraining = 1 },
-                new TrainingExercise { IdExercise = 1, IdTraining = 2 },
-                new TrainingExercise { IdExercise = 1, IdTraining = 3 },
-                new TrainingExercise { IdExercise = 2, IdTraining = 3 }
+                new TrainingExercise { ExerciseId = 1, TrainingId = 1 },
+                new TrainingExercise { ExerciseId = 2, TrainingId = 1 },
+                new TrainingExercise { ExerciseId = 1, TrainingId = 2 },
+                new TrainingExercise { ExerciseId = 1, TrainingId = 3 },
+                new TrainingExercise { ExerciseId = 2, TrainingId = 3 }
             );
-            
+
             modelBuilder.Entity<UserTraining>().HasData(
-                new UserTraining { IdUser = 1, IdTraining = 1, Favourite = false },    
-                new UserTraining { IdUser = 1, IdTraining = 2, Favourite = false },    
-                new UserTraining { IdUser = 1, IdTraining = 3, Favourite = true }    
+                new UserTraining { UserId = 1, TrainingId = 1, Favourite = false },
+                new UserTraining { UserId = 1, TrainingId = 2, Favourite = false },
+                new UserTraining { UserId = 1, TrainingId = 3, Favourite = true }
             );
         }
 
         public static void SeedHistory(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<History>().HasData(
-                new History { IdUser = 1, IdExercise = 1, Date = DateTime.Parse("2020-12-03") },
-                new History { IdUser = 1, IdExercise = 2, Date = DateTime.Parse("2020-12-03") }
+                new History { Id = 1, UserId = 1, ExerciseId = 1, Date = DateTime.Parse("2020-12-03") },
+                new History { Id = 2, UserId = 1, ExerciseId = 2, Date = DateTime.Parse("2020-12-03") }
             );
 
             modelBuilder.Entity<HistoryStats>().HasData(
-                new HistoryStats { Id = 1, HistoryIdUser = 1, HistoryIdExercise = 1, HistoryDate = DateTime.Parse("2020-12-03"), Serie = 1, Powtorzenia = 1},
-                new HistoryStats { Id = 2, HistoryIdUser = 1, HistoryIdExercise = 2, HistoryDate = DateTime.Parse("2020-12-03"), Serie = 2, Powtorzenia = 2}
+                new HistoryStats { Id = 1, HistoryIdUser = 1, HistoryIdExercise = 1, HistoryDate = DateTime.Parse("2020-12-03"), Serie = 1, Powtorzenia = 1 },
+                new HistoryStats { Id = 2, HistoryIdUser = 1, HistoryIdExercise = 2, HistoryDate = DateTime.Parse("2020-12-03"), Serie = 2, Powtorzenia = 2 }
             );
         }
-        
+
         public static void SeedUsers(ModelBuilder modelBuilder, IAuthHelper authHelper)
         {
-            authHelper.CreatePasswordHash("Password#2!",  out byte[] passwordHash, out byte[] passwordSalt);
-            
+            authHelper.CreatePasswordHash("Password#2!", out byte[] passwordHash, out byte[] passwordSalt);
+
             User adminUser = new User
             {
                 Id = 1,
@@ -92,7 +92,7 @@ namespace FitnessTracker.Data
                 RoleId = 1,
                 GoalId = 2
             };
-            
+
             User moderatorUser = new User
             {
                 Id = 2,
@@ -104,7 +104,7 @@ namespace FitnessTracker.Data
                 RoleId = 2,
                 GoalId = 3
             };
-            
+
             User user = new User
             {
                 Id = 3,
@@ -116,7 +116,7 @@ namespace FitnessTracker.Data
                 RoleId = 3,
                 GoalId = 1
             };
-            
+
             modelBuilder.Entity<User>().HasData(
                 adminUser,
                 moderatorUser,

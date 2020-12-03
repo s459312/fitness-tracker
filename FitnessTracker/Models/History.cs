@@ -8,26 +8,23 @@ namespace FitnessTracker.Models
 
     public class History
     {
-        [Required]
-        [Key, Column(Order = 0)]
-        public int IdUser { get; set; }
 
-        [ForeignKey(nameof(IdUser))]
-        public User User { get; set; }
-        
-        [Key, Column(Order = 1)]
-        public int IdExercise { get; set; }
-        
-        // [ForeignKey(nameof(IdExercise))]
-        // FK ustawiony w DatabaseContext
-        public Exercise Exercise { get; set; }
-        
-        [Key, Column(Order = 2, TypeName = "Date")]
+        [Key]
+        public int Id { get; set; }
+
+        public int UserId { get; set; }
+
+        public int ExerciseId { get; set; }
+
+        [ForeignKey(nameof(ExerciseId))]
+        public virtual Exercise Exercise { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-        
-        public IEnumerable<HistoryStats> HistoryStats { get; set; }
+
+        public virtual ICollection<HistoryStats> HistoryStats { get; set; }
+
     }
 
 }

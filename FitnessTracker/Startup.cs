@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using AutoMapper;
 using FitnessTracker.Data;
 using FitnessTracker.Filters;
@@ -25,6 +21,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace FitnessTracker
 {
@@ -43,17 +43,17 @@ namespace FitnessTracker
             services.AddControllersWithViews();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
-            
+
             services.AddAutoMapper(typeof(Startup));
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IAuthHelper, AuthHelper>();
-            
+
             InstallDatabaseServices(services);
             InstallOtherServices(services);
             InstallAuthService(services);
             InstallPolicies(services);
             InstallSwaggerService(services);
-            
+
             // Rejestrowanie Serwisów
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
@@ -85,7 +85,7 @@ namespace FitnessTracker
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -105,8 +105,8 @@ namespace FitnessTracker
                 }
             });
         }
-        
-        
+
+
         private void InstallDatabaseServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(x =>
@@ -140,12 +140,12 @@ namespace FitnessTracker
                 var absoluteUrl = string.Concat(request.Scheme, "://", request.Host.ToUriComponent(), request.Path);
                 return new UriService(absoluteUrl);
             });
-            
+
             service.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true; // Wyłącz domyślną walidację aby użyć fluent validation
             });
-            
+
             service
                 .AddMvc(options =>
                 {
@@ -164,7 +164,7 @@ namespace FitnessTracker
             var jwtSettings = new JwtSettings();
             Configuration.Bind(nameof(jwtSettings), jwtSettings);
             service.AddSingleton(jwtSettings);
-            
+
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -197,7 +197,7 @@ namespace FitnessTracker
                     Title = "Example API",
                     Description = "Example API Description",
                 });
-                
+
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme",
@@ -206,7 +206,7 @@ namespace FitnessTracker
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                 });
-                
+
                 x.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -221,7 +221,7 @@ namespace FitnessTracker
                         Array.Empty<string>()
                     }
                 });
-                
+
                 var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 x.IncludeXmlComments(xmlPath);
@@ -233,6 +233,6 @@ namespace FitnessTracker
             });
             service.AddSwaggerExamplesFromAssemblyOf<Startup>();
         }
-        
+
     }
 }

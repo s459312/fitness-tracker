@@ -10,11 +10,11 @@ namespace FitnessTracker.Validators.Auth
         {
             RuleFor(x => x.OldPassword)
                 .NotEmpty()
-                .SetValidator(new PasswordRule());;
+                .SetValidator(new PasswordRule()); ;
 
             RuleFor(x => x.NewPassword)
                 .NotEmpty()
-                .SetValidator(new PasswordRule());;
+                .SetValidator(new PasswordRule()); ;
 
             RuleFor(x => x.ConfirmNewPassword)
                 .NotEmpty()

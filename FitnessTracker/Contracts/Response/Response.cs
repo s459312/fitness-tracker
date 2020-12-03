@@ -4,7 +4,7 @@
     {
         public Response()
         {
-            
+
         }
 
         public Response(T response)

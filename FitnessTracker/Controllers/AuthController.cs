@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using FitnessTracker.Contracts;
+﻿using FitnessTracker.Contracts;
 using FitnessTracker.Contracts.Request.Auth;
 using FitnessTracker.Contracts.Response.Auth;
 using FitnessTracker.Contracts.Response.Errors;
@@ -7,6 +6,7 @@ using FitnessTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Controllers
 {
@@ -21,7 +21,7 @@ namespace FitnessTracker.Controllers
         {
             _authService = authService;
         }
-        
+
         /// <summary>
         /// Rejestruje nowego użytkownika
         /// </summary>
@@ -32,20 +32,20 @@ namespace FitnessTracker.Controllers
         [SwaggerResponse(400, "", typeof(ErrorResponse))]
         //
         [HttpPost(ApiRoutes.Auth.Register)]
-        public async Task<IActionResult> Register([FromBody]AuthRegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] AuthRegisterRequest request)
         {
             var authResponse = await _authService.RegisterAsync(request);
 
             if (!authResponse.Success)
                 return BadRequest(new ErrorResponse(authResponse.Error));
-            
+
             return Ok(new AuthSuccessResponse
             {
                 Token = authResponse.Token,
                 RefreshToken = authResponse.RefreshToken
             });
         }
-        
+
         /// <summary>
         /// Loguje istniejącego użytkownika
         /// </summary>
@@ -56,20 +56,20 @@ namespace FitnessTracker.Controllers
         [SwaggerResponse(400, "", typeof(ErrorResponse))]
         //
         [HttpPost(ApiRoutes.Auth.Login)]
-        public async Task<IActionResult> Login([FromBody]AuthLoginRequest request)
+        public async Task<IActionResult> Login([FromBody] AuthLoginRequest request)
         {
             var authResponse = await _authService.LoginAsync(request);
 
             if (!authResponse.Success)
                 return BadRequest(new ErrorResponse(authResponse.Error));
-            
+
             return Ok(new AuthSuccessResponse
             {
                 Token = authResponse.Token,
                 RefreshToken = authResponse.RefreshToken
             });
         }
-        
+
         /// <summary>
         /// Generuje nowy token JWT
         /// </summary>
@@ -80,7 +80,7 @@ namespace FitnessTracker.Controllers
         [SwaggerResponse(400, "", typeof(ErrorResponse))]
         //
         [HttpPost(ApiRoutes.Auth.Refresh)]
-        public async Task<IActionResult> RefreshToken([FromBody]AuthRefreshTokenRequest request)
+        public async Task<IActionResult> RefreshToken([FromBody] AuthRefreshTokenRequest request)
         {
             var authResponse = await _authService.RefreshTokenAsync(request.Token, request.RefreshToken);
 
@@ -93,7 +93,7 @@ namespace FitnessTracker.Controllers
                 RefreshToken = authResponse.RefreshToken
             });
         }
-        
+
         /// <summary>
         /// Zmienia hasło istniejącego użytkownika
         /// </summary>
@@ -108,7 +108,7 @@ namespace FitnessTracker.Controllers
         public async Task<IActionResult> ChangePassword([FromBody] AuthChangePasswordRequest request)
         {
             var authResponse = await _authService.ChangePasswordAsync(request);
-            
+
             if (!authResponse.Success)
                 return BadRequest(new ErrorResponse(authResponse.Error));
 

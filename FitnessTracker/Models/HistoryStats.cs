@@ -17,8 +17,6 @@ namespace FitnessTracker.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime HistoryDate { get; set; }
-        
-        public History History { get; set; }
 
         public int? Serie { get; set; }
 

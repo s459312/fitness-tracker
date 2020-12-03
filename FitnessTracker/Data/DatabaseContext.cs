@@ -1,4 +1,4 @@
-﻿﻿using FitnessTracker.Helpers;
+﻿using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,11 +22,12 @@ namespace FitnessTracker.Data
         public DbSet<HistoryStats> HistoryStats { get; set; }
         public DbSet<Training> Training { get; set; }
         public DbSet<UserTraining> UserTraining { get; set; }
+        public DbSet<TrainingExercise> TrainingExercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             /*
              * USER
              * Usunięcie użytkownika powoduje
@@ -42,68 +43,58 @@ namespace FitnessTracker.Data
              * EXERCISE
              * Nie można usunąć ćwiczenia jeżeli jest przypisane do jakiegoś treningu lub historii
              */
-            
+
             /*
              * GOAL
              * Nie można usunąć celu jeżeli jest przypisany do jakiegoś
              *     ćwiczenia lub trenera lub użytkownika
              */
 
-            // Blokuje usuwanie celu jeżeli jest przypisany do przynajmniej jednego użytkownika
-            modelBuilder.Entity<User>()
-                .HasOne(x => x.Goal)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.GoalId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            // Blokuje usuwanie celu jeżeli jest przypisany do przynajmniej jednego trenera
-            modelBuilder.Entity<Coach>()
-                .HasOne(x => x.Goal)
-                .WithMany(x => x.Coaches)
-                .HasForeignKey(x => x.GoalId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            // Blokuje usuwanie celu jeżeli jest przypisany do przynajmniej jednego ćwiczenia
-            modelBuilder.Entity<Exercise>()
-                .HasOne(x => x.Goal)
-                .WithMany(x => x.Exercises)
-                .HasForeignKey(x => x.GoalId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
             modelBuilder.Entity<UserTraining>()
-                .HasKey(c => new { c.IdUser, c.IdTraining });
-            
+                .HasKey(c => new { c.UserId, c.TrainingId });
+
             modelBuilder.Entity<TrainingExercise>()
-                .HasKey(c => new { c.IdExercise, c.IdTraining });
-            
+                .HasKey(c => new { c.ExerciseId, c.TrainingId });
+
             modelBuilder.Entity<History>()
-                .HasKey(c => new { c.IdUser, c.IdExercise, c.Date });
-            
+                .HasIndex(p => new { p.ExerciseId, p.UserId, p.Date }).IsUnique();
+
+            /*
+            modelBuilder.Entity<History>()
+                .HasKey(c => new { c.IdUser, c.IdExercise, c.Date });*/
+            /*
             // Blokuje usuwanie ćwiczenia jeżeli jest przypisane przynajmniej do jednej historii
             modelBuilder.Entity<History>()
                 .HasOne(x => x.Exercise)
                 .WithMany(x => x.Histories)
                 .HasForeignKey(x => x.IdExercise)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+            */
             // Przy usuwaniu użytkownika usuwa wszystkie statystyki przywiązane do jego historii ćwiczeń
+            /*
             modelBuilder.Entity<History>()
                 .HasMany(x => x.HistoryStats)
                 .WithOne(x => x.History)
                 .HasForeignKey(x => new {x.HistoryIdUser, x.HistoryIdExercise, x.HistoryDate})
                 .OnDelete(DeleteBehavior.Cascade);
-
+            */
             Seeder.SeedRoles(modelBuilder);
             Seeder.SeedGoals(modelBuilder);
-            
+
             Seeder.SeedUsers(modelBuilder, _authHelper);
             Seeder.SeedCoach(modelBuilder);
-            
+
             Seeder.SeedExercise(modelBuilder);
             Seeder.SeedTraining(modelBuilder);
             Seeder.SeedHistory(modelBuilder);
 
         }
-    }    
-    
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
+    }
+
 }

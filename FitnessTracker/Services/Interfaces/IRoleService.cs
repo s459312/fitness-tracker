@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FitnessTracker.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using FitnessTracker.Models;
 
 namespace FitnessTracker.Services.Interfaces
 {

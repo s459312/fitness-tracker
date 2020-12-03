@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTracker.Models
@@ -9,16 +8,13 @@ namespace FitnessTracker.Models
     {
         [Key]
         public int Id { get; set; }
-        
-        public int GoalId { get; set; }
 
-        // [ForeignKey(nameof(GoalId))]
-        // FK ustawiony w DatabaseContext
-        public Goal Goal { get; set; }
-        
-        public ICollection<TrainingExercise> TrainingExercises { get; set; }
-        
-        public ICollection<History> Histories { get; set; }
+        public int? GoalId { get; set; }
+
+        [ForeignKey(nameof(GoalId))]
+        public virtual Goal Goal { get; set; }
+
+        //public virtual ICollection<History> Histories { get; set; }
 
         [Required]
         [MaxLength(100)]

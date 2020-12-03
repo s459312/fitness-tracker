@@ -10,7 +10,7 @@ namespace FitnessTracker.MappingProfiles
         public ModelToResponseProfile()
         {
             CreateMap<Role, RoleResponse>();
-            
+
             CreateMap<User, UserResponse>();
             CreateMap<User, UserMinifiedResponse>();
         }

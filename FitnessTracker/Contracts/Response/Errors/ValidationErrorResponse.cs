@@ -6,7 +6,7 @@ namespace FitnessTracker.Contracts.Response.Errors
     {
         public ValidationErrorResponse()
         {
-            
+
         }
 
         public List<ValidationErrorModel> Errors { get; set; } = new List<ValidationErrorModel>();

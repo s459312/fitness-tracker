@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FitnessTracker.Data;
+﻿using FitnessTracker.Data;
 using FitnessTracker.Models;
 using FitnessTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Services
 {
