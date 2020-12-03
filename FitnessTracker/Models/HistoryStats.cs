@@ -10,14 +10,6 @@ namespace FitnessTracker.Models
         [Key]
         public int Id { get; set; }
 
-        public int HistoryIdUser { get; set; }
-
-        public int HistoryIdExercise { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime HistoryDate { get; set; }
-
         public int? Serie { get; set; }
 
         public int? Powtorzenia { get; set; }
@@ -27,6 +19,8 @@ namespace FitnessTracker.Models
         public int? Obciazenie { get; set; }
 
         public int? Dystans { get; set; }
+
+        public int HistoryId { get; set; }
 
     }
 

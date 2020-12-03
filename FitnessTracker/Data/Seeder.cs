@@ -72,8 +72,8 @@ namespace FitnessTracker.Data
             );
 
             modelBuilder.Entity<HistoryStats>().HasData(
-                new HistoryStats { Id = 1, HistoryIdUser = 1, HistoryIdExercise = 1, HistoryDate = DateTime.Parse("2020-12-03"), Serie = 1, Powtorzenia = 1 },
-                new HistoryStats { Id = 2, HistoryIdUser = 1, HistoryIdExercise = 2, HistoryDate = DateTime.Parse("2020-12-03"), Serie = 2, Powtorzenia = 2 }
+                new HistoryStats { Id = 1, Serie = 1, Powtorzenia = 1, HistoryId = 1 },
+                new HistoryStats { Id = 2, Serie = 2, Powtorzenia = 2, HistoryId = 2 }
             );
         }
 

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Controllers
@@ -44,7 +45,8 @@ namespace FitnessTracker.Controllers
         public async Task<IActionResult> TestAsync()
         {
 
-            return Ok(await ptak.Users.FirstOrDefaultAsync(x => x.Id == 1));//
+            User user = await ptak.Users.FirstOrDefaultAsync(x => x.Id == 1);
+            return Ok(from his in user.History where his.ExerciseId == 1 group his by his.Date into gr select gr.Select(x => x.HistoryStats).Count());
 
         }
 
