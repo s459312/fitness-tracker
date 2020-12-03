@@ -1,23 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTracker.Models
 {
 
     public class Exercise
     {
-
         [Key]
         public int Id { get; set; }
+        
+        public int GoalId { get; set; }
 
-        //[ForeignKey(nameof(Goal))]
-        public Goal IdGoal { get; set; }
+        // [ForeignKey(nameof(GoalId))]
+        // FK ustawiony w DatabaseContext
+        public Goal Goal { get; set; }
+        
+        public ICollection<TrainingExercise> TrainingExercises { get; set; }
+        
+        public ICollection<History> Histories { get; set; }
 
-        public virtual ICollection<ExerciseTraining> ExerciseTraining { get; set; }
-
-        [MinLength(1)]
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
 
+        [MaxLength(1000)]
         public string Description { get; set; }
 
         public int? Serie { get; set; }

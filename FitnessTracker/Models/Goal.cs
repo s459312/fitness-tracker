@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitnessTracker.Models
 {
@@ -9,8 +10,14 @@ namespace FitnessTracker.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(60)]
+        [MaxLength(100)]
         public string Name { get; set; }
+
+        public IEnumerable<User> Users { get; set; }
+        
+        public IEnumerable<Coach> Coaches { get; set; }
+        
+        public IEnumerable<Exercise> Exercises { get; set; }
 
     }
 

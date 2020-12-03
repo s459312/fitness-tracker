@@ -39,12 +39,13 @@ namespace FitnessTracker.Models
         [Required]
         public int GoalId { get; set; }
 
-        [ForeignKey(nameof(GoalId))]
+        // [ForeignKey(nameof(GoalId))]
+        // FK ustawiony w DatabaseContext
         public Goal Goal { get; set; }
 
-        public virtual ICollection<Training> IdTraining { get; set; }
+        public ICollection<UserTraining> Trainings { get; set; }
 
-        public virtual ICollection<History> IdHistory { get; set; }
+        public ICollection<History> Histories { get; set; }
 
     }
 

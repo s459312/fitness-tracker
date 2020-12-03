@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTracker.Models
 {
@@ -11,14 +12,21 @@ namespace FitnessTracker.Models
 
         [MaxLength(60)]
         public string Name { get; set; }
+        
+        [MaxLength(60)]
+        public string Surname { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
 
         [Phone]
         public string Phone { get; set; }
+        
+        public int GoalId { get; set; }
 
-        public Goal IdGoal { get; set; }
+        // [ForeignKey(nameof(GoalId))]
+        // FK ustawiony w DatabaseContext
+        public Goal Goal { get; set; }
 
     }
 

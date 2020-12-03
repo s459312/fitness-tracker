@@ -20,7 +20,9 @@ namespace FitnessTracker.Models
         [MaxLength(1000)]
         public string Description { get; set; }
 
-        public virtual ICollection<ExerciseTraining> ExerciseTraining { get; set; }
+        public ICollection<TrainingExercise> TrainingExercises { get; set; }
+        
+        public ICollection<UserTraining> UserTrainings { get; set; }
 
     }
 

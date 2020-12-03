@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitnessTracker.Models
 {
@@ -9,9 +10,15 @@ namespace FitnessTracker.Models
         [Key]
         public int Id { get; set; }
 
-        public History IdHistory { get; set; }
+        public int HistoryIdUser { get; set; }
 
-        public string Description { get; set; }
+        public int HistoryIdExercise { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime HistoryDate { get; set; }
+        
+        public History History { get; set; }
 
         public int? Serie { get; set; }
 
