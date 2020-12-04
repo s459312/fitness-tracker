@@ -13,7 +13,10 @@ using System.Threading.Tasks;
 namespace FitnessTracker.Controllers
 {
 
-    public class CoachController : Controller
+    [ApiController]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public class CoachController : ControllerBase
     {
 
         private readonly IUserService _userService;
@@ -39,7 +42,7 @@ namespace FitnessTracker.Controllers
         {
 
             var ret = await _context.Coach.FindAsync(coachId);
-            return ret != null ? Ok(ret) : NotFound();
+            return ret != null ? (IActionResult) Ok(ret) : NotFound();
 
         }
 
