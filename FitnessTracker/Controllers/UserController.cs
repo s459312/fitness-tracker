@@ -30,7 +30,7 @@ namespace FitnessTracker.Controllers
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
         private readonly IAuthHelper _authHelper;
-        private readonly DatabaseContext ptak;
+        private readonly DatabaseContext _context;
 
         public UserController(IUserService userService, IMapper mapper, IUriService uriService, IAuthHelper authHelper, DatabaseContext context/**/)
         {
@@ -38,18 +38,9 @@ namespace FitnessTracker.Controllers
             _mapper = mapper;
             _uriService = uriService;
             _authHelper = authHelper;
-            ptak = context;//
+            _context = context;//
         }
-
-        [HttpGet(ApiRoutes.User.Test)]
-        public async Task<IActionResult> TestAsync()
-        {
-
-            User user = await ptak.Users.FirstOrDefaultAsync(x => x.Id == 1);
-            return Ok(from his in user.History where his.ExerciseId == 1 group his by his.Date into gr select gr.Select(x => x.HistoryStats).Count());
-
-        }
-
+        
         /// <summary>
         /// Zwraca listę wszystkich użytkowników
         /// </summary>

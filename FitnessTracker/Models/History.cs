@@ -20,6 +20,7 @@ namespace FitnessTracker.Models
         public virtual Exercise Exercise { get; set; }
 
         [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 

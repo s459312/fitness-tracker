@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitnessTracker.Migrations
 {
-    public partial class Bonjour : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -191,7 +191,7 @@ namespace FitnessTracker.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ExerciseId = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(type: "Date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,7 +279,8 @@ namespace FitnessTracker.Migrations
                 {
                     { 1, null, true, "Trening_Publiczny_1" },
                     { 2, null, false, "Trening_Prywatny_1" },
-                    { 3, null, false, "Trening_Prywatny_2" }
+                    { 3, null, false, "Trening_Prywatny_2" },
+                    { 4, null, true, "Trening_Publiczny_2" }
                 });
 
             migrationBuilder.InsertData(
@@ -296,8 +297,13 @@ namespace FitnessTracker.Migrations
                 columns: new[] { "Id", "Czas", "Description", "Dystans", "GoalId", "Name", "Obciazenie", "Powtorzenia", "Serie", "TrainingId" },
                 values: new object[,]
                 {
-                    { 1, null, null, null, 1, "Exercise_1", null, 1, 1, null },
-                    { 2, null, null, null, 2, "Exercise_2", null, 2, 2, null }
+                    { 1, null, null, null, 1, "Przysiad ze sztangą", null, 8, 4, null },
+                    { 2, null, null, null, 3, "Wykroki ze sztangielkami", null, 8, 4, null },
+                    { 3, null, null, null, 3, "Przysiad w szerokim rozkroku", null, 8, 4, null },
+                    { 4, null, null, null, 3, "Wyciskanie sztangielek w pozycji leżącej", null, 12, 3, null },
+                    { 5, null, null, null, 3, "Brzuszki z nogami uniesionymi", null, 25, 3, null },
+                    { 6, null, null, null, 3, "Brzuszki skośne", null, 25, 3, null },
+                    { 7, 30, null, null, 3, "Plank", null, null, 3, null }
                 });
 
             migrationBuilder.InsertData(
@@ -305,9 +311,9 @@ namespace FitnessTracker.Migrations
                 columns: new[] { "Id", "Email", "GoalId", "Name", "PasswordHash", "PasswordSalt", "RoleId", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "admin@gmail.com", 2, "Admin Name", new byte[] { 78, 138, 209, 211, 50, 25, 227, 29, 162, 179, 171, 150, 253, 102, 22, 149, 199, 113, 208, 12, 236, 211, 190, 105, 211, 186, 218, 160, 245, 231, 2, 247, 241, 132, 115, 214, 202, 179, 87, 172, 182, 255, 126, 40, 201, 12, 158, 208, 88, 16, 77, 85, 80, 74, 162, 181, 40, 219, 62, 189, 16, 65, 30, 47 }, new byte[] { 78, 79, 227, 106, 202, 225, 25, 219, 39, 125, 13, 154, 17, 87, 251, 120, 36, 52, 175, 105, 188, 7, 186, 193, 180, 198, 248, 51, 6, 175, 45, 99, 148, 215, 164, 218, 158, 219, 71, 245, 180, 107, 225, 18, 232, 90, 100, 113, 92, 194, 127, 126, 202, 74, 196, 187, 113, 178, 239, 239, 254, 252, 84, 34, 161, 254, 81, 213, 223, 0, 50, 21, 20, 130, 216, 134, 7, 195, 145, 123, 136, 51, 13, 102, 14, 113, 95, 127, 108, 31, 90, 105, 59, 45, 212, 72, 17, 122, 23, 181, 94, 61, 214, 67, 139, 180, 169, 181, 12, 72, 113, 3, 91, 241, 114, 223, 130, 245, 80, 84, 147, 68, 52, 43, 205, 42, 10, 205 }, 1, "Admin Surname" },
-                    { 2, "moderator@gmail.com", 3, "Moderator Name", new byte[] { 78, 138, 209, 211, 50, 25, 227, 29, 162, 179, 171, 150, 253, 102, 22, 149, 199, 113, 208, 12, 236, 211, 190, 105, 211, 186, 218, 160, 245, 231, 2, 247, 241, 132, 115, 214, 202, 179, 87, 172, 182, 255, 126, 40, 201, 12, 158, 208, 88, 16, 77, 85, 80, 74, 162, 181, 40, 219, 62, 189, 16, 65, 30, 47 }, new byte[] { 78, 79, 227, 106, 202, 225, 25, 219, 39, 125, 13, 154, 17, 87, 251, 120, 36, 52, 175, 105, 188, 7, 186, 193, 180, 198, 248, 51, 6, 175, 45, 99, 148, 215, 164, 218, 158, 219, 71, 245, 180, 107, 225, 18, 232, 90, 100, 113, 92, 194, 127, 126, 202, 74, 196, 187, 113, 178, 239, 239, 254, 252, 84, 34, 161, 254, 81, 213, 223, 0, 50, 21, 20, 130, 216, 134, 7, 195, 145, 123, 136, 51, 13, 102, 14, 113, 95, 127, 108, 31, 90, 105, 59, 45, 212, 72, 17, 122, 23, 181, 94, 61, 214, 67, 139, 180, 169, 181, 12, 72, 113, 3, 91, 241, 114, 223, 130, 245, 80, 84, 147, 68, 52, 43, 205, 42, 10, 205 }, 2, "Moderator Surname" },
-                    { 3, "user@gmail.com", 1, "User Name", new byte[] { 78, 138, 209, 211, 50, 25, 227, 29, 162, 179, 171, 150, 253, 102, 22, 149, 199, 113, 208, 12, 236, 211, 190, 105, 211, 186, 218, 160, 245, 231, 2, 247, 241, 132, 115, 214, 202, 179, 87, 172, 182, 255, 126, 40, 201, 12, 158, 208, 88, 16, 77, 85, 80, 74, 162, 181, 40, 219, 62, 189, 16, 65, 30, 47 }, new byte[] { 78, 79, 227, 106, 202, 225, 25, 219, 39, 125, 13, 154, 17, 87, 251, 120, 36, 52, 175, 105, 188, 7, 186, 193, 180, 198, 248, 51, 6, 175, 45, 99, 148, 215, 164, 218, 158, 219, 71, 245, 180, 107, 225, 18, 232, 90, 100, 113, 92, 194, 127, 126, 202, 74, 196, 187, 113, 178, 239, 239, 254, 252, 84, 34, 161, 254, 81, 213, 223, 0, 50, 21, 20, 130, 216, 134, 7, 195, 145, 123, 136, 51, 13, 102, 14, 113, 95, 127, 108, 31, 90, 105, 59, 45, 212, 72, 17, 122, 23, 181, 94, 61, 214, 67, 139, 180, 169, 181, 12, 72, 113, 3, 91, 241, 114, 223, 130, 245, 80, 84, 147, 68, 52, 43, 205, 42, 10, 205 }, 3, "User Surname" }
+                    { 1, "admin@gmail.com", 2, "Admin Name", new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 }, new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 }, 1, "Admin Surname" },
+                    { 2, "moderator@gmail.com", 3, "Moderator Name", new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 }, new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 }, 2, "Moderator Surname" },
+                    { 3, "user@gmail.com", 1, "User Name", new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 }, new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 }, 3, "User Surname" }
                 });
 
             migrationBuilder.InsertData(
@@ -315,8 +321,10 @@ namespace FitnessTracker.Migrations
                 columns: new[] { "Id", "Date", "ExerciseId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
-                    { 2, new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 }
+                    { 4, new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 },
+                    { 3, new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
+                    { 2, new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 },
+                    { 1, new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -325,10 +333,20 @@ namespace FitnessTracker.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 1, 2 },
-                    { 1, 3 },
+                    { 7, 3 },
+                    { 6, 3 },
+                    { 5, 4 },
+                    { 5, 2 },
+                    { 6, 2 },
+                    { 4, 1 },
+                    { 3, 4 },
+                    { 3, 1 },
+                    { 2, 4 },
+                    { 2, 3 },
                     { 2, 1 },
-                    { 2, 3 }
+                    { 1, 3 },
+                    { 1, 2 },
+                    { 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -336,20 +354,30 @@ namespace FitnessTracker.Migrations
                 columns: new[] { "TrainingId", "UserId", "Favourite" },
                 values: new object[,]
                 {
+                    { 3, 3, false },
                     { 1, 1, false },
                     { 2, 1, false },
-                    { 3, 1, true }
+                    { 3, 1, true },
+                    { 3, 2, false },
+                    { 4, 3, true }
                 });
 
             migrationBuilder.InsertData(
                 table: "HistoryStats",
                 columns: new[] { "Id", "Czas", "Dystans", "HistoryId", "Obciazenie", "Powtorzenia", "Serie" },
-                values: new object[] { 1, null, null, 1, null, 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "HistoryStats",
-                columns: new[] { "Id", "Czas", "Dystans", "HistoryId", "Obciazenie", "Powtorzenia", "Serie" },
-                values: new object[] { 2, null, null, 2, null, 2, 2 });
+                values: new object[,]
+                {
+                    { 1, null, null, 1, null, 1, 1 },
+                    { 2, null, null, 1, null, 4, 2 },
+                    { 3, null, null, 1, null, 6, 3 },
+                    { 4, null, null, 2, null, 3, 1 },
+                    { 5, null, null, 2, null, 6, 2 },
+                    { 6, null, null, 2, null, 8, 3 },
+                    { 7, null, null, 3, null, 9, 7 },
+                    { 8, null, null, 3, null, 2, 2 },
+                    { 9, null, null, 4, null, 1, 8 },
+                    { 10, null, null, 4, null, 5, 4 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Coach_GoalId",

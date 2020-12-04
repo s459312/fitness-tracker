@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTracker.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201203202111_Bonjour")]
-    partial class Bonjour
+    [Migration("20201204102519_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,17 +122,57 @@ namespace FitnessTracker.Migrations
                         {
                             Id = 1,
                             GoalId = 1,
-                            Name = "Exercise_1",
-                            Powtorzenia = 1,
-                            Serie = 1
+                            Name = "Przysiad ze sztangą",
+                            Powtorzenia = 8,
+                            Serie = 4
                         },
                         new
                         {
                             Id = 2,
-                            GoalId = 2,
-                            Name = "Exercise_2",
-                            Powtorzenia = 2,
-                            Serie = 2
+                            GoalId = 3,
+                            Name = "Wykroki ze sztangielkami",
+                            Powtorzenia = 8,
+                            Serie = 4
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GoalId = 3,
+                            Name = "Przysiad w szerokim rozkroku",
+                            Powtorzenia = 8,
+                            Serie = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            GoalId = 3,
+                            Name = "Wyciskanie sztangielek w pozycji leżącej",
+                            Powtorzenia = 12,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            GoalId = 3,
+                            Name = "Brzuszki z nogami uniesionymi",
+                            Powtorzenia = 25,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            GoalId = 3,
+                            Name = "Brzuszki skośne",
+                            Powtorzenia = 25,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Czas = 30,
+                            GoalId = 3,
+                            Name = "Plank",
+                            Serie = 3
                         });
                 });
 
@@ -177,7 +217,7 @@ namespace FitnessTracker.Migrations
                         .UseIdentityColumn();
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Date");
 
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
@@ -206,6 +246,20 @@ namespace FitnessTracker.Migrations
                         {
                             Id = 2,
                             Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExerciseId = 2,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExerciseId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExerciseId = 2,
                             UserId = 1
                         });
@@ -253,9 +307,65 @@ namespace FitnessTracker.Migrations
                         new
                         {
                             Id = 2,
+                            HistoryId = 1,
+                            Powtorzenia = 4,
+                            Serie = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            HistoryId = 1,
+                            Powtorzenia = 6,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 4,
                             HistoryId = 2,
+                            Powtorzenia = 3,
+                            Serie = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            HistoryId = 2,
+                            Powtorzenia = 6,
+                            Serie = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            HistoryId = 2,
+                            Powtorzenia = 8,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            HistoryId = 3,
+                            Powtorzenia = 9,
+                            Serie = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            HistoryId = 3,
                             Powtorzenia = 2,
                             Serie = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            HistoryId = 4,
+                            Powtorzenia = 1,
+                            Serie = 8
+                        },
+                        new
+                        {
+                            Id = 10,
+                            HistoryId = 4,
+                            Powtorzenia = 5,
+                            Serie = 4
                         });
                 });
 
@@ -363,6 +473,12 @@ namespace FitnessTracker.Migrations
                             Id = 3,
                             IsPublic = false,
                             Name = "Trening_Prywatny_2"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsPublic = true,
+                            Name = "Trening_Publiczny_2"
                         });
                 });
 
@@ -391,7 +507,27 @@ namespace FitnessTracker.Migrations
                         },
                         new
                         {
+                            ExerciseId = 3,
+                            TrainingId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = 4,
+                            TrainingId = 1
+                        },
+                        new
+                        {
                             ExerciseId = 1,
+                            TrainingId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            TrainingId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
                             TrainingId = 2
                         },
                         new
@@ -403,6 +539,36 @@ namespace FitnessTracker.Migrations
                         {
                             ExerciseId = 2,
                             TrainingId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            TrainingId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 7,
+                            TrainingId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 4,
+                            TrainingId = 4
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            TrainingId = 4
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            TrainingId = 4
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            TrainingId = 4
                         });
                 });
 
@@ -457,8 +623,8 @@ namespace FitnessTracker.Migrations
                             Email = "admin@gmail.com",
                             GoalId = 2,
                             Name = "Admin Name",
-                            PasswordHash = new byte[] { 78, 138, 209, 211, 50, 25, 227, 29, 162, 179, 171, 150, 253, 102, 22, 149, 199, 113, 208, 12, 236, 211, 190, 105, 211, 186, 218, 160, 245, 231, 2, 247, 241, 132, 115, 214, 202, 179, 87, 172, 182, 255, 126, 40, 201, 12, 158, 208, 88, 16, 77, 85, 80, 74, 162, 181, 40, 219, 62, 189, 16, 65, 30, 47 },
-                            PasswordSalt = new byte[] { 78, 79, 227, 106, 202, 225, 25, 219, 39, 125, 13, 154, 17, 87, 251, 120, 36, 52, 175, 105, 188, 7, 186, 193, 180, 198, 248, 51, 6, 175, 45, 99, 148, 215, 164, 218, 158, 219, 71, 245, 180, 107, 225, 18, 232, 90, 100, 113, 92, 194, 127, 126, 202, 74, 196, 187, 113, 178, 239, 239, 254, 252, 84, 34, 161, 254, 81, 213, 223, 0, 50, 21, 20, 130, 216, 134, 7, 195, 145, 123, 136, 51, 13, 102, 14, 113, 95, 127, 108, 31, 90, 105, 59, 45, 212, 72, 17, 122, 23, 181, 94, 61, 214, 67, 139, 180, 169, 181, 12, 72, 113, 3, 91, 241, 114, 223, 130, 245, 80, 84, 147, 68, 52, 43, 205, 42, 10, 205 },
+                            PasswordHash = new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 },
+                            PasswordSalt = new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 },
                             RoleId = 1,
                             Surname = "Admin Surname"
                         },
@@ -468,8 +634,8 @@ namespace FitnessTracker.Migrations
                             Email = "moderator@gmail.com",
                             GoalId = 3,
                             Name = "Moderator Name",
-                            PasswordHash = new byte[] { 78, 138, 209, 211, 50, 25, 227, 29, 162, 179, 171, 150, 253, 102, 22, 149, 199, 113, 208, 12, 236, 211, 190, 105, 211, 186, 218, 160, 245, 231, 2, 247, 241, 132, 115, 214, 202, 179, 87, 172, 182, 255, 126, 40, 201, 12, 158, 208, 88, 16, 77, 85, 80, 74, 162, 181, 40, 219, 62, 189, 16, 65, 30, 47 },
-                            PasswordSalt = new byte[] { 78, 79, 227, 106, 202, 225, 25, 219, 39, 125, 13, 154, 17, 87, 251, 120, 36, 52, 175, 105, 188, 7, 186, 193, 180, 198, 248, 51, 6, 175, 45, 99, 148, 215, 164, 218, 158, 219, 71, 245, 180, 107, 225, 18, 232, 90, 100, 113, 92, 194, 127, 126, 202, 74, 196, 187, 113, 178, 239, 239, 254, 252, 84, 34, 161, 254, 81, 213, 223, 0, 50, 21, 20, 130, 216, 134, 7, 195, 145, 123, 136, 51, 13, 102, 14, 113, 95, 127, 108, 31, 90, 105, 59, 45, 212, 72, 17, 122, 23, 181, 94, 61, 214, 67, 139, 180, 169, 181, 12, 72, 113, 3, 91, 241, 114, 223, 130, 245, 80, 84, 147, 68, 52, 43, 205, 42, 10, 205 },
+                            PasswordHash = new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 },
+                            PasswordSalt = new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 },
                             RoleId = 2,
                             Surname = "Moderator Surname"
                         },
@@ -479,8 +645,8 @@ namespace FitnessTracker.Migrations
                             Email = "user@gmail.com",
                             GoalId = 1,
                             Name = "User Name",
-                            PasswordHash = new byte[] { 78, 138, 209, 211, 50, 25, 227, 29, 162, 179, 171, 150, 253, 102, 22, 149, 199, 113, 208, 12, 236, 211, 190, 105, 211, 186, 218, 160, 245, 231, 2, 247, 241, 132, 115, 214, 202, 179, 87, 172, 182, 255, 126, 40, 201, 12, 158, 208, 88, 16, 77, 85, 80, 74, 162, 181, 40, 219, 62, 189, 16, 65, 30, 47 },
-                            PasswordSalt = new byte[] { 78, 79, 227, 106, 202, 225, 25, 219, 39, 125, 13, 154, 17, 87, 251, 120, 36, 52, 175, 105, 188, 7, 186, 193, 180, 198, 248, 51, 6, 175, 45, 99, 148, 215, 164, 218, 158, 219, 71, 245, 180, 107, 225, 18, 232, 90, 100, 113, 92, 194, 127, 126, 202, 74, 196, 187, 113, 178, 239, 239, 254, 252, 84, 34, 161, 254, 81, 213, 223, 0, 50, 21, 20, 130, 216, 134, 7, 195, 145, 123, 136, 51, 13, 102, 14, 113, 95, 127, 108, 31, 90, 105, 59, 45, 212, 72, 17, 122, 23, 181, 94, 61, 214, 67, 139, 180, 169, 181, 12, 72, 113, 3, 91, 241, 114, 223, 130, 245, 80, 84, 147, 68, 52, 43, 205, 42, 10, 205 },
+                            PasswordHash = new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 },
+                            PasswordSalt = new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 },
                             RoleId = 3,
                             Surname = "User Surname"
                         });
@@ -520,6 +686,24 @@ namespace FitnessTracker.Migrations
                         {
                             UserId = 1,
                             TrainingId = 3,
+                            Favourite = true
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            TrainingId = 3,
+                            Favourite = false
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            TrainingId = 3,
+                            Favourite = false
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            TrainingId = 4,
                             Favourite = true
                         });
                 });
