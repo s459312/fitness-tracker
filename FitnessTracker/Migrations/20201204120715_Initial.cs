@@ -72,6 +72,32 @@ namespace FitnessTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exercise",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GoalId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Serie = table.Column<int>(type: "int", nullable: true),
+                    Powtorzenia = table.Column<int>(type: "int", nullable: true),
+                    Czas = table.Column<int>(type: "int", nullable: true),
+                    Obciazenie = table.Column<int>(type: "int", nullable: true),
+                    Dystans = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercise", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Exercise_Goal_GoalId",
+                        column: x => x.GoalId,
+                        principalTable: "Goal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -103,36 +129,54 @@ namespace FitnessTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercise",
+                name: "TrainingExercise",
+                columns: table => new
+                {
+                    ExerciseId = table.Column<int>(type: "int", nullable: false),
+                    TrainingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingExercise", x => new { x.ExerciseId, x.TrainingId });
+                    table.ForeignKey(
+                        name: "FK_TrainingExercise_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrainingExercise_Training_TrainingId",
+                        column: x => x.TrainingId,
+                        principalTable: "Training",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExerciseHistory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GoalId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Serie = table.Column<int>(type: "int", nullable: true),
-                    Powtorzenia = table.Column<int>(type: "int", nullable: true),
-                    Czas = table.Column<int>(type: "int", nullable: true),
-                    Obciazenie = table.Column<int>(type: "int", nullable: true),
-                    Dystans = table.Column<int>(type: "int", nullable: true),
-                    TrainingId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ExerciseId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "Date", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exercise", x => x.Id);
+                    table.PrimaryKey("PK_ExerciseHistory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Exercise_Goal_GoalId",
-                        column: x => x.GoalId,
-                        principalTable: "Goal",
+                        name: "FK_ExerciseHistory_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Exercise_Training_TrainingId",
-                        column: x => x.TrainingId,
-                        principalTable: "Training",
+                        name: "FK_ExerciseHistory_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +196,33 @@ namespace FitnessTracker.Migrations
                     table.PrimaryKey("PK_RefreshTokens", x => x.Token);
                     table.ForeignKey(
                         name: "FK_RefreshTokens_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TrainingHistory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TrainingId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrainingHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TrainingHistory_Training_TrainingId",
+                        column: x => x.TrainingId,
+                        principalTable: "Training",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrainingHistory_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -184,52 +255,7 @@ namespace FitnessTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "History",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ExerciseId = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "Date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_History", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_History_Exercise_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalTable: "Exercise",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_History_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TrainingExercise",
-                columns: table => new
-                {
-                    ExerciseId = table.Column<int>(type: "int", nullable: false),
-                    TrainingId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TrainingExercise", x => new { x.ExerciseId, x.TrainingId });
-                    table.ForeignKey(
-                        name: "FK_TrainingExercise_Exercise_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalTable: "Exercise",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HistoryStats",
+                name: "ExerciseHistoryStats",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -239,15 +265,15 @@ namespace FitnessTracker.Migrations
                     Czas = table.Column<int>(type: "int", nullable: true),
                     Obciazenie = table.Column<int>(type: "int", nullable: true),
                     Dystans = table.Column<int>(type: "int", nullable: true),
-                    HistoryId = table.Column<int>(type: "int", nullable: false)
+                    ExerciseHistoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HistoryStats", x => x.Id);
+                    table.PrimaryKey("PK_ExerciseHistoryStats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HistoryStats_History_HistoryId",
-                        column: x => x.HistoryId,
-                        principalTable: "History",
+                        name: "FK_ExerciseHistoryStats_ExerciseHistory_ExerciseHistoryId",
+                        column: x => x.ExerciseHistoryId,
+                        principalTable: "ExerciseHistory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -294,16 +320,16 @@ namespace FitnessTracker.Migrations
 
             migrationBuilder.InsertData(
                 table: "Exercise",
-                columns: new[] { "Id", "Czas", "Description", "Dystans", "GoalId", "Name", "Obciazenie", "Powtorzenia", "Serie", "TrainingId" },
+                columns: new[] { "Id", "Czas", "Description", "Dystans", "GoalId", "Name", "Obciazenie", "Powtorzenia", "Serie" },
                 values: new object[,]
                 {
-                    { 1, null, null, null, 1, "Przysiad ze sztangą", null, 8, 4, null },
-                    { 2, null, null, null, 3, "Wykroki ze sztangielkami", null, 8, 4, null },
-                    { 3, null, null, null, 3, "Przysiad w szerokim rozkroku", null, 8, 4, null },
-                    { 4, null, null, null, 3, "Wyciskanie sztangielek w pozycji leżącej", null, 12, 3, null },
-                    { 5, null, null, null, 3, "Brzuszki z nogami uniesionymi", null, 25, 3, null },
-                    { 6, null, null, null, 3, "Brzuszki skośne", null, 25, 3, null },
-                    { 7, 30, null, null, 3, "Plank", null, null, 3, null }
+                    { 1, null, null, null, 1, "Przysiad ze sztangą", null, 8, 4 },
+                    { 2, null, null, null, 3, "Wykroki ze sztangielkami", null, 8, 4 },
+                    { 3, null, null, null, 3, "Przysiad w szerokim rozkroku", null, 8, 4 },
+                    { 4, null, null, null, 3, "Wyciskanie sztangielek w pozycji leżącej", null, 12, 3 },
+                    { 5, null, null, null, 3, "Brzuszki z nogami uniesionymi", null, 25, 3 },
+                    { 6, null, null, null, 3, "Brzuszki skośne", null, 25, 3 },
+                    { 7, 30, null, null, 3, "Plank", null, null, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -311,13 +337,13 @@ namespace FitnessTracker.Migrations
                 columns: new[] { "Id", "Email", "GoalId", "Name", "PasswordHash", "PasswordSalt", "RoleId", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "admin@gmail.com", 2, "Admin Name", new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 }, new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 }, 1, "Admin Surname" },
-                    { 2, "moderator@gmail.com", 3, "Moderator Name", new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 }, new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 }, 2, "Moderator Surname" },
-                    { 3, "user@gmail.com", 1, "User Name", new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 }, new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 }, 3, "User Surname" }
+                    { 1, "admin@gmail.com", 2, "Admin Name", new byte[] { 224, 233, 64, 141, 111, 254, 250, 42, 31, 11, 216, 163, 185, 233, 2, 253, 18, 145, 154, 67, 33, 203, 57, 76, 203, 153, 231, 38, 93, 172, 117, 2, 166, 191, 204, 142, 188, 169, 8, 170, 39, 72, 93, 100, 172, 102, 211, 201, 20, 102, 72, 207, 30, 120, 211, 47, 251, 92, 149, 165, 247, 232, 177, 202 }, new byte[] { 237, 18, 4, 250, 240, 113, 136, 55, 251, 2, 164, 219, 60, 187, 47, 106, 18, 27, 43, 86, 82, 115, 187, 119, 182, 129, 111, 5, 205, 249, 162, 217, 43, 118, 181, 79, 89, 212, 30, 200, 70, 233, 23, 12, 56, 49, 8, 25, 36, 73, 113, 206, 107, 171, 11, 212, 15, 162, 213, 1, 102, 60, 188, 44, 252, 50, 195, 123, 83, 31, 229, 209, 247, 57, 137, 222, 212, 178, 131, 108, 212, 118, 85, 178, 3, 90, 230, 210, 15, 68, 241, 253, 80, 188, 94, 173, 91, 206, 173, 219, 151, 42, 110, 77, 44, 209, 13, 167, 10, 86, 143, 88, 116, 234, 190, 226, 35, 177, 211, 127, 8, 148, 235, 153, 76, 197, 68, 6 }, 1, "Admin Surname" },
+                    { 2, "moderator@gmail.com", 3, "Moderator Name", new byte[] { 224, 233, 64, 141, 111, 254, 250, 42, 31, 11, 216, 163, 185, 233, 2, 253, 18, 145, 154, 67, 33, 203, 57, 76, 203, 153, 231, 38, 93, 172, 117, 2, 166, 191, 204, 142, 188, 169, 8, 170, 39, 72, 93, 100, 172, 102, 211, 201, 20, 102, 72, 207, 30, 120, 211, 47, 251, 92, 149, 165, 247, 232, 177, 202 }, new byte[] { 237, 18, 4, 250, 240, 113, 136, 55, 251, 2, 164, 219, 60, 187, 47, 106, 18, 27, 43, 86, 82, 115, 187, 119, 182, 129, 111, 5, 205, 249, 162, 217, 43, 118, 181, 79, 89, 212, 30, 200, 70, 233, 23, 12, 56, 49, 8, 25, 36, 73, 113, 206, 107, 171, 11, 212, 15, 162, 213, 1, 102, 60, 188, 44, 252, 50, 195, 123, 83, 31, 229, 209, 247, 57, 137, 222, 212, 178, 131, 108, 212, 118, 85, 178, 3, 90, 230, 210, 15, 68, 241, 253, 80, 188, 94, 173, 91, 206, 173, 219, 151, 42, 110, 77, 44, 209, 13, 167, 10, 86, 143, 88, 116, 234, 190, 226, 35, 177, 211, 127, 8, 148, 235, 153, 76, 197, 68, 6 }, 2, "Moderator Surname" },
+                    { 3, "user@gmail.com", 1, "User Name", new byte[] { 224, 233, 64, 141, 111, 254, 250, 42, 31, 11, 216, 163, 185, 233, 2, 253, 18, 145, 154, 67, 33, 203, 57, 76, 203, 153, 231, 38, 93, 172, 117, 2, 166, 191, 204, 142, 188, 169, 8, 170, 39, 72, 93, 100, 172, 102, 211, 201, 20, 102, 72, 207, 30, 120, 211, 47, 251, 92, 149, 165, 247, 232, 177, 202 }, new byte[] { 237, 18, 4, 250, 240, 113, 136, 55, 251, 2, 164, 219, 60, 187, 47, 106, 18, 27, 43, 86, 82, 115, 187, 119, 182, 129, 111, 5, 205, 249, 162, 217, 43, 118, 181, 79, 89, 212, 30, 200, 70, 233, 23, 12, 56, 49, 8, 25, 36, 73, 113, 206, 107, 171, 11, 212, 15, 162, 213, 1, 102, 60, 188, 44, 252, 50, 195, 123, 83, 31, 229, 209, 247, 57, 137, 222, 212, 178, 131, 108, 212, 118, 85, 178, 3, 90, 230, 210, 15, 68, 241, 253, 80, 188, 94, 173, 91, 206, 173, 219, 151, 42, 110, 77, 44, 209, 13, 167, 10, 86, 143, 88, 116, 234, 190, 226, 35, 177, 211, 127, 8, 148, 235, 153, 76, 197, 68, 6 }, 3, "User Surname" }
                 });
 
             migrationBuilder.InsertData(
-                table: "History",
+                table: "ExerciseHistory",
                 columns: new[] { "Id", "Date", "ExerciseId", "UserId" },
                 values: new object[,]
                 {
@@ -333,11 +359,11 @@ namespace FitnessTracker.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 7, 3 },
                     { 6, 3 },
+                    { 6, 2 },
                     { 5, 4 },
                     { 5, 2 },
-                    { 6, 2 },
+                    { 7, 3 },
                     { 4, 1 },
                     { 3, 4 },
                     { 3, 1 },
@@ -350,21 +376,33 @@ namespace FitnessTracker.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "TrainingHistory",
+                columns: new[] { "Id", "Date", "TrainingId", "UserId" },
+                values: new object[,]
+                {
+                    { 5, new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 2 },
+                    { 4, new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 2 },
+                    { 1, new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
+                    { 2, new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1 },
+                    { 3, new DateTime(2020, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 1 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "UserTraining",
                 columns: new[] { "TrainingId", "UserId", "Favourite" },
                 values: new object[,]
                 {
-                    { 3, 3, false },
                     { 1, 1, false },
                     { 2, 1, false },
                     { 3, 1, true },
+                    { 3, 3, false },
                     { 3, 2, false },
                     { 4, 3, true }
                 });
 
             migrationBuilder.InsertData(
-                table: "HistoryStats",
-                columns: new[] { "Id", "Czas", "Dystans", "HistoryId", "Obciazenie", "Powtorzenia", "Serie" },
+                table: "ExerciseHistoryStats",
+                columns: new[] { "Id", "Czas", "Dystans", "ExerciseHistoryId", "Obciazenie", "Powtorzenia", "Serie" },
                 values: new object[,]
                 {
                     { 1, null, null, 1, null, 1, 1 },
@@ -390,29 +428,39 @@ namespace FitnessTracker.Migrations
                 column: "GoalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exercise_TrainingId",
-                table: "Exercise",
-                column: "TrainingId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_History_ExerciseId_UserId_Date",
-                table: "History",
+                name: "IX_ExerciseHistory_ExerciseId_UserId_Date",
+                table: "ExerciseHistory",
                 columns: new[] { "ExerciseId", "UserId", "Date" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_History_UserId",
-                table: "History",
+                name: "IX_ExerciseHistory_UserId",
+                table: "ExerciseHistory",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HistoryStats_HistoryId",
-                table: "HistoryStats",
-                column: "HistoryId");
+                name: "IX_ExerciseHistoryStats_ExerciseHistoryId",
+                table: "ExerciseHistoryStats",
+                column: "ExerciseHistoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingExercise_TrainingId",
+                table: "TrainingExercise",
+                column: "TrainingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingHistory_TrainingId",
+                table: "TrainingHistory",
+                column: "TrainingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingHistory_UserId",
+                table: "TrainingHistory",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -437,7 +485,7 @@ namespace FitnessTracker.Migrations
                 name: "Coach");
 
             migrationBuilder.DropTable(
-                name: "HistoryStats");
+                name: "ExerciseHistoryStats");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
@@ -446,19 +494,22 @@ namespace FitnessTracker.Migrations
                 name: "TrainingExercise");
 
             migrationBuilder.DropTable(
+                name: "TrainingHistory");
+
+            migrationBuilder.DropTable(
                 name: "UserTraining");
 
             migrationBuilder.DropTable(
-                name: "History");
+                name: "ExerciseHistory");
+
+            migrationBuilder.DropTable(
+                name: "Training");
 
             migrationBuilder.DropTable(
                 name: "Exercise");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Training");
 
             migrationBuilder.DropTable(
                 name: "Goal");

@@ -81,28 +81,36 @@ namespace FitnessTracker.Data
                 new UserTraining { UserId = 3, TrainingId = 3, Favourite = false },
                 new UserTraining { UserId = 3, TrainingId = 4, Favourite = true }
             );
+
+            modelBuilder.Entity<TrainingHistory>().HasData(
+                new TrainingHistory { Id = 1, UserId = 1, TrainingId = 1, Date = DateTime.Parse("2020-12-03") },
+                new TrainingHistory { Id = 2, UserId = 1, TrainingId = 2, Date = DateTime.Parse("2020-12-04") },
+                new TrainingHistory { Id = 3, UserId = 1, TrainingId = 3, Date = DateTime.Parse("2020-12-05") },
+                new TrainingHistory { Id = 4, UserId = 2, TrainingId = 3, Date = DateTime.Parse("2020-12-03") },
+                new TrainingHistory { Id = 5, UserId = 2, TrainingId = 3, Date = DateTime.Parse("2020-12-04") }
+            );
         }
 
         public static void SeedHistory(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<History>().HasData(
-                new History { Id = 1, UserId = 1, ExerciseId = 1, Date = DateTime.Parse("2020-12-03") },
-                new History { Id = 2, UserId = 1, ExerciseId = 2, Date = DateTime.Parse("2020-12-03") },
-                new History { Id = 3, UserId = 1, ExerciseId = 1, Date = DateTime.Parse("2020-12-04") },
-                new History { Id = 4, UserId = 1, ExerciseId = 2, Date = DateTime.Parse("2020-12-04") }
+            modelBuilder.Entity<ExerciseHistory>().HasData(
+                new ExerciseHistory { Id = 1, UserId = 1, ExerciseId = 1, Date = DateTime.Parse("2020-12-03") },
+                new ExerciseHistory { Id = 2, UserId = 1, ExerciseId = 2, Date = DateTime.Parse("2020-12-03") },
+                new ExerciseHistory { Id = 3, UserId = 1, ExerciseId = 1, Date = DateTime.Parse("2020-12-04") },
+                new ExerciseHistory { Id = 4, UserId = 1, ExerciseId = 2, Date = DateTime.Parse("2020-12-04") }
             );
 
-            modelBuilder.Entity<HistoryStats>().HasData(
-                new HistoryStats { Id = 1, Serie = 1, Powtorzenia = 1, HistoryId = 1 },
-                new HistoryStats { Id = 2, Serie = 2, Powtorzenia = 4, HistoryId = 1 },
-                new HistoryStats { Id = 3, Serie = 3, Powtorzenia = 6, HistoryId = 1 },
-                new HistoryStats { Id = 4, Serie = 1, Powtorzenia = 3, HistoryId = 2 },
-                new HistoryStats { Id = 5, Serie = 2, Powtorzenia = 6, HistoryId = 2 },
-                new HistoryStats { Id = 6, Serie = 3, Powtorzenia = 8, HistoryId = 2 },
-                new HistoryStats { Id = 7, Serie = 7, Powtorzenia = 9, HistoryId = 3 },
-                new HistoryStats { Id = 8, Serie = 2, Powtorzenia = 2, HistoryId = 3 },
-                new HistoryStats { Id = 9, Serie = 8, Powtorzenia = 1, HistoryId = 4 },
-                new HistoryStats { Id = 10, Serie = 4, Powtorzenia = 5, HistoryId = 4 }
+            modelBuilder.Entity<ExerciseHistoryStats>().HasData(
+                new ExerciseHistoryStats { Id = 1, Serie = 1, Powtorzenia = 1, ExerciseHistoryId = 1 },
+                new ExerciseHistoryStats { Id = 2, Serie = 2, Powtorzenia = 4, ExerciseHistoryId = 1 },
+                new ExerciseHistoryStats { Id = 3, Serie = 3, Powtorzenia = 6, ExerciseHistoryId = 1 },
+                new ExerciseHistoryStats { Id = 4, Serie = 1, Powtorzenia = 3, ExerciseHistoryId = 2 },
+                new ExerciseHistoryStats { Id = 5, Serie = 2, Powtorzenia = 6, ExerciseHistoryId = 2 },
+                new ExerciseHistoryStats { Id = 6, Serie = 3, Powtorzenia = 8, ExerciseHistoryId = 2 },
+                new ExerciseHistoryStats { Id = 7, Serie = 7, Powtorzenia = 9, ExerciseHistoryId = 3 },
+                new ExerciseHistoryStats { Id = 8, Serie = 2, Powtorzenia = 2, ExerciseHistoryId = 3 },
+                new ExerciseHistoryStats { Id = 9, Serie = 8, Powtorzenia = 1, ExerciseHistoryId = 4 },
+                new ExerciseHistoryStats { Id = 10, Serie = 4, Powtorzenia = 5, ExerciseHistoryId = 4 }
             );
         }
 

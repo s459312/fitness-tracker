@@ -13,6 +13,9 @@ namespace FitnessTracker.Models
         public virtual Exercise Exercise { get; set; }
         
         public int TrainingId { get; set; }
+        
+        [ForeignKey(nameof(TrainingId))]
+        public virtual Training Training { get; set; }
 
     }
 

@@ -43,7 +43,9 @@ namespace FitnessTracker.Models
 
         public virtual ICollection<UserTraining> UserTraining { get; set; }
 
-        public virtual ICollection<History> History { get; set; }
+        public virtual ICollection<ExerciseHistory> ExerciseHistories { get; set; }
+        
+        public virtual ICollection<TrainingHistory> TrainingHistories { get; set; }
 
     }
 

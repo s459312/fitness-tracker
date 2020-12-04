@@ -104,14 +104,9 @@ namespace FitnessTracker.Migrations
                     b.Property<int?>("Serie")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TrainingId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GoalId");
-
-                    b.HasIndex("TrainingId");
 
                     b.ToTable("Exercise");
 
@@ -174,6 +169,166 @@ namespace FitnessTracker.Migrations
                         });
                 });
 
+            modelBuilder.Entity("FitnessTracker.Models.ExerciseHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("Date");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("ExerciseId", "UserId", "Date")
+                        .IsUnique();
+
+                    b.ToTable("ExerciseHistory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExerciseId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExerciseId = 2,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExerciseId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExerciseId = 2,
+                            UserId = 1
+                        });
+                });
+
+            modelBuilder.Entity("FitnessTracker.Models.ExerciseHistoryStats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("Czas")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Dystans")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExerciseHistoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Obciazenie")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Powtorzenia")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Serie")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseHistoryId");
+
+                    b.ToTable("ExerciseHistoryStats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExerciseHistoryId = 1,
+                            Powtorzenia = 1,
+                            Serie = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExerciseHistoryId = 1,
+                            Powtorzenia = 4,
+                            Serie = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ExerciseHistoryId = 1,
+                            Powtorzenia = 6,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ExerciseHistoryId = 2,
+                            Powtorzenia = 3,
+                            Serie = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ExerciseHistoryId = 2,
+                            Powtorzenia = 6,
+                            Serie = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ExerciseHistoryId = 2,
+                            Powtorzenia = 8,
+                            Serie = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ExerciseHistoryId = 3,
+                            Powtorzenia = 9,
+                            Serie = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ExerciseHistoryId = 3,
+                            Powtorzenia = 2,
+                            Serie = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ExerciseHistoryId = 4,
+                            Powtorzenia = 1,
+                            Serie = 8
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ExerciseHistoryId = 4,
+                            Powtorzenia = 5,
+                            Serie = 4
+                        });
+                });
+
             modelBuilder.Entity("FitnessTracker.Models.Goal", b =>
                 {
                     b.Property<int>("Id")
@@ -204,166 +359,6 @@ namespace FitnessTracker.Migrations
                         {
                             Id = 3,
                             Name = "Rekompozycja sylwetki"
-                        });
-                });
-
-            modelBuilder.Entity("FitnessTracker.Models.History", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("Date");
-
-                    b.Property<int>("ExerciseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("ExerciseId", "UserId", "Date")
-                        .IsUnique();
-
-                    b.ToTable("History");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExerciseId = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExerciseId = 2,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExerciseId = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExerciseId = 2,
-                            UserId = 1
-                        });
-                });
-
-            modelBuilder.Entity("FitnessTracker.Models.HistoryStats", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("Czas")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Dystans")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HistoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Obciazenie")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Powtorzenia")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Serie")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HistoryId");
-
-                    b.ToTable("HistoryStats");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            HistoryId = 1,
-                            Powtorzenia = 1,
-                            Serie = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            HistoryId = 1,
-                            Powtorzenia = 4,
-                            Serie = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            HistoryId = 1,
-                            Powtorzenia = 6,
-                            Serie = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            HistoryId = 2,
-                            Powtorzenia = 3,
-                            Serie = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            HistoryId = 2,
-                            Powtorzenia = 6,
-                            Serie = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            HistoryId = 2,
-                            Powtorzenia = 8,
-                            Serie = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            HistoryId = 3,
-                            Powtorzenia = 9,
-                            Serie = 7
-                        },
-                        new
-                        {
-                            Id = 8,
-                            HistoryId = 3,
-                            Powtorzenia = 2,
-                            Serie = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            HistoryId = 4,
-                            Powtorzenia = 1,
-                            Serie = 8
-                        },
-                        new
-                        {
-                            Id = 10,
-                            HistoryId = 4,
-                            Powtorzenia = 5,
-                            Serie = 4
                         });
                 });
 
@@ -490,6 +485,8 @@ namespace FitnessTracker.Migrations
 
                     b.HasKey("ExerciseId", "TrainingId");
 
+                    b.HasIndex("TrainingId");
+
                     b.ToTable("TrainingExercise");
 
                     b.HasData(
@@ -570,6 +567,68 @@ namespace FitnessTracker.Migrations
                         });
                 });
 
+            modelBuilder.Entity("FitnessTracker.Models.TrainingHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("Date");
+
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrainingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TrainingHistory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainingId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainingId = 2,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2020, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainingId = 3,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2020, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainingId = 3,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2020, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrainingId = 3,
+                            UserId = 2
+                        });
+                });
+
             modelBuilder.Entity("FitnessTracker.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -621,8 +680,8 @@ namespace FitnessTracker.Migrations
                             Email = "admin@gmail.com",
                             GoalId = 2,
                             Name = "Admin Name",
-                            PasswordHash = new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 },
-                            PasswordSalt = new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 },
+                            PasswordHash = new byte[] { 224, 233, 64, 141, 111, 254, 250, 42, 31, 11, 216, 163, 185, 233, 2, 253, 18, 145, 154, 67, 33, 203, 57, 76, 203, 153, 231, 38, 93, 172, 117, 2, 166, 191, 204, 142, 188, 169, 8, 170, 39, 72, 93, 100, 172, 102, 211, 201, 20, 102, 72, 207, 30, 120, 211, 47, 251, 92, 149, 165, 247, 232, 177, 202 },
+                            PasswordSalt = new byte[] { 237, 18, 4, 250, 240, 113, 136, 55, 251, 2, 164, 219, 60, 187, 47, 106, 18, 27, 43, 86, 82, 115, 187, 119, 182, 129, 111, 5, 205, 249, 162, 217, 43, 118, 181, 79, 89, 212, 30, 200, 70, 233, 23, 12, 56, 49, 8, 25, 36, 73, 113, 206, 107, 171, 11, 212, 15, 162, 213, 1, 102, 60, 188, 44, 252, 50, 195, 123, 83, 31, 229, 209, 247, 57, 137, 222, 212, 178, 131, 108, 212, 118, 85, 178, 3, 90, 230, 210, 15, 68, 241, 253, 80, 188, 94, 173, 91, 206, 173, 219, 151, 42, 110, 77, 44, 209, 13, 167, 10, 86, 143, 88, 116, 234, 190, 226, 35, 177, 211, 127, 8, 148, 235, 153, 76, 197, 68, 6 },
                             RoleId = 1,
                             Surname = "Admin Surname"
                         },
@@ -632,8 +691,8 @@ namespace FitnessTracker.Migrations
                             Email = "moderator@gmail.com",
                             GoalId = 3,
                             Name = "Moderator Name",
-                            PasswordHash = new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 },
-                            PasswordSalt = new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 },
+                            PasswordHash = new byte[] { 224, 233, 64, 141, 111, 254, 250, 42, 31, 11, 216, 163, 185, 233, 2, 253, 18, 145, 154, 67, 33, 203, 57, 76, 203, 153, 231, 38, 93, 172, 117, 2, 166, 191, 204, 142, 188, 169, 8, 170, 39, 72, 93, 100, 172, 102, 211, 201, 20, 102, 72, 207, 30, 120, 211, 47, 251, 92, 149, 165, 247, 232, 177, 202 },
+                            PasswordSalt = new byte[] { 237, 18, 4, 250, 240, 113, 136, 55, 251, 2, 164, 219, 60, 187, 47, 106, 18, 27, 43, 86, 82, 115, 187, 119, 182, 129, 111, 5, 205, 249, 162, 217, 43, 118, 181, 79, 89, 212, 30, 200, 70, 233, 23, 12, 56, 49, 8, 25, 36, 73, 113, 206, 107, 171, 11, 212, 15, 162, 213, 1, 102, 60, 188, 44, 252, 50, 195, 123, 83, 31, 229, 209, 247, 57, 137, 222, 212, 178, 131, 108, 212, 118, 85, 178, 3, 90, 230, 210, 15, 68, 241, 253, 80, 188, 94, 173, 91, 206, 173, 219, 151, 42, 110, 77, 44, 209, 13, 167, 10, 86, 143, 88, 116, 234, 190, 226, 35, 177, 211, 127, 8, 148, 235, 153, 76, 197, 68, 6 },
                             RoleId = 2,
                             Surname = "Moderator Surname"
                         },
@@ -643,8 +702,8 @@ namespace FitnessTracker.Migrations
                             Email = "user@gmail.com",
                             GoalId = 1,
                             Name = "User Name",
-                            PasswordHash = new byte[] { 251, 142, 167, 240, 0, 112, 131, 3, 186, 79, 72, 200, 25, 148, 124, 10, 44, 20, 72, 83, 207, 253, 134, 111, 133, 48, 101, 118, 210, 168, 145, 110, 176, 6, 94, 187, 220, 18, 118, 56, 28, 213, 30, 135, 195, 130, 74, 199, 19, 165, 57, 135, 31, 164, 48, 54, 88, 113, 175, 235, 36, 16, 143, 185 },
-                            PasswordSalt = new byte[] { 115, 102, 209, 4, 86, 94, 42, 255, 122, 18, 83, 120, 136, 146, 98, 7, 115, 82, 138, 254, 233, 184, 23, 255, 33, 234, 48, 191, 202, 120, 156, 92, 133, 175, 36, 181, 240, 172, 163, 8, 55, 221, 194, 140, 168, 122, 170, 144, 213, 247, 233, 163, 3, 214, 8, 114, 138, 89, 103, 143, 245, 11, 0, 192, 202, 145, 18, 165, 154, 249, 16, 27, 207, 57, 27, 39, 235, 204, 246, 98, 11, 55, 131, 139, 129, 116, 197, 238, 56, 247, 26, 133, 42, 53, 139, 46, 100, 79, 162, 168, 103, 204, 105, 236, 110, 197, 223, 42, 224, 97, 116, 72, 177, 228, 249, 22, 163, 253, 54, 113, 30, 156, 204, 107, 166, 44, 29, 250 },
+                            PasswordHash = new byte[] { 224, 233, 64, 141, 111, 254, 250, 42, 31, 11, 216, 163, 185, 233, 2, 253, 18, 145, 154, 67, 33, 203, 57, 76, 203, 153, 231, 38, 93, 172, 117, 2, 166, 191, 204, 142, 188, 169, 8, 170, 39, 72, 93, 100, 172, 102, 211, 201, 20, 102, 72, 207, 30, 120, 211, 47, 251, 92, 149, 165, 247, 232, 177, 202 },
+                            PasswordSalt = new byte[] { 237, 18, 4, 250, 240, 113, 136, 55, 251, 2, 164, 219, 60, 187, 47, 106, 18, 27, 43, 86, 82, 115, 187, 119, 182, 129, 111, 5, 205, 249, 162, 217, 43, 118, 181, 79, 89, 212, 30, 200, 70, 233, 23, 12, 56, 49, 8, 25, 36, 73, 113, 206, 107, 171, 11, 212, 15, 162, 213, 1, 102, 60, 188, 44, 252, 50, 195, 123, 83, 31, 229, 209, 247, 57, 137, 222, 212, 178, 131, 108, 212, 118, 85, 178, 3, 90, 230, 210, 15, 68, 241, 253, 80, 188, 94, 173, 91, 206, 173, 219, 151, 42, 110, 77, 44, 209, 13, 167, 10, 86, 143, 88, 116, 234, 190, 226, 35, 177, 211, 127, 8, 148, 235, 153, 76, 197, 68, 6 },
                             RoleId = 3,
                             Surname = "User Surname"
                         });
@@ -721,14 +780,10 @@ namespace FitnessTracker.Migrations
                         .WithMany()
                         .HasForeignKey("GoalId");
 
-                    b.HasOne("FitnessTracker.Models.Training", null)
-                        .WithMany("Exercises")
-                        .HasForeignKey("TrainingId");
-
                     b.Navigation("Goal");
                 });
 
-            modelBuilder.Entity("FitnessTracker.Models.History", b =>
+            modelBuilder.Entity("FitnessTracker.Models.ExerciseHistory", b =>
                 {
                     b.HasOne("FitnessTracker.Models.Exercise", "Exercise")
                         .WithMany()
@@ -737,7 +792,7 @@ namespace FitnessTracker.Migrations
                         .IsRequired();
 
                     b.HasOne("FitnessTracker.Models.User", null)
-                        .WithMany("History")
+                        .WithMany("ExerciseHistories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -745,11 +800,11 @@ namespace FitnessTracker.Migrations
                     b.Navigation("Exercise");
                 });
 
-            modelBuilder.Entity("FitnessTracker.Models.HistoryStats", b =>
+            modelBuilder.Entity("FitnessTracker.Models.ExerciseHistoryStats", b =>
                 {
-                    b.HasOne("FitnessTracker.Models.History", null)
-                        .WithMany("HistoryStats")
-                        .HasForeignKey("HistoryId")
+                    b.HasOne("FitnessTracker.Models.ExerciseHistory", null)
+                        .WithMany("ExerciseHistoryStats")
+                        .HasForeignKey("ExerciseHistoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -773,7 +828,32 @@ namespace FitnessTracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FitnessTracker.Models.Training", "Training")
+                        .WithMany()
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Exercise");
+
+                    b.Navigation("Training");
+                });
+
+            modelBuilder.Entity("FitnessTracker.Models.TrainingHistory", b =>
+                {
+                    b.HasOne("FitnessTracker.Models.Training", "Training")
+                        .WithMany()
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessTracker.Models.User", null)
+                        .WithMany("TrainingHistories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Training");
                 });
 
             modelBuilder.Entity("FitnessTracker.Models.User", b =>
@@ -810,19 +890,16 @@ namespace FitnessTracker.Migrations
                     b.Navigation("Training");
                 });
 
-            modelBuilder.Entity("FitnessTracker.Models.History", b =>
+            modelBuilder.Entity("FitnessTracker.Models.ExerciseHistory", b =>
                 {
-                    b.Navigation("HistoryStats");
-                });
-
-            modelBuilder.Entity("FitnessTracker.Models.Training", b =>
-                {
-                    b.Navigation("Exercises");
+                    b.Navigation("ExerciseHistoryStats");
                 });
 
             modelBuilder.Entity("FitnessTracker.Models.User", b =>
                 {
-                    b.Navigation("History");
+                    b.Navigation("ExerciseHistories");
+
+                    b.Navigation("TrainingHistories");
 
                     b.Navigation("UserTraining");
                 });

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace FitnessTracker.Models
 {
 
-    public class HistoryStats
+    public class ExerciseHistoryStats
     {
 
         [Key]
@@ -20,7 +20,7 @@ namespace FitnessTracker.Models
 
         public int? Dystans { get; set; }
 
-        public int HistoryId { get; set; }
+        public int ExerciseHistoryId { get; set; }
 
     }
 

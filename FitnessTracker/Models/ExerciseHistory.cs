@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FitnessTracker.Models
 {
 
-    public class History
+    public class ExerciseHistory
     {
 
         [Key]
@@ -24,7 +24,7 @@ namespace FitnessTracker.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        public virtual ICollection<HistoryStats> HistoryStats { get; set; }
+        public virtual ICollection<ExerciseHistoryStats> ExerciseHistoryStats { get; set; }
 
     }
 

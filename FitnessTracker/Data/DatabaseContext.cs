@@ -18,8 +18,9 @@ namespace FitnessTracker.Data
         public DbSet<Coach> Coach { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<Goal> Goal { get; set; }
-        public DbSet<History> History { get; set; }
-        public DbSet<HistoryStats> HistoryStats { get; set; }
+        public DbSet<ExerciseHistory> ExerciseHistory { get; set; }
+        public DbSet<TrainingHistory> TrainingHistory { get; set; }
+        public DbSet<ExerciseHistoryStats> ExerciseHistoryStats { get; set; }
         public DbSet<Training> Training { get; set; }
         public DbSet<UserTraining> UserTraining { get; set; }
         public DbSet<TrainingExercise> TrainingExercise { get; set; }
@@ -56,7 +57,7 @@ namespace FitnessTracker.Data
             modelBuilder.Entity<TrainingExercise>()
                 .HasKey(c => new { c.ExerciseId, c.TrainingId });
 
-            modelBuilder.Entity<History>()
+            modelBuilder.Entity<ExerciseHistory>()
                 .HasIndex(p => new { p.ExerciseId, p.UserId, p.Date }).IsUnique();
 
             /*
