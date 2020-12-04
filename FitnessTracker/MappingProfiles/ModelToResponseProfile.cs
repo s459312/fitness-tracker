@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FitnessTracker.Contracts.Response.Exercise;
 using FitnessTracker.Contracts.Response.Role;
 using FitnessTracker.Contracts.Response.User;
 using FitnessTracker.Models;
@@ -13,6 +14,8 @@ namespace FitnessTracker.MappingProfiles
 
             CreateMap<User, UserResponse>();
             CreateMap<User, UserMinifiedResponse>();
+
+            CreateMap<Exercise, ExerciseResponse>();
         }
     }
 }

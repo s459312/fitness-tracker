@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitnessTracker.Contracts.Request.Auth;
+using FitnessTracker.Contracts.Request.Exercise;
 using FitnessTracker.Contracts.Request.Queries;
 using FitnessTracker.Contracts.Request.User;
 using FitnessTracker.Models;
@@ -18,6 +19,9 @@ namespace FitnessTracker.MappingProfiles
 
             CreateMap<UpdateUserRequest, User>();
             CreateMap<UpdateUserRoleRequest, User>();
+
+            CreateMap<CreateExerciseRequest, Exercise>();
+            CreateMap<UpdateExerciseRequest, Exercise>();
         }
     }
 }

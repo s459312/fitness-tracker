@@ -35,6 +35,15 @@
             public const string Refresh = Base + "auth/refresh";
             public const string ChangePassword = Base + "user/updatePassword";
         }
+        
+        public static class Exercise
+        {
+            public const string GetAll = Base + "exercise";
+            public const string Get = Base + "exercise/{exerciseId}";
+            public const string Create = Base + "exercise";
+            public const string Update = Base + "exercise/{exerciseId}";
+            public const string Delete = Base + "exercise/{exerciseId}";
+        }
 
     }
 }
