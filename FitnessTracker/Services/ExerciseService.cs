@@ -13,27 +13,20 @@ namespace FitnessTracker.Services
     public class ExerciseService : IExerciseService
     {
         private readonly DatabaseContext _context;
-        private readonly IAuthHelper _authHelper;
 
-        public ExerciseService(DatabaseContext context, IAuthHelper authHelper)
+        public ExerciseService(DatabaseContext context)
         {
             _context = context;
-            _authHelper = authHelper;
         }
 
-        public async Task<List<Exercise>> GetAllExercisesAsync(PaginationFilter paginationFilter)
+        public async Task<List<Exercise>> GetAllExercisesAsync(PaginationFilter paginationFilter, ExerciseFilter exerciseFilter)
         {
             var queryable = _context.Exercise.AsQueryable();
-            queryable = FilterExercise(queryable);
+            queryable = FilterExercise(queryable, exerciseFilter);
             var skip = (paginationFilter.PageNumber - 1) * paginationFilter.PageSize;
             return await queryable
                 .Skip(skip).Take(paginationFilter.PageSize)
                 .ToListAsync();
-        }
-
-        private IQueryable<Exercise> FilterExercise(IQueryable<Exercise> queryable)
-        {
-            return queryable;
         }
 
         public async Task<Exercise> GetExerciseByIdAsync(int id)
@@ -63,11 +56,18 @@ namespace FitnessTracker.Services
             return deleted > 0;
         }
 
-        public async Task<int> ExercisesCountAsync()
+        public async Task<int> ExercisesCountAsync(ExerciseFilter exerciseFilter)
         {
             var queryable = _context.Exercise.AsQueryable();
-            queryable = FilterExercise(queryable);
+            queryable = FilterExercise(queryable, exerciseFilter);
             return await queryable.CountAsync();
+        }
+        
+        private IQueryable<Exercise> FilterExercise(IQueryable<Exercise> queryable, ExerciseFilter exerciseFilter)
+        {
+            if (exerciseFilter.GoalId != null && exerciseFilter.GoalId.Length > 0)
+                return queryable.Where(x => exerciseFilter.GoalId.Contains(x.GoalId));
+            return queryable;
         }
     }
 }

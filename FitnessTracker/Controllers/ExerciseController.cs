@@ -38,17 +38,19 @@ namespace FitnessTracker.Controllers
         /// Zwraca listę wszystkich ćwiczeń
         /// </summary>
         /// <param name="paginationQuery"></param>
+        /// <param name="exerciseQuery"></param>
         /// <response code="200"></response>
         [SwaggerResponse(200, "", typeof(PagedResponse<List<ExerciseResponse>>))]
         //
         [HttpGet(ApiRoutes.Exercise.GetAll)]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationQuery paginationQuery)
+        public async Task<IActionResult> GetAll([FromQuery] PaginationQuery paginationQuery, [FromQuery] ExerciseQuery exerciseQuery)
         {
             paginationQuery = PaginationHelper.ValidateQuery(paginationQuery);
             var paginationFilter = _mapper.Map<PaginationFilter>(paginationQuery);
-
-            var exerciseList = await _exerciseService.GetAllExercisesAsync(paginationFilter);
-            var exerciseCount = await _exerciseService.ExercisesCountAsync();
+            var exerciseFilter = _mapper.Map<ExerciseFilter>(exerciseQuery);
+            
+            var exerciseList = await _exerciseService.GetAllExercisesAsync(paginationFilter, exerciseFilter);
+            var exerciseCount = await _exerciseService.ExercisesCountAsync(exerciseFilter);
             
             var exerciseResponse = _mapper.Map<List<ExerciseResponse>>(exerciseList);
             var paginatedResponse =

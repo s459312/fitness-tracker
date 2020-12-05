@@ -14,6 +14,7 @@ namespace FitnessTracker.MappingProfiles
         public RequestToModelProfile()
         {
             CreateMap<PaginationQuery, PaginationFilter>();
+            CreateMap<ExerciseQuery, ExerciseFilter>();
 
             CreateMap<AuthRegisterRequest, User>();
             CreateMap<AuthChangePasswordRequest, User>();

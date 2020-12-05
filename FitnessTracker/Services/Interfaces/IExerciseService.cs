@@ -7,11 +7,11 @@ namespace FitnessTracker.Services.Interfaces
 {
     public interface IExerciseService
     {
-        Task<List<Exercise>> GetAllExercisesAsync(PaginationFilter paginationFilter);
+        Task<List<Exercise>> GetAllExercisesAsync(PaginationFilter paginationFilter, ExerciseFilter exerciseFilter);
         Task<Exercise> GetExerciseByIdAsync(int id);
         Task<Exercise> CreateExerciseAsync(Exercise exercise);
         Task<bool> UpdateExerciseAsync(Exercise exercise);
         Task<bool> DeleteExerciseAsync(Exercise exercise);
-        Task<int> ExercisesCountAsync();
+        Task<int> ExercisesCountAsync(ExerciseFilter exerciseFilter);
     }
 }
