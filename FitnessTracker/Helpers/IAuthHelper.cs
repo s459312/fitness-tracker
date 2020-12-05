@@ -11,7 +11,7 @@ namespace FitnessTracker.Helpers
         public string GetAuthenticatedUserRole();
         bool IsNormalUser();
         bool IsAdmin();
-        bool IsEditor();
+        bool IsModerator();
         void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
 
         bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);

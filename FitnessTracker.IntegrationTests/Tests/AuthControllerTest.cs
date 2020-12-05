@@ -18,19 +18,6 @@ namespace FitnessTracker.IntegrationTests.Tests
 {
     public class AuthControllerTest : IntegrationTestCore
     {
-        // Register 
-        [Fact]
-        public async Task Register__Fields_Are_Required()
-        {
-            foreach (PropertyInfo propertyInfo in typeof(AuthRegisterRequest).GetProperties())
-            {
-                AuthRegisterRequest registerRequest = Factory.Auth.AuthRegisterRequest();
-                propertyInfo.SetValue(registerRequest, "");
-                
-                var response = await Client.PostAsJsonAsync(ApiRoutes.Auth.Register, registerRequest);
-                response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
-            }
-        }
         
         [Fact]
         public async Task Register__User_Can_Create_Account()

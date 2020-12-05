@@ -63,9 +63,9 @@ namespace FitnessTracker.Helpers
             return GetAuthenticatedUserRole() == "Admin";
         }
 
-        public bool IsEditor()
+        public bool IsModerator()
         {
-            return GetAuthenticatedUserRole() == "Editor";
+            return GetAuthenticatedUserRole() == "Moderator";
         }
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

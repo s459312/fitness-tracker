@@ -18,7 +18,7 @@ namespace FitnessTracker.IntegrationTests.Factories
                 {
                     case "Admin":
                         roleId = 1; break;
-                    case "Editor":
+                    case "Moderator":
                         roleId = 2; break;
                     default:
                         roleId = 3; break;
@@ -33,6 +33,7 @@ namespace FitnessTracker.IntegrationTests.Factories
                     .RuleFor(x => x.PasswordHash, passwordHash)
                     .RuleFor(x => x.PasswordSalt, passwordSalt)
                     .RuleFor(x => x.RoleId, roleId)
+                    .RuleFor(x => x.GoalId, 1)
                     .Generate();
             }
 
@@ -41,6 +42,7 @@ namespace FitnessTracker.IntegrationTests.Factories
                 return new Faker<UpdateUserRequest>()
                     .RuleFor(x => x.Name, f => f.Person.FirstName)
                     .RuleFor(x => x.Surname, f => f.Person.LastName)
+                    .RuleFor(x => x.GoalId, 1)
                     .Generate();
             }
         }
@@ -68,6 +70,7 @@ namespace FitnessTracker.IntegrationTests.Factories
                     .RuleFor(x => x.ConfirmPassword, "Password#2!")
                     .RuleFor(x => x.Name, f => f.Person.FullName)
                     .RuleFor(x => x.Surname, f => f.Person.LastName)
+                    .RuleFor(x => x.GoalId, 1)
                     .Generate();
             }
 

@@ -31,5 +31,11 @@
         /// </summary>
         /// <example>Password#2!</example>
         public string ConfirmPassword { get; set; }
+        
+        /// <summary>
+        /// Id celu użytkownika
+        /// </summary>
+        /// <example>1</example>
+        public int GoalId { get; set; }
     }
 }
