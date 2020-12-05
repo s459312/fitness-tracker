@@ -60,6 +60,19 @@
             public const string PutCoach = Base + "coach/{coachId}";
             public const string DeleteCoach = Base + "coach/{coachId}";
         }
+        
+        public static class Training
+        {
+            public const string GetAllUserTrainings = Base + "training";
+            public const string GetAllAvailableUserPublicTrainings = Base + "training/public";
+            public const string GetAllPublicTrainings = Base + "training/public/all";
+            public const string Get = Base + "training/{trainingId}";
+            public const string Create = Base + "training";
+            public const string Update = Base + "training/{trainingId}";
+            public const string AddExercises = Base + "training/{trainingId}";
+            public const string AddToHistory = Base + "training/{trainingId}/historyAdd";
+            public const string Delete = Base + "training/{trainingId}";
+        }
 
     }
 
