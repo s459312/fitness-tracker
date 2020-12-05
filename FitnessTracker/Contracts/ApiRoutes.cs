@@ -29,6 +29,11 @@
         {
             public const string GetAll = Base + "role";
         }
+        
+        public static class Goal
+        {
+            public const string GetAll = Base + "goal";
+        }
 
         public static class Auth
         {

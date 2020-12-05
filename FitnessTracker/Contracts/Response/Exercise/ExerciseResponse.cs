@@ -1,4 +1,4 @@
-﻿using FitnessTracker.Models;
+﻿using FitnessTracker.Contracts.Response.Goal;
 
 namespace FitnessTracker.Contracts.Response.Exercise
 {
@@ -7,7 +7,7 @@ namespace FitnessTracker.Contracts.Response.Exercise
         
         public int Id { get; set; }
         
-        public virtual Goal Goal { get; set; }
+        public virtual GoalResponse Goal { get; set; }
 
         public string Name { get; set; }
         

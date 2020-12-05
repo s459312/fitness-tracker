@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using FitnessTracker.Data;
+using FitnessTracker.Models;
 using FitnessTracker.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Services
 {
@@ -11,6 +15,11 @@ namespace FitnessTracker.Services
         public GoalService(DatabaseContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Goal>> GetAllGoalsAsync()
+        {
+            return await _context.Goal.ToListAsync();
         }
 
         public bool GoalExists(int id)
