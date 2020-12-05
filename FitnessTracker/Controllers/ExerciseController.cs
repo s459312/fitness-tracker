@@ -11,6 +11,7 @@ using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using FitnessTracker.Models.Filters;
 using FitnessTracker.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -20,6 +21,7 @@ namespace FitnessTracker.Controllers
     [ApiController]
     [Produces("application/json")]
     [Consumes("application/json")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ExerciseController : ControllerBase
     {
         

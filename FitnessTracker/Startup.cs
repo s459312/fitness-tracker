@@ -193,10 +193,11 @@ namespace FitnessTracker
         {
             service.AddSwaggerGen(x =>
             {
+                
                 x.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Example API",
+                    Title = "Fitness Tracker API",
                     Description = "Example API Description",
                 });
 
@@ -209,21 +210,6 @@ namespace FitnessTracker
                     Type = SecuritySchemeType.ApiKey,
                 });
 
-                x.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
-                });
-
                 var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 x.IncludeXmlComments(xmlPath);
@@ -231,7 +217,8 @@ namespace FitnessTracker
                 x.ExampleFilters();
                 x.OperationFilter<AddResponseHeadersFilter>();
                 x.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-                // x.OperationFilter<SecurityRequirementsOperationFilter>();
+                x.OperationFilter<AuthResponsesOperationFilter>();
+                x.OperationFilter<SecurityRequirementsOperationFilter>();
             });
             service.AddSwaggerExamplesFromAssemblyOf<Startup>();
         }
