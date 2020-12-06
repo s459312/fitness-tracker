@@ -61,6 +61,12 @@
             public const string DeleteCoach = Base + "coach/{coachId}";
         }
 
+        public static class History
+        {
+            public const string Index = Base + "history";
+            public const string Exercise = Base + "history/exercise/{exerciseId}";
+        }
+
     }
 
 }
