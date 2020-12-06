@@ -88,7 +88,23 @@ namespace FitnessTracker.Controllers
             return CreatedAtAction(nameof(GetTrainingById), 
                 new {trainingId = createdTraining.Id},
                 _mapper.Map<TrainingMinifiedResponse>(createdTraining));
-        }    
+        }
+
+        [HttpPatch(ApiRoutes.Training.AddPublicTrainingToUser)]
+        public async Task<IActionResult> AddPublicTrainingToUser([FromBody] AddPublicTrainingToUserRequest request)
+        {
+            var training = await _trainingService.GetPublicTrainingByIdAsync(request.TrainingId);
+
+            if (training == null)
+                return NotFound();
+
+            var added = await _trainingService.AddPublicTrainingToUser(training);
+            
+            if (!added)
+                return BadRequest(new ErrorResponse("Wystąpił błąd podczas dodawania treningu"));
+
+            return Ok();
+        }
         
         [HttpPut(ApiRoutes.Training.Update)]
         public async Task<IActionResult> Update(
@@ -100,9 +116,29 @@ namespace FitnessTracker.Controllers
             if (training == null)
                 return NotFound();
 
-            if (training.IsPublic && _authHelper.IsNormalUser())
-                return StatusCode(403, new ErrorResponse("Nie masz uprawnień do edytowania tego treningu"));
+            if (training.IsPublic)
+                return StatusCode(403, new ErrorResponse("Nie możesz edytować publicznego treningu"));
             
+            var updatedExercise = _mapper.Map(request, training);
+            var updated = await _trainingService.UpdateTrainingAsync(updatedExercise);
+            
+            if (!updated)
+                return BadRequest(new ErrorResponse("Wystąpił błąd podczas edytowania"));
+
+            return Ok();
+        }
+        
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpPut(ApiRoutes.Training.UpdatePublic)]
+        public async Task<IActionResult> UpdatePublic(
+            [FromRoute] int trainingId, [FromBody] UpdateTrainingRequest request
+        )
+        {
+            var training = await _trainingService.GetPublicTrainingByIdAsync(trainingId);
+
+            if (training == null)
+                return NotFound();
+
             var updatedExercise = _mapper.Map(request, training);
             var updated = await _trainingService.UpdateTrainingAsync(updatedExercise);
             
@@ -119,11 +155,25 @@ namespace FitnessTracker.Controllers
 
             if (training == null)
                 return NotFound();
-            
-            if (training.IsPublic && _authHelper.IsNormalUser())
-                return StatusCode(403, new ErrorResponse("Nie masz uprawnień aby usunąć trening"));
-            
+
             var deleted = await _trainingService.DeleteTrainingAsync(training);
+            
+            if (!deleted) 
+                return BadRequest(new ErrorResponse("Wystąpił błąd podczas usuwania"));
+
+            return NoContent();
+        }
+        
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpDelete(ApiRoutes.Training.DeletePublic)]
+        public async Task<IActionResult> DeletePublicTraining([FromRoute] int trainingId)
+        {
+            var training = await _trainingService.GetPublicTrainingByIdAsync(trainingId);
+
+            if (training == null)
+                return NotFound();
+            
+            var deleted = await _trainingService.DeletePublicTrainingAsync(training);
             
             if (!deleted) 
                 return BadRequest(new ErrorResponse("Wystąpił błąd podczas usuwania"));
@@ -141,8 +191,26 @@ namespace FitnessTracker.Controllers
             if (training == null)
                 return NotFound();
             
-            if (training.IsPublic && _authHelper.IsNormalUser())
+            if (training.IsPublic)
                 return StatusCode(403, new ErrorResponse("Nie masz uprawnień do edytowania tego treningu"));
+
+            var updated = await _trainingService.UpdateTrainingExercisesAsync(training, request.Exercises);
+            if (!updated) 
+                return BadRequest(new ErrorResponse("Wystąpił błąd podczas dodawania ćwiczeń do treningu"));
+
+            return Ok();
+        }
+        
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpPatch(ApiRoutes.Training.AddExercisesToPublicTraining)]
+        public async Task<IActionResult> AddExercisesToPublicTraining(
+            [FromRoute] int trainingId, [FromBody] UpdateTrainingExercisesRequest request
+        )
+        {
+            var training = await _trainingService.GetPublicTrainingByIdAsync(trainingId);
+            
+            if (training == null)
+                return NotFound();
 
             var updated = await _trainingService.UpdateTrainingExercisesAsync(training, request.Exercises);
             if (!updated) 
@@ -152,16 +220,26 @@ namespace FitnessTracker.Controllers
         }
 
         [HttpPatch(ApiRoutes.Training.AddToHistory)]
-        public async Task<IActionResult> AddTrainingToHistory(
-            [FromRoute] int trainingId, [FromBody] AddTrainingToHistoryRequest request
-        )
+        public async Task<IActionResult> AddTrainingToHistory([FromBody] AddTrainingToHistoryRequest request)
         {
-            var training = await _trainingService.GetTrainingByIdAsync(trainingId);
+            var training = await _trainingService.GetTrainingByIdAsync(request.TrainingId);
             
             if (training == null)
                 return NotFound();
-
-            List<ExerciseHistory> histories = _mapper.Map<List<ExerciseHistory>>(request.Exercises);
+        
+            List<ExerciseHistory> histories = new List<ExerciseHistory>();
+            foreach (ExerciseHistoryRequest exercise in request.Exercises)
+            {
+                histories.Add(new ExerciseHistory
+                {
+                    ExerciseId = exercise.ExerciseId,
+                    ExerciseHistoryStats = new List<ExerciseHistoryStats>
+                    {
+                        _mapper.Map<ExerciseHistoryStats>(exercise.ExerciseHistoryStat)
+                    }
+                });
+            }
+            
             var updated = await _trainingService.AddTrainingToHistory(training, histories);
 
             if (!updated) 

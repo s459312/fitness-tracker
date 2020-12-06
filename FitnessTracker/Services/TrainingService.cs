@@ -84,16 +84,19 @@ namespace FitnessTracker.Services
                     Favourite = x.Favourite
                 })
                 .FirstOrDefaultAsync(x => x.Id == trainingId);
+
+            if (training != null)
+            {
+                var exercises = await _context.TrainingExercise
+                    .Where(x => x.TrainingId == trainingId)
+                    .Include(x => x.Exercise)
+                    .ThenInclude(x => x.Goal)
+                    .Select(x => x.Exercise)
+                    .ToListAsync();
+
+                training.TrainingExercises = _mapper.Map<List<ExerciseMinifiedResponse>>(exercises);
+            }
             
-            var exercises = await _context.TrainingExercise
-                .Where(x => x.TrainingId == trainingId)
-                .Include(x => x.Exercise)
-                .ThenInclude(x => x.Goal)
-                .Select(x => x.Exercise)
-                .ToListAsync();
-
-            training.TrainingExercises = _mapper.Map<List<ExerciseMinifiedResponse>>(exercises);
-
             return training;
         }
         
@@ -103,13 +106,14 @@ namespace FitnessTracker.Services
                 .Include(x => x.Training)
                 .AsQueryable();
             
-            if (_authHelper.IsNormalUser())
-                queryable = queryable.Where(x =>  !x.Training.IsPublic && x.UserId == _authHelper.GetAuthenticatedUserId());
-            else
-                queryable = queryable.Where(x => x.Training.IsPublic || x.UserId == _authHelper.GetAuthenticatedUserId());
-            
+            queryable = queryable.Where(x =>  x.UserId == _authHelper.GetAuthenticatedUserId());
             return await queryable.Select(x => x.Training)
                 .FirstOrDefaultAsync(x => x.Id == trainingId);
+        }
+
+        public async Task<Training> GetPublicTrainingByIdAsync(int trainingId)
+        {
+            return await _context.Training.FirstOrDefaultAsync(x => x.IsPublic && x.Id == trainingId);
         }
 
         public async Task<Training> CreateTrainingAsync(Training training)
@@ -138,6 +142,22 @@ namespace FitnessTracker.Services
             return training;
         }
 
+        public async Task<bool> AddPublicTrainingToUser(Training training)
+        {
+            bool alreadyExists = await _context.UserTraining.AnyAsync(x =>
+                x.TrainingId == training.Id && x.UserId == _authHelper.GetAuthenticatedUserId());
+
+            if (alreadyExists)
+                return true;
+            
+            await _context.UserTraining.AddAsync(new UserTraining
+            {
+                TrainingId = training.Id,
+                UserId = _authHelper.GetAuthenticatedUserId()
+            });
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> UpdateTrainingAsync(Training training)
         {
             _context.Training.Update(training);
@@ -158,6 +178,13 @@ namespace FitnessTracker.Services
             var deleted = await _context.SaveChangesAsync();
             return deleted > 0;
         }
+            
+        public async Task<bool> DeletePublicTrainingAsync(Training training)
+        {
+            _context.Training.Remove(training);
+            var deleted = await _context.SaveChangesAsync();
+            return deleted > 0;
+        }
 
         public async Task<bool> UpdateTrainingExercisesAsync(Training training, int[] exerciseIds)
         {
@@ -166,11 +193,19 @@ namespace FitnessTracker.Services
             {
                 trainingExercises.Add(new TrainingExercise {ExerciseId = exerciseId, TrainingId = training.Id});
             }
-            
-            _context.TrainingExercise
-                .RemoveRange(_context.TrainingExercise.Where(x => x.TrainingId == training.Id));
-            await _context.TrainingExercise.AddRangeAsync(trainingExercises);
-            return await _context.SaveChangesAsync() > 0;
+
+            try
+            {
+                _context.TrainingExercise
+                    .RemoveRange(_context.TrainingExercise.Where(x => x.TrainingId == training.Id));
+                await _context.TrainingExercise.AddRangeAsync(trainingExercises);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<bool> AddTrainingToHistory(Training training, List<ExerciseHistory> exerciseHistories)

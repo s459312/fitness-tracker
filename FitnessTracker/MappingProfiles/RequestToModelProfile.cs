@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using FitnessTracker.Contracts.Request.Auth;
 using FitnessTracker.Contracts.Request.Exercise;
 using FitnessTracker.Contracts.Request.Coach;
@@ -32,8 +34,8 @@ namespace FitnessTracker.MappingProfiles
 
             CreateMap<CreateTrainingRequest, Training>();
             CreateMap<UpdateTrainingRequest, Training>();
-            CreateMap<ExerciseHistoryRequest, ExerciseHistory>();
             CreateMap<ExerciseHistoryStatsRequest, ExerciseHistoryStats>();
+
         }
     }
 }

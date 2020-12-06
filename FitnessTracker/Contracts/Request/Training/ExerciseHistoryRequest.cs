@@ -6,6 +6,6 @@ namespace FitnessTracker.Contracts.Request.Training
     {
         public int ExerciseId { get; set; }
         
-        public ICollection<ExerciseHistoryStatsRequest> ExerciseHistoryStats { get; set; }
+        public ExerciseHistoryStatsRequest ExerciseHistoryStat { get; set; }
     }
 }

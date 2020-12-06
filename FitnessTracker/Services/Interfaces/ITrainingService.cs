@@ -25,10 +25,13 @@ namespace FitnessTracker.Services.Interfaces
         /// <param name="trainingId"></param>
         /// <returns></returns>
         Task<Training> GetTrainingByIdAsync(int trainingId);
+        Task<Training> GetPublicTrainingByIdAsync(int trainingId);
         Task<Training> CreateTrainingAsync(Training training);
         Task<Training> CreatePublicTrainingAsync(Training training);
+        Task<bool> AddPublicTrainingToUser(Training training);
         Task<bool> UpdateTrainingAsync(Training training);
         Task<bool> DeleteTrainingAsync(Training training);
+        Task<bool> DeletePublicTrainingAsync(Training training);
         Task<bool> UpdateTrainingExercisesAsync(Training training, int[] exerciseIds);
         Task<bool> AddTrainingToHistory(Training training, List<ExerciseHistory> exerciseHistories);
     }
