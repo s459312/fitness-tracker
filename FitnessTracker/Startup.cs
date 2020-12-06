@@ -60,6 +60,7 @@ namespace FitnessTracker
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IGoalService, GoalService>();
             services.AddScoped<IExerciseService, ExerciseService>();
+            services.AddScoped<ITrainingService, TrainingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

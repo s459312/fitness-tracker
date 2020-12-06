@@ -68,8 +68,9 @@
             public const string GetAllPublicTrainings = Base + "training/public/all";
             public const string Get = Base + "training/{trainingId}";
             public const string Create = Base + "training";
+            public const string CreatePublic = Base + "training/public";
             public const string Update = Base + "training/{trainingId}";
-            public const string AddExercises = Base + "training/{trainingId}";
+            public const string AddExercisesToTraining = Base + "training/{trainingId}";
             public const string AddToHistory = Base + "training/{trainingId}/historyAdd";
             public const string Delete = Base + "training/{trainingId}";
         }

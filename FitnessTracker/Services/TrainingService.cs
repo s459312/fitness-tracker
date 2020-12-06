@@ -1,55 +1,215 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.Internal;
+using FitnessTracker.Contracts.Response.Exercise;
+using FitnessTracker.Contracts.Response.Training;
+using FitnessTracker.Data;
+using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using FitnessTracker.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Services
 {
     public class TrainingService : ITrainingService
     {
-        public Task<List<Training>> GetAllUserTrainingsAsync()
+        private readonly DatabaseContext _context;
+        private readonly IAuthHelper _authHelper;
+        private readonly IMapper _mapper;
+
+        public TrainingService(DatabaseContext context, IAuthHelper authHelper, IMapper mapper)
         {
-            throw new System.NotImplementedException();
+            _context = context;
+            _authHelper = authHelper;
+            _mapper = mapper;
         }
 
-        public Task<List<Training>> GetAllAvailableUserPublicTrainingsAsync()
+        public async Task<List<TrainingMinifiedResponse>> GetAllUserTrainingsAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.UserTraining
+                .Where(x => x.UserId == _authHelper.GetAuthenticatedUserId())
+                .Include(x => x.Training)
+                .OrderBy(x => x.Favourite)
+                .Select(x => new TrainingMinifiedResponse
+                {
+                    Id = x.TrainingId,
+                    Name = x.Training.Name,
+                    Favourite = x.Favourite,
+                    IsPublic = x.Training.IsPublic
+                })
+                .ToListAsync();
         }
 
-        public Task<List<Training>> GetAllPublicTrainingsAsync()
+        public async Task<List<PublicTrainingResponse>> GetAllAvailableUserPublicTrainingsAsync()
         {
-            throw new System.NotImplementedException();
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == _authHelper.GetAuthenticatedUserId());
+            var userAvailablePublicTrainings =
+                from training in _context.Training
+                where training.IsPublic == true &&
+                      !(
+                          from ut in user.UserTraining
+                          select ut.TrainingId
+                      ).Contains(training.Id)
+                select new PublicTrainingResponse
+                {
+                    Id = training.Id,
+                    Name = training.Name
+                };
+            return await userAvailablePublicTrainings.ToListAsync();
         }
 
-        public Task<Training> GetTrainingByIdAsync(int trainingId)
+        public async Task<List<Training>> GetAllPublicTrainingsAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Training
+                .Where(x => x.IsPublic == true)
+                .ToListAsync();
+        }
+        
+        public async Task<TrainingFullResponse> GetFullTrainingByIdAsync(int trainingId)
+        {
+            var queryable = _context.UserTraining
+                .Include(x => x.Training)
+                .Where(x => x.UserId == _authHelper.GetAuthenticatedUserId() || x.Training.IsPublic)
+                .AsQueryable();
+            
+            var training = await queryable.Select(x => new TrainingFullResponse
+                {
+                    Id  = x.TrainingId,
+                    Description = x.Training.Description,
+                    Name = x.Training.Name,
+                    IsPublic = x.Training.IsPublic,
+                    Favourite = x.Favourite
+                })
+                .FirstOrDefaultAsync(x => x.Id == trainingId);
+            
+            var exercises = await _context.TrainingExercise
+                .Where(x => x.TrainingId == trainingId)
+                .Include(x => x.Exercise)
+                .ThenInclude(x => x.Goal)
+                .Select(x => x.Exercise)
+                .ToListAsync();
+
+            training.TrainingExercises = _mapper.Map<List<ExerciseMinifiedResponse>>(exercises);
+
+            return training;
+        }
+        
+        public async Task<Training> GetTrainingByIdAsync(int trainingId)
+        {
+            var queryable = _context.UserTraining
+                .Include(x => x.Training)
+                .AsQueryable();
+            
+            if (_authHelper.IsNormalUser())
+                queryable = queryable.Where(x =>  !x.Training.IsPublic && x.UserId == _authHelper.GetAuthenticatedUserId());
+            else
+                queryable = queryable.Where(x => x.Training.IsPublic || x.UserId == _authHelper.GetAuthenticatedUserId());
+            
+            return await queryable.Select(x => x.Training)
+                .FirstOrDefaultAsync(x => x.Id == trainingId);
         }
 
-        public Task<Training> CreateTrainingAsync(Training training)
+        public async Task<Training> CreateTrainingAsync(Training training)
         {
-            throw new System.NotImplementedException();
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == _authHelper.GetAuthenticatedUserId());
+
+            UserTraining newUserTraining = new UserTraining
+            {
+                UserId = user.Id,
+                Training = training
+            };
+
+            _context.Entry(user).Context
+                .Add(newUserTraining);
+            await _context.SaveChangesAsync();
+            
+            return newUserTraining.Training;
+        }
+        
+        public async Task<Training> CreatePublicTrainingAsync(Training training)
+        {
+            training.IsPublic = true;
+            await _context.Training.AddAsync(training);
+            await _context.SaveChangesAsync();
+            
+            return training;
         }
 
-        public Task<bool> UpdateTrainingAsync(Training training)
+        public async Task<bool> UpdateTrainingAsync(Training training)
         {
-            throw new System.NotImplementedException();
+            _context.Training.Update(training);
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> DeleteTrainingAsync(Training training)
+        public async Task<bool> DeleteTrainingAsync(Training training)
         {
-            throw new System.NotImplementedException();
+            if (training.IsPublic)
+                _context.UserTraining.Remove(new UserTraining
+                {
+                    TrainingId = training.Id,
+                    UserId = _authHelper.GetAuthenticatedUserId()
+                });
+            else
+                _context.Training.Remove(training);
+            
+            var deleted = await _context.SaveChangesAsync();
+            return deleted > 0;
         }
 
-        public Task<bool> UpdateTrainingExercisesAsync(int[] exerciseIds)
+        public async Task<bool> UpdateTrainingExercisesAsync(Training training, int[] exerciseIds)
         {
-            throw new System.NotImplementedException();
+            List<TrainingExercise> trainingExercises = new List<TrainingExercise>();
+            foreach (int exerciseId in exerciseIds)
+            {
+                trainingExercises.Add(new TrainingExercise {ExerciseId = exerciseId, TrainingId = training.Id});
+            }
+            
+            _context.TrainingExercise
+                .RemoveRange(_context.TrainingExercise.Where(x => x.TrainingId == training.Id));
+            await _context.TrainingExercise.AddRangeAsync(trainingExercises);
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> AddTrainingToHistory(int trainingId, List<ExerciseHistory> exerciseHistories)
+        public async Task<bool> AddTrainingToHistory(Training training, List<ExerciseHistory> exerciseHistories)
         {
-            throw new System.NotImplementedException();
+            int userId = _authHelper.GetAuthenticatedUserId();
+            User user = await _context.Users
+                .Include(x => x.ExerciseHistories)
+                .FirstOrDefaultAsync(x => x.Id == userId);
+            
+            user.TrainingHistories.Add(new TrainingHistory { Training = training, Date = DateTime.Now });
+            
+            
+            foreach (ExerciseHistory exerciseHistory in exerciseHistories)
+            {
+                var alreadyExists = user.ExerciseHistories
+                    .FirstOrDefault(x => 
+                        x.ExerciseId == exerciseHistory.ExerciseId && 
+                        x.Date == DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"))
+                    );
+                
+                if (alreadyExists != null)
+                {
+                    var stats = exerciseHistory.ExerciseHistoryStats;
+                    stats.ForAll(x => x.ExerciseHistoryId = alreadyExists.Id);
+                    await _context.ExerciseHistoryStats.AddRangeAsync(stats);
+                }
+                else
+                {
+                    user.ExerciseHistories.Add(new ExerciseHistory
+                    {
+                        UserId = userId,
+                        ExerciseId = exerciseHistory.ExerciseId,
+                        Date = DateTime.Now,
+                        ExerciseHistoryStats = exerciseHistory.ExerciseHistoryStats
+                    });
+                }
+            }
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
