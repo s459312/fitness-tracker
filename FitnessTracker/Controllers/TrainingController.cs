@@ -135,6 +135,31 @@ namespace FitnessTracker.Controllers
                 new {trainingId = createdTraining.Id},
                 _mapper.Map<TrainingMinifiedResponse>(createdTraining));
         }
+        
+        /// <summary>
+        /// Dodaje trening przypisany do użytkownika do ulubionych
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="400"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        //
+        [HttpPatch(ApiRoutes.Training.ToggleTrainingFavourite)]
+        public async Task<IActionResult> ToggleTrainingFavourite([FromBody] AddTrainingToFavouritesRequest request)
+        {
+            var training = await _trainingService.GetTrainingByIdAsync(request.TrainingId);
+
+            if (training == null)
+                return NotFound();
+
+            var added = await _trainingService.ToggleTrainingFavouriteAsync(training, request.Favourite);
+            
+            if (!added)
+                return BadRequest(new ErrorResponse("Wystąpił błąd podczas zapisywania"));
+
+            return Ok();
+        }
 
         /// <summary>
         /// Dodaje publiczny trening do listy treningów użytkownika

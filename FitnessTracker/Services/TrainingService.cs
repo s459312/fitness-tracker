@@ -32,7 +32,8 @@ namespace FitnessTracker.Services
             return await _context.UserTraining
                 .Where(x => x.UserId == _authHelper.GetAuthenticatedUserId())
                 .Include(x => x.Training)
-                .OrderBy(x => x.Favourite)
+                .OrderByDescending(x => x.Favourite)
+                .ThenBy(x => x.TrainingId)
                 .Select(x => new TrainingMinifiedResponse
                 {
                     Id = x.TrainingId,
@@ -154,6 +155,17 @@ namespace FitnessTracker.Services
             {
                 TrainingId = training.Id,
                 UserId = _authHelper.GetAuthenticatedUserId()
+            });
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> ToggleTrainingFavouriteAsync(Training training, bool favourite)
+        {
+            _context.UserTraining.Update(new UserTraining
+            {
+                TrainingId = training.Id, 
+                UserId = _authHelper.GetAuthenticatedUserId(),
+                Favourite = favourite
             });
             return await _context.SaveChangesAsync() > 0;
         }

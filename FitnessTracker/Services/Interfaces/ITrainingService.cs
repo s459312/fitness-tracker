@@ -29,6 +29,7 @@ namespace FitnessTracker.Services.Interfaces
         Task<Training> CreateTrainingAsync(Training training);
         Task<Training> CreatePublicTrainingAsync(Training training);
         Task<bool> AddPublicTrainingToUser(Training training);
+        Task<bool> ToggleTrainingFavouriteAsync(Training training, bool favourite);
         Task<bool> UpdateTrainingAsync(Training training);
         Task<bool> DeleteTrainingAsync(Training training);
         Task<bool> DeletePublicTrainingAsync(Training training);

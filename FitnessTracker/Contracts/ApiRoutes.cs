@@ -5,16 +5,7 @@
     {
 
         private const string Base = "api/";
-
-        public static class Example
-        {
-            public const string GetAll = Base + "example";
-            public const string Get = Base + "example/{exampleId}";
-            public const string Create = Base + "example";
-            public const string Update = Base + "example/{exampleId}";
-            public const string Delete = Base + "example/{exampleId}";
-        }
-
+        
         public static class User
         {
             public const string GetAll = Base + "user/all";
@@ -22,7 +13,6 @@
             public const string Update = Base + "user";
             public const string UpdateRole = Base + "user/{userId}";
             public const string Delete = Base + "user/{userId}";
-            public const string Test = Base + "user/Test";
         }
 
         public static class Role
@@ -77,7 +67,8 @@
             public const string UpdatePublic = Base + "training/public/{trainingId}";
             public const string DeletePublic = Base + "training/public/{trainingId}";
             public const string AddExercisesToPublicTraining = Base + "training/public/{trainingId}";
-            
+
+            public const string ToggleTrainingFavourite = Base + "training/toggleFavourite";
             public const string AssignPublicTrainingToUser = Base + "training/assignToUser";
             public const string AddTrainingToHistory = Base + "training/addToHistory";
         }
