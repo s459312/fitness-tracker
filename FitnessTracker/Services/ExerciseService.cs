@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FitnessTracker.Data;
-using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using FitnessTracker.Models.Filters;
 using FitnessTracker.Services.Interfaces;
@@ -62,7 +61,20 @@ namespace FitnessTracker.Services
             queryable = FilterExercise(queryable, exerciseFilter);
             return await queryable.CountAsync();
         }
+
+        public bool AllExercisesExists(int[] ids)
+        {
+            int dbCount = _context.Exercise.Count(x => ids.Contains(x.Id));
+            return dbCount == ids.Length;
+        }
         
+        public bool AllExercisesBelongsToTraining(int trainingId, int[] ids)
+        {
+            int dbCount = _context.TrainingExercise
+                .Count(x => ids.Contains(x.ExerciseId) && x.TrainingId == trainingId);
+            return dbCount == ids.Length;
+        }
+
         private IQueryable<Exercise> FilterExercise(IQueryable<Exercise> queryable, ExerciseFilter exerciseFilter)
         {
             if (exerciseFilter.GoalId != null && exerciseFilter.GoalId.Length > 0)

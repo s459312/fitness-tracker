@@ -7,7 +7,6 @@ namespace FitnessTracker.Validators.Exercise
 {
     public class UpdateExerciseRequestValidator : AbstractValidator<UpdateExerciseRequest>
     {
-        private readonly string _errorMsg = "Podaj poprawną kombinację parametrów ćwiczenia";
         public UpdateExerciseRequestValidator(IGoalService goalService)
         {
             RuleFor(x => x.GoalId)
@@ -27,56 +26,27 @@ namespace FitnessTracker.Validators.Exercise
                 .MaximumLength(1000)
                 .When(x => x.Description != String.Empty || x.Description != null);
 
-            When(x => x.Powtorzenia > 0 || x.Czas > 0 || x.Obciazenie > 0 || x.Serie > 0 || x.Dystans > 0, () =>
-            {
-                When(x => x.Powtorzenia >= 1, () =>
+            RuleFor(x => x)
+                .Custom((request, context) =>
                 {
-                    RuleFor(x => x.Obciazenie).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Serie).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Dystans).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Czas).Equal(0).WithMessage(_errorMsg);
+                    if (request.Czas <= 0 && request.Dystans <= 0 && request.Obciazenie <= 0 && request.Powtorzenia <= 0 && request.Serie <= 0)
+                        context.AddFailure("Błędne prametry ćwiczenia");
+                    if (request.Obciazenie > 0)
+                        if (request.Czas > 0 || request.Dystans > 0)
+                            context.AddFailure("Błędne prametry ćwiczenia");
+                    if (request.Powtorzenia > 0)
+                        if (request.Czas > 0 || request.Dystans > 0)
+                            context.AddFailure("Błędne prametry ćwiczenia");
+                    if (request.Serie > 0)
+                        if (request.Czas > 0 || request.Dystans > 0)
+                            context.AddFailure("Błędne prametry ćwiczenia");
+                    if (request.Czas > 0)
+                        if (request.Powtorzenia > 0 || request.Serie > 0 || request.Obciazenie > 0)
+                            context.AddFailure("Błędne prametry ćwiczenia");
+                    if (request.Dystans > 0)
+                        if (request.Powtorzenia > 0 || request.Serie > 0 || request.Obciazenie > 0)
+                            context.AddFailure("Błędne prametry ćwiczenia");
                 });
-            
-                When(x => x.Serie >= 1, () =>
-                {
-                    RuleFor(x => x.Obciazenie).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Powtorzenia).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Dystans).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Czas).Equal(0).WithMessage(_errorMsg);
-                });
-            
-                When(x => x.Obciazenie >= 1, () =>
-                {
-                    RuleFor(x => x.Serie).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Powtorzenia).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Dystans).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Czas).Equal(0).WithMessage(_errorMsg);
-                });
-            
-                When(x => x.Czas >= 1, () =>
-                {
-                    RuleFor(x => x.Obciazenie).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Serie).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Powtorzenia).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Dystans).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                });
-            
-                When(x => x.Dystans >= 1, () =>
-                {
-                    RuleFor(x => x.Obciazenie).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Serie).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Powtorzenia).Equal(0).WithMessage(_errorMsg);
-                    RuleFor(x => x.Czas).GreaterThanOrEqualTo(0).WithMessage(_errorMsg);
-                });
-            })
-            .Otherwise(() =>
-            {
-                RuleFor(x => x.Obciazenie).GreaterThanOrEqualTo(1).WithMessage(_errorMsg);
-                RuleFor(x => x.Serie).GreaterThanOrEqualTo(1).WithMessage(_errorMsg);
-                RuleFor(x => x.Powtorzenia).GreaterThanOrEqualTo(1).WithMessage(_errorMsg);
-                RuleFor(x => x.Dystans).GreaterThanOrEqualTo(1).WithMessage(_errorMsg);
-                RuleFor(x => x.Czas).GreaterThanOrEqualTo(1).WithMessage(_errorMsg);
-            });
         }
     }
 }

@@ -1,19 +1,7 @@
-﻿namespace FitnessTracker.Contracts.Request.Exercise
+﻿namespace FitnessTracker.Contracts.Request.Training
 {
-    public class CreateExerciseRequest
+    public class ExerciseHistoryStatsRequest
     {
-        /// <summary>
-        /// Nazwa ćwiczenia
-        /// </summary>
-        /// <example>Example Exercise</example>
-        public string Name { get; set; }
-        
-        /// <summary>
-        /// Opis ćwiczenia
-        /// </summary>
-        /// <example>Exercise Description</example>
-        public string Description { get; set; }
-        
         /// <summary>
         /// Ilość serii w ćwiczeniu
         /// </summary>
@@ -43,11 +31,5 @@
         /// </summary>
         /// <example>0</example>
         public int Dystans { get; set; }
-        
-        /// <summary>
-        /// Cel ćwiczenia
-        /// </summary>
-        /// <example>1</example>
-        public int GoalId { get; set; }
     }
 }

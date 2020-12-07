@@ -13,5 +13,7 @@ namespace FitnessTracker.Services.Interfaces
         Task<bool> UpdateExerciseAsync(Exercise exercise);
         Task<bool> DeleteExerciseAsync(Exercise exercise);
         Task<int> ExercisesCountAsync(ExerciseFilter exerciseFilter);
+        bool AllExercisesExists(int[] ids);
+        bool AllExercisesBelongsToTraining(int trainingId, int[] ids);
     }
 }

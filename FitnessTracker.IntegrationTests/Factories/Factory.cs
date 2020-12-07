@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using FitnessTracker.Contracts.Request.Auth;
 using FitnessTracker.Contracts.Request.Exercise;
+using FitnessTracker.Contracts.Request.Training;
 using FitnessTracker.Contracts.Request.User;
 using FitnessTracker.Helpers;
 using FitnessTracker.Models;
@@ -127,6 +128,31 @@ namespace FitnessTracker.IntegrationTests.Factories
                     .RuleFor(x => x.Czas, 0)
                     .RuleFor(x => x.Dystans, 0)
                     .Generate();
+            }
+        }
+
+        public static class Training
+        {
+            public static Models.Training GetModel(bool isPublic = false)
+            {
+                return new Faker<Models.Training>()
+                    .RuleFor(x => x.Name, f => f.Lorem.Word())
+                    .RuleFor(x => x.Description, f => f.Lorem.Sentence())
+                    .RuleFor(x => x.IsPublic, isPublic);
+            }
+
+            public static CreateTrainingRequest CreateTrainingRequest()
+            {
+                return new Faker<CreateTrainingRequest>()
+                    .RuleFor(x => x.Name, f => f.Lorem.Word())
+                    .RuleFor(x => x.Description, f => f.Lorem.Sentence());
+            }
+            
+            public static UpdateTrainingRequest UpdateTrainingRequest()
+            {
+                return new Faker<UpdateTrainingRequest>()
+                    .RuleFor(x => x.Name, f => f.Lorem.Word())
+                    .RuleFor(x => x.Description, f => f.Lorem.Sentence());
             }
         }
     }
