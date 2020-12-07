@@ -17,7 +17,7 @@
         /// <summary>
         /// Ilość serii w ćwiczeniu
         /// </summary>
-        /// <example>Exercise Description</example>
+        /// <example>0</example>
         public int Serie { get; set; }
 
         /// <summary>

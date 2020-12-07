@@ -64,21 +64,22 @@
         public static class Training
         {
             public const string GetAllUserTrainings = Base + "training";
-            public const string GetAllAvailableUserPublicTrainings = Base + "training/public";
-            public const string GetAllPublicTrainings = Base + "training/public/all";
+            public const string GetAllAvailableUserPublicTrainings = Base + "training/availablePublic";
             public const string Get = Base + "training/{trainingId}";
             
             public const string Create = Base + "training";
-            public const string CreatePublic = Base + "training/public";
-            public const string AddPublicTrainingToUser = Base + "training/addToUser";
             public const string Update = Base + "training/{trainingId}";
-            public const string UpdatePublic = Base + "training/public/{trainingId}";
             public const string Delete = Base + "training/{trainingId}";
-            public const string DeletePublic = Base + "training/public/{trainingId}";
-            
             public const string AddExercisesToTraining = Base + "training/{trainingId}";
+            
+            public const string GetAllPublicTrainings = Base + "training/public";
+            public const string CreatePublic = Base + "training/public";
+            public const string UpdatePublic = Base + "training/public/{trainingId}";
+            public const string DeletePublic = Base + "training/public/{trainingId}";
             public const string AddExercisesToPublicTraining = Base + "training/public/{trainingId}";
-            public const string AddToHistory = Base + "training/addToHistory";
+            
+            public const string AssignPublicTrainingToUser = Base + "training/assignToUser";
+            public const string AddTrainingToHistory = Base + "training/addToHistory";
         }
 
     }

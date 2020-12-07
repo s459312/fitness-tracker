@@ -11,6 +11,7 @@ using FitnessTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FitnessTracker.Controllers
 {
@@ -31,18 +32,36 @@ namespace FitnessTracker.Controllers
             _authHelper = authHelper;
         }
         
+        /// <summary>
+        /// Zwraca listę treningów przypisanych do użytkownika
+        /// </summary>
+        /// <response code="200"></response>
+        [SwaggerResponse(200, "", typeof(List<TrainingMinifiedResponse>))]
+        //
         [HttpGet(ApiRoutes.Training.GetAllUserTrainings)]
         public async Task<IActionResult> GetAllUserTrainings()
         {
             return Ok(await _trainingService.GetAllUserTrainingsAsync());
         }
         
+        /// <summary>
+        /// Zwraca listę publicznych treningów, które nie są przypisane do użytkownika
+        /// </summary>
+        /// <response code="200"></response>
+        [SwaggerResponse(200, "", typeof(List<PublicTrainingResponse>))]
+        //
         [HttpGet(ApiRoutes.Training.GetAllAvailableUserPublicTrainings)]
         public async Task<IActionResult> GetAllAvailableUserPublicTrainings()
         {
             return Ok(await _trainingService.GetAllAvailableUserPublicTrainingsAsync());
         }
         
+        /// <summary>
+        /// Zwraca listę wszytkich publicznych treningów
+        /// </summary>
+        /// <response code="200"></response>
+        [SwaggerResponse(200, "", typeof(List<PublicTrainingResponse>))]
+        //
         [Authorize(Roles = "Admin,Moderator")]
         [HttpGet(ApiRoutes.Training.GetAllPublicTrainings)]
         public async Task<IActionResult> GetAllPublicTrainings()
@@ -51,6 +70,15 @@ namespace FitnessTracker.Controllers
             return Ok(_mapper.Map<List<PublicTrainingResponse>>(trainingList));
         }
         
+        /// <summary>
+        /// Zwraca informacje o prywatnym treningu użytkownika lub o dowlonym publicznym
+        /// </summary>
+        /// <param name="trainingId"></param>
+        /// <response code="200"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(200, "", typeof(TrainingFullResponse))]
+        [SwaggerResponse(404)]
+        //
         [HttpGet(ApiRoutes.Training.Get, Name = "GetTrainingById")]
         public async Task<IActionResult> GetTrainingById(int trainingId)
         {
@@ -60,7 +88,16 @@ namespace FitnessTracker.Controllers
             
             return Ok(training);
         }
-
+        
+        /// <summary>
+        /// Tworzy nowy prywatny trening i przypisuje go do użytkownika
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="201"></response>
+        /// <response code="400"></response>
+        [SwaggerResponse(201, "", typeof(TrainingMinifiedResponse))]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        //
         [HttpPost(ApiRoutes.Training.Create)]
         public async Task<IActionResult> Create([FromBody] CreateTrainingRequest request)
         {
@@ -75,6 +112,15 @@ namespace FitnessTracker.Controllers
                 _mapper.Map<TrainingMinifiedResponse>(createdTraining));
         }    
         
+        /// <summary>
+        /// Tworzy nowy publiczny trening
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="201"></response>
+        /// <response code="400"></response>
+        [SwaggerResponse(201, "", typeof(TrainingMinifiedResponse))]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        //
         [Authorize(Roles = "Admin,Moderator")]
         [HttpPost(ApiRoutes.Training.CreatePublic)]
         public async Task<IActionResult> CreatePublic([FromBody] CreateTrainingRequest request)
@@ -90,7 +136,16 @@ namespace FitnessTracker.Controllers
                 _mapper.Map<TrainingMinifiedResponse>(createdTraining));
         }
 
-        [HttpPatch(ApiRoutes.Training.AddPublicTrainingToUser)]
+        /// <summary>
+        /// Dodaje publiczny trening do listy treningów użytkownika
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="400"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        //
+        [HttpPatch(ApiRoutes.Training.AssignPublicTrainingToUser)]
         public async Task<IActionResult> AddPublicTrainingToUser([FromBody] AddPublicTrainingToUserRequest request)
         {
             var training = await _trainingService.GetPublicTrainingByIdAsync(request.TrainingId);
@@ -106,6 +161,17 @@ namespace FitnessTracker.Controllers
             return Ok();
         }
         
+        /// <summary>
+        /// Aktualizuje prywatnu trening użytkownika
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="403"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(403, "", typeof(ErrorResponse))]
+        [SwaggerResponse(404)]
+        //
         [HttpPut(ApiRoutes.Training.Update)]
         public async Task<IActionResult> Update(
             [FromRoute] int trainingId, [FromBody] UpdateTrainingRequest request
@@ -128,6 +194,15 @@ namespace FitnessTracker.Controllers
             return Ok();
         }
         
+        /// <summary>
+        /// Aktualizuje publiczny trening
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(404)]
+        //
         [Authorize(Roles = "Admin,Moderator")]
         [HttpPut(ApiRoutes.Training.UpdatePublic)]
         public async Task<IActionResult> UpdatePublic(
@@ -148,6 +223,16 @@ namespace FitnessTracker.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa prywatny lub publiczny trening przypisany do użytkownika
+        /// </summary>
+        /// <response code="204"></response>
+        /// <response code="400"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        [SwaggerResponse(404)]
+        //
         [HttpDelete(ApiRoutes.Training.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int trainingId)
         {
@@ -164,6 +249,16 @@ namespace FitnessTracker.Controllers
             return NoContent();
         }
         
+        /// <summary>
+        /// Usuwa publiczny trening
+        /// </summary>
+        /// <response code="204"></response>
+        /// <response code="400"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        [SwaggerResponse(404)]
+        //
         [Authorize(Roles = "Admin,Moderator")]
         [HttpDelete(ApiRoutes.Training.DeletePublic)]
         public async Task<IActionResult> DeletePublicTraining([FromRoute] int trainingId)
@@ -181,6 +276,20 @@ namespace FitnessTracker.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Przypisuję liste ćwiczeń do prywatnego treningu użytkownika
+        /// </summary>
+        /// <param name="trainingId"></param>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="403"></response>
+        /// <response code="404"></response>
+        /// <response code="400"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        [SwaggerResponse(403, "", typeof(ErrorResponse))]
+        [SwaggerResponse(404)]
+        //
         [HttpPatch(ApiRoutes.Training.AddExercisesToTraining)]
         public async Task<IActionResult> AddExercisesToTraining(
             [FromRoute] int trainingId, [FromBody] UpdateTrainingExercisesRequest request
@@ -201,6 +310,18 @@ namespace FitnessTracker.Controllers
             return Ok();
         }
         
+        /// <summary>
+        /// Przypisuję liste ćwiczeń do publicznego treningu
+        /// </summary>
+        /// <param name="trainingId"></param>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="400"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        [SwaggerResponse(404)]
+        //
         [Authorize(Roles = "Admin,Moderator")]
         [HttpPatch(ApiRoutes.Training.AddExercisesToPublicTraining)]
         public async Task<IActionResult> AddExercisesToPublicTraining(
@@ -219,7 +340,18 @@ namespace FitnessTracker.Controllers
             return Ok();
         }
 
-        [HttpPatch(ApiRoutes.Training.AddToHistory)]
+        /// <summary>
+        /// Dodaje trening użytkownika i ćwiczenia do historii
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        /// <response code="400"></response>
+        /// <response code="404"></response>
+        [SwaggerResponse(200)]
+        [SwaggerResponse(400, "", typeof(ErrorResponse))]
+        [SwaggerResponse(404)]
+        //
+        [HttpPatch(ApiRoutes.Training.AddTrainingToHistory)]
         public async Task<IActionResult> AddTrainingToHistory([FromBody] AddTrainingToHistoryRequest request)
         {
             var training = await _trainingService.GetTrainingByIdAsync(request.TrainingId);

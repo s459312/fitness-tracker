@@ -2,6 +2,9 @@
 {
     public class UpdateTrainingExercisesRequest
     {
+        /// <summary>
+        /// Lista ćwiczeń do przypisania
+        /// </summary>
         public int[] Exercises { get; set; }
     }
 }

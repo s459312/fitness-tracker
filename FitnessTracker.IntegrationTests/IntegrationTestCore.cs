@@ -37,8 +37,8 @@ namespace FitnessTracker.IntegrationTests
                         services.Remove(descriptor);
                         services.AddDbContext<DatabaseContext>(options =>
                         {
-                            options.UseInMemoryDatabase("testDB");
-                            //options.UseSqlite("Filename=TestDatabase.db");
+                            // options.UseInMemoryDatabase("testDB");
+                            options.UseSqlite("Filename=TestDatabase.db");
                         });
                         services.BuildServiceProvider();
                     });
