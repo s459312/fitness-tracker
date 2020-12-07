@@ -1,17 +1,24 @@
 ﻿using FitnessTracker.Contracts.Request.Coach;
+using FitnessTracker.Services.Interfaces;
 using FluentValidation;
 
 namespace FitnessTracker.Validators.AddCoach
 {
-    
+
     public class AddCoachRequestValidator : AbstractValidator<CreateCoach>
     {
-    
-        public AddCoachRequestValidator()
+
+        public AddCoachRequestValidator(IGoalService goalService)
         {
+
             RuleFor(x => x.GoalId)
-                .NotNull()
-                .GreaterThan(0);//TODO: Inny walidator
+                .NotEmpty().WithMessage("Podaj poprwany cel ćwiczenia")
+                .DependentRules(() =>
+                {
+                    RuleFor(x => x.GoalId)
+                        .Must(roleId => goalService.GoalExists(roleId))
+                        .WithMessage("Podany cel nie istnieje");
+                });
 
             RuleFor(x => x.Name)
                 .NotEmpty()
@@ -20,6 +27,7 @@ namespace FitnessTracker.Validators.AddCoach
             RuleFor(x => x.Surname)
                 .NotEmpty()
                 .MaximumLength(60);
+
         }
 
     }

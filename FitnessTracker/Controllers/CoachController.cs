@@ -16,6 +16,7 @@ namespace FitnessTracker.Controllers
     [ApiController]
     [Produces("application/json")]
     [Consumes("application/json")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CoachController : ControllerBase
     {
 
@@ -62,7 +63,7 @@ namespace FitnessTracker.Controllers
 
                 return CreatedAtAction(nameof(GetCoach),
                         new { coachId = coach.Id },
-                        coach); //TODO: Response zamiast AddCoach (dodać Mappera do Respone i nie zwracać Goal)
+                        coach);
 
             }
             catch

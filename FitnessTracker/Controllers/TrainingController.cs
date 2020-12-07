@@ -185,10 +185,11 @@ namespace FitnessTracker.Controllers
 
             return Ok();
         }
-        
+
         /// <summary>
         /// Aktualizuje prywatnu trening użytkownika
         /// </summary>
+        /// <param name="trainingId"></param>
         /// <param name="request"></param>
         /// <response code="200"></response>
         /// <response code="403"></response>
@@ -218,10 +219,11 @@ namespace FitnessTracker.Controllers
 
             return Ok();
         }
-        
+
         /// <summary>
         /// Aktualizuje publiczny trening
         /// </summary>
+        /// <param name="trainingId"></param>
         /// <param name="request"></param>
         /// <response code="200"></response>
         /// <response code="404"></response>
