@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using FitnessTracker.Contracts.Request.Queries;
 using FitnessTracker.Contracts.Response;
-using FitnessTracker.Contracts.Request.Queries;
 using FitnessTracker.Models.Filters;
 using FitnessTracker.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace FitnessTracker.Helpers
 {
@@ -12,7 +12,7 @@ namespace FitnessTracker.Helpers
         {
             return (filter.PageNumber - 1) * filter.PageSize;
         }
-        
+
         public static PaginationQuery ValidateQuery(PaginationQuery query)
         {
             query.PageNumber = (query.PageNumber < 1) ? 1 : query.PageNumber;
@@ -21,7 +21,7 @@ namespace FitnessTracker.Helpers
 
             return query;
         }
-        
+
         public static PagedResponse<T> Paginate<T>(IUriService uriService, PaginationFilter pagination, List<T> response, int total = 0)
         {
             int pageSize = pagination.PageSize >= 1 ? pagination.PageSize : 1;
@@ -37,14 +37,14 @@ namespace FitnessTracker.Helpers
             {
                 pageNumber = pagination.PageNumber >= 1 ? pagination.PageNumber : 1;
             }
-            
-            bool createPreviousPage =  pagination.PageNumber - 1 >= 1 && pagination.PageNumber <= totalPages;
-            
+
+            bool createPreviousPage = pagination.PageNumber - 1 >= 1 && pagination.PageNumber <= totalPages;
+
             var nextPage = pageNumber < totalPages
                 ? uriService
                     .CreatePaginationRequestUrl(new PaginationQuery(pagination.PageNumber + 1, pagination.PageSize)).ToString()
                 : null;
-            
+
             var previousPage = createPreviousPage
                 ? uriService
                     .CreatePaginationRequestUrl(new PaginationQuery(pagination.PageNumber - 1, pagination.PageSize)).ToString()
@@ -55,8 +55,8 @@ namespace FitnessTracker.Helpers
 
             var lastPage = uriService
                 .CreatePaginationRequestUrl(new PaginationQuery(totalPages, pagination.PageSize)).ToString();
-            
-            
+
+
             return new PagedResponse<T>
             {
                 Data = response,

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using FitnessTracker.Data;
+﻿using FitnessTracker.Data;
 using FitnessTracker.Models;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Helpers
 {
@@ -14,7 +14,7 @@ namespace FitnessTracker.Helpers
         private readonly IActionContextAccessor _actionContextAccessor;
 
         public AuthHelper() { }
-        
+
         public AuthHelper(IActionContextAccessor actionContextAccessor)
         {
             _actionContextAccessor = actionContextAccessor;
@@ -27,7 +27,7 @@ namespace FitnessTracker.Helpers
                 return await context.Users.Where(x => x.Id == userId).FirstOrDefaultAsync();
             return null;
         }
-        
+
         public int GetAuthenticatedUserId()
         {
             if (_actionContextAccessor.ActionContext.HttpContext.User == null)
@@ -48,7 +48,7 @@ namespace FitnessTracker.Helpers
         {
             if (_actionContextAccessor.ActionContext.HttpContext.User == null)
                 return String.Empty;
-            
+
             var role = _actionContextAccessor.ActionContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
             return role == null ? "User" : role.Value;
         }
@@ -62,35 +62,31 @@ namespace FitnessTracker.Helpers
         {
             return GetAuthenticatedUserRole() == "Admin";
         }
-        
+
         public bool IsEditor()
         {
             return GetAuthenticatedUserRole() == "Editor";
         }
-        
+
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         }
-        
+
         public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            using var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt);
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            for (int i = 0; i < computedHash.Length; i++)
             {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
+                if (computedHash[i] != passwordHash[i])
                 {
-                    if (computedHash[i] != passwordHash[i])
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                return true;
             }
+            return true;
         }
     }
 }

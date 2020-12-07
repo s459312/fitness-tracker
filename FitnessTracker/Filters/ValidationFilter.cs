@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FitnessTracker.Contracts.Response.Errors;
+﻿using FitnessTracker.Contracts.Response.Errors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Filters
 {
@@ -20,7 +20,7 @@ namespace FitnessTracker.Filters
                         kvp => kvp.Value.Errors.Select(x => x.ErrorMessage).ToArray()
                     );
                 var errorResponse = new ValidationErrorResponse();
-                
+
                 foreach (var error in errorsInModelState)
                 {
                     foreach (var subError in error.Value)

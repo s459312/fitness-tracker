@@ -11,10 +11,10 @@ namespace FitnessTracker.Validators.Auth
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress();
-            
+
             RuleFor(x => x.Password)
                 .SetValidator(new PasswordRule());
-            
+
             RuleFor(x => x.ConfirmPassword)
                 .NotEmpty()
                 .Equal(x => x.Password).WithMessage("'Confirm Password' does not match 'Password'");

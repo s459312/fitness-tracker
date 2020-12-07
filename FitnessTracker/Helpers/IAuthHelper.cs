@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using FitnessTracker.Data;
+﻿using FitnessTracker.Data;
 using FitnessTracker.Models;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Helpers
 {

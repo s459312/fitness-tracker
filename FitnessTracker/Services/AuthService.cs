@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FitnessTracker.Contracts.Request.Auth;
 using FitnessTracker.Data;
 using FitnessTracker.Helpers;
@@ -14,10 +7,17 @@ using FitnessTracker.Options;
 using FitnessTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Services
 {
-    
+
     public class AuthService : IAuthService
     {
         private readonly JwtSettings _jwtSettings;
@@ -28,9 +28,9 @@ namespace FitnessTracker.Services
 
         public AuthService(
             IMapper mapper,
-            TokenValidationParameters tokenValidationParameters, 
-            JwtSettings jwtSettings, 
-            DatabaseContext context, 
+            TokenValidationParameters tokenValidationParameters,
+            JwtSettings jwtSettings,
+            DatabaseContext context,
             IAuthHelper authHelper
         )
         {
@@ -44,23 +44,23 @@ namespace FitnessTracker.Services
         public async Task<AuthenticationResult> RegisterAsync(AuthRegisterRequest request)
         {
             request.Email = request.Email.ToLower();
-            
+
             if (await UserExists(request.Email))
-                return new AuthenticationResult { Error = "Użytkownik z takim adresem email już istnieje"};
+                return new AuthenticationResult { Error = "Użytkownik z takim adresem email już istnieje" };
 
             User newUser = _mapper.Map<User>(request);
             newUser.RoleId = 3;
-            
+
             _authHelper.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             newUser.PasswordHash = passwordHash;
             newUser.PasswordSalt = passwordSalt;
-            
+
             await _context.Users.AddAsync(newUser);
             int created = await _context.SaveChangesAsync();
 
             if (created <= 0)
                 return new AuthenticationResult { Error = "Rejestracja nie powiodła się" };
-            
+
             return await GenerateAuthenticationResultAsync(newUser);
         }
 
@@ -69,18 +69,18 @@ namespace FitnessTracker.Services
             request.Email = request.Email.ToLower();
             User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
             if (user == null)
-                return new AuthenticationResult { Error = "Użytkownik nie istnieje"};
-            
+                return new AuthenticationResult { Error = "Użytkownik nie istnieje" };
+
             if (!_authHelper.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-                return new AuthenticationResult { Error = "Podano błędne hasło"};
-            
+                return new AuthenticationResult { Error = "Podano błędne hasło" };
+
             return await GenerateAuthenticationResultAsync(user);
         }
 
         public async Task<AuthenticationResult> RefreshTokenAsync(string token, string refreshToken)
         {
             var validatedToken = GetPrincipalFromToken(token);
-            
+
             if (validatedToken == null)
                 return new AuthenticationResult { Error = "Invalid Token" };
 
@@ -95,19 +95,19 @@ namespace FitnessTracker.Services
             var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
 
             var storedRefreshZToken = await _context.RefreshTokens.SingleOrDefaultAsync(x => x.Token == refreshToken);
-            
+
             if (storedRefreshZToken == null)
                 return new AuthenticationResult { Error = "This refresh token does not exists" };
-            
+
             if (DateTime.UtcNow > storedRefreshZToken.ExpireDate)
                 return new AuthenticationResult { Error = "This refresh token has expired" };
-            
+
             if (storedRefreshZToken.Invalidated)
                 return new AuthenticationResult { Error = "This refresh token has been invalidated" };
-            
+
             if (storedRefreshZToken.Used)
                 return new AuthenticationResult { Error = "This refresh token has been used" };
-            
+
             if (storedRefreshZToken.JwtId != jti)
                 return new AuthenticationResult { Error = "This refresh token does not match this JWT" };
 
@@ -122,21 +122,21 @@ namespace FitnessTracker.Services
         public async Task<AuthenticationResult> ChangePasswordAsync(AuthChangePasswordRequest request)
         {
             var user = _context.Users.FirstOrDefault(x => x.Id == _authHelper.GetAuthenticatedUserId());
-            
+
             if (user == null)
-                return new AuthenticationResult { Error = "Użytkownik nie istnieje"};
-            
+                return new AuthenticationResult { Error = "Użytkownik nie istnieje" };
+
             if (!_authHelper.VerifyPasswordHash(request.OldPassword, user.PasswordHash, user.PasswordSalt))
-                return new AuthenticationResult { Error = "Podano błędne stare hasło"};
-            
+                return new AuthenticationResult { Error = "Podano błędne stare hasło" };
+
             _authHelper.CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            
+
             _context.Users.Update(user);
             if (await _context.SaveChangesAsync() <= 0)
                 return new AuthenticationResult { Error = "Zmiana hasła nie powiodła się" };
-            
+
             return new AuthenticationResult
             {
                 Success = true,
@@ -160,7 +160,7 @@ namespace FitnessTracker.Services
             Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Id == user.RoleId);
             if (userRole != null)
                 claims.Add(new Claim(ClaimTypes.Role, userRole.Name));
-            
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -181,7 +181,7 @@ namespace FitnessTracker.Services
 
             await _context.RefreshTokens.AddAsync(refreshToken);
             await _context.SaveChangesAsync();
-            
+
             return new AuthenticationResult
             {
                 Success = true,
@@ -189,7 +189,7 @@ namespace FitnessTracker.Services
                 RefreshToken = refreshToken.Token
             };
         }
-        
+
         private async Task<bool> UserExists(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);

@@ -9,7 +9,7 @@ namespace FitnessTracker.Validators.User
         public UpdateUserRoleRequestValidator(IRoleService roleService)
         {
             RuleFor(x => x.RoleId)
-                .Must( roleId => roleService.RoleExists(roleId))
+                .Must(roleId => roleService.RoleExists(roleId))
                     .WithMessage("Role does not not exists");
         }
     }

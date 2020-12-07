@@ -7,7 +7,7 @@
         /// </summary>
         /// <example>1</example>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Nazwa roli
         /// </summary>

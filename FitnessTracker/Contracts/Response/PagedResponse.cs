@@ -6,7 +6,7 @@ namespace FitnessTracker.Contracts.Response
     {
         public PagedResponse()
         {
-            
+
         }
 
         public PagedResponse(IEnumerable<T> data)

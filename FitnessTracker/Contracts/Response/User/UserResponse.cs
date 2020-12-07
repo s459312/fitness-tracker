@@ -21,7 +21,7 @@ namespace FitnessTracker.Contracts.Response.User
         /// </summary>
         /// <example>Example surname</example>
         public string Surname { get; set; }
-        
+
         public RoleResponse Role { get; set; }
     }
 }

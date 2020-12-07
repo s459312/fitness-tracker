@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FitnessTracker.Contracts;
 using FitnessTracker.Contracts.Request.Queries;
 using FitnessTracker.Contracts.Request.User;
 using FitnessTracker.Contracts.Response;
 using FitnessTracker.Contracts.Response.Errors;
 using FitnessTracker.Contracts.Response.User;
+using FitnessTracker.Data;
 using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using FitnessTracker.Models.Filters;
@@ -14,7 +13,11 @@ using FitnessTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Controllers
 {
@@ -27,13 +30,15 @@ namespace FitnessTracker.Controllers
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
         private readonly IAuthHelper _authHelper;
+        private readonly DatabaseContext _context;
 
-        public UserController(IUserService userService, IMapper mapper, IUriService uriService, IAuthHelper authHelper)
+        public UserController(IUserService userService, IMapper mapper, IUriService uriService, IAuthHelper authHelper, DatabaseContext context/**/)
         {
             _userService = userService;
             _mapper = mapper;
             _uriService = uriService;
             _authHelper = authHelper;
+            _context = context;//
         }
         
         /// <summary>
@@ -44,7 +49,7 @@ namespace FitnessTracker.Controllers
         ///  <response code="400"></response>
         [SwaggerResponse(200, "", typeof(PagedResponse<List<UserResponse>>))]
         //
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]       
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet(ApiRoutes.User.GetAll)]
         public async Task<IActionResult> GetAll([FromQuery] PaginationQuery paginationQuery)
         {
@@ -57,10 +62,10 @@ namespace FitnessTracker.Controllers
             var userResponses = _mapper.Map<List<UserResponse>>(users);
             var paginatedResponse =
                 PaginationHelper.Paginate(_uriService, paginationFilter, userResponses, usersCount);
-            
+
             return Ok(paginatedResponse);
         }
-        
+
         /// <summary>
         /// Zwraca zalogowanego użytkownika
         /// </summary>
@@ -77,7 +82,7 @@ namespace FitnessTracker.Controllers
 
             return Ok(_mapper.Map<UserResponse>(user));
         }
-        
+
         /// <summary>
         /// Aktualizuje informacje zalogowanego użytkownika
         /// </summary>
@@ -93,7 +98,7 @@ namespace FitnessTracker.Controllers
             var user = await _userService.GetUserByIdAsync(_authHelper.GetAuthenticatedUserId());
             if (user == null)
                 return NotFound();
-            
+
             User updatedUser = _mapper.Map(request, user);
             bool successfullyUpdated = await _userService.UpdateUserAsync(updatedUser);
 
@@ -120,7 +125,7 @@ namespace FitnessTracker.Controllers
             var user = await _userService.GetUserByIdAsync(userId);
             if (user == null)
                 return NotFound();
-            
+
             User updatedUser = _mapper.Map(request, user);
             bool successfullyUpdated = await _userService.UpdateUserAsync(updatedUser);
 
@@ -129,7 +134,7 @@ namespace FitnessTracker.Controllers
 
             return Ok();
         }
-        
+
         /// <summary>
         /// Usuwa użytkownika o podanym id
         /// </summary>
@@ -147,7 +152,7 @@ namespace FitnessTracker.Controllers
             var user = await _userService.GetUserByIdAsync(userId);
             if (user == null)
                 return NotFound();
-            
+
             bool successfullyDeleted = await _userService.DeleteUserAsync(user);
             if (!successfullyDeleted)
                 return BadRequest(new ErrorResponse("Failed to delete user"));

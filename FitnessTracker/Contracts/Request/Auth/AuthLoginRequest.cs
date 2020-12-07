@@ -10,7 +10,7 @@ namespace FitnessTracker.Contracts.Request.Auth
         /// <example>admin@gmail.com</example>
         [EmailAddress]
         public string Email { get; set; }
-        
+
         /// <summary>
         /// Hasło użytkownika
         /// </summary>

@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FitnessTracker.Data;
+﻿using FitnessTracker.Data;
 using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using FitnessTracker.Models.Filters;
 using FitnessTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Services
 {
@@ -28,7 +28,7 @@ namespace FitnessTracker.Services
                 .AsQueryable();
 
             int skip = PaginationHelper.CountSkip(paginationFilter);
-            
+
             return await queryable
                 .Skip(skip).Take(paginationFilter.PageSize)
                 .ToListAsync();
@@ -39,10 +39,10 @@ namespace FitnessTracker.Services
             var queryable = _context.Users
                 .Include(x => x.Role)
                 .AsQueryable();
-            
+
             if (_authHelper.IsNormalUser())
                 queryable = queryable.Where(x => x.Id == _authHelper.GetAuthenticatedUserId());
-            
+
             return await queryable.FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -57,7 +57,7 @@ namespace FitnessTracker.Services
         public async Task<bool> DeleteUserAsync(User user)
         {
             _context.Remove(user);
-            
+
             return await _context.SaveChangesAsync() > 0;
         }
 
