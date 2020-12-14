@@ -104,13 +104,15 @@ const Registration = () => {
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
-              value={12}
-              // onChange={handleChange}
+              value={state.goalId ?? 1}
+              onChange={({ target: { value } }) =>
+                setState({ ...state, goalId: value })
+              }
               label="Cel"
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={1}>Redukcja tkanki tłuszczowej</MenuItem>
+              <MenuItem value={2}>Przybranie masy mięśniowej</MenuItem>
+              <MenuItem value={3}>Rekompozycja sylwetki</MenuItem>
             </Select>
           </FormControl>
           <Button
