@@ -29,6 +29,8 @@ const Registration = () => {
     try {
       const { data } = await Api.post("/auth/register", state);
       localStorage.setItem("token", data.token);
+      // eslint-disable-next-line no-restricted-globals
+      location.replace("/app");
     } catch (err) {
       console.error(err);
     }
