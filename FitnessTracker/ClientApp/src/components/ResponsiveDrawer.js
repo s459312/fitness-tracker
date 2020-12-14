@@ -20,7 +20,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Coaches from "./Coaches";
 import Exercises from "./Exercises";
-import Trainings from './Trainings';
+import Trainings from "./Trainings";
 
 const drawerWidth = 240;
 
@@ -131,6 +131,14 @@ function ResponsiveDrawer(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logout = () => {
+    handleClose();
+    localStorage.removeItem("token");
+    // eslint-disable-next-line no-restricted-globals
+    location.replace("/");
+  };
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -175,7 +183,7 @@ function ResponsiveDrawer(props) {
             >
               <MenuItem onClick={handleClose}>Moje konto</MenuItem>
               <MenuItem onClick={handleClose}>Ustawienia</MenuItem>
-              <MenuItem onClick={handleClose}>Wyloguj</MenuItem>
+              <MenuItem onClick={logout}>Wyloguj</MenuItem>
             </Menu>
           </div>
         </Toolbar>

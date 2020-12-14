@@ -13,6 +13,8 @@ const Login = () => {
     try {
       const { data } = await Api.post("/auth/login", { email, password });
       localStorage.setItem("token", data.token);
+      // eslint-disable-next-line no-restricted-globals
+      location.replace("/app");
     } catch (err) {
       console.error(err);
     }
