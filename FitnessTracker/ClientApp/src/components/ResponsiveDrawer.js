@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
+import { Link as RouterLink } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -17,7 +18,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import Trainers from './Trainers'
+import Coaches from "./Coaches";
+import Exercises from "./Exercises";
+import Trainings from './Trainings';
 
 const drawerWidth = 240;
 
@@ -43,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
@@ -59,10 +61,32 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  let match = useRouteMatch();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const [currentRoute, setCurrentRoute] = useState("Home");
+
+  const routes = [
+    {
+      name: "Home",
+      path: "/",
+    },
+    {
+      name: "Trenerzy",
+      path: "/coaches",
+    },
+    {
+      name: "Baza ćwiczeń",
+      path: "/exercises",
+    },
+    {
+      name: "Plany treningowe",
+      path: "/training-plans",
+    },
+  ];
 
   const drawer = (
     <div>
@@ -78,14 +102,18 @@ function ResponsiveDrawer(props) {
       </div>
       <Divider />
       <List>
-        {["Home", "Trenerzy", "Baza ćwiczeń", "Plany treningowe"].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
+        {routes.map((route, index) => (
+          <ListItem
+            button
+            onClick={() => setCurrentRoute(route.name)}
+            key={index}
+            component={RouterLink}
+            to={`${match.path}${route.path}`}
+            selected={route.name === currentRoute}
+          >
+            <ListItemText primary={route.name} />
+          </ListItem>
+        ))}
       </List>
     </div>
   );
@@ -103,7 +131,6 @@ function ResponsiveDrawer(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  let match = useRouteMatch();
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -119,7 +146,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap style={{ flexGrow: 1 }}>
-            Responsive drawer
+            {currentRoute}
           </Typography>
           <div>
             <IconButton
@@ -129,7 +156,7 @@ function ResponsiveDrawer(props) {
               onClick={handleMenu}
               color="inherit"
             >
-              <AccountCircle fontSize="large"/>
+              <AccountCircle fontSize="large" />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -146,14 +173,14 @@ function ResponsiveDrawer(props) {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>Moje konto</MenuItem>
+              <MenuItem onClick={handleClose}>Ustawienia</MenuItem>
+              <MenuItem onClick={handleClose}>Wyloguj</MenuItem>
             </Menu>
           </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -165,7 +192,7 @@ function ResponsiveDrawer(props) {
               paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
           >
             {drawer}
@@ -186,7 +213,9 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
-          <Route path={`${match.path}/trainers`} component={Trainers} />
+          <Route path={`${match.path}/coaches`} component={Coaches} />
+          <Route path={`${match.path}/exercises`} component={Exercises} />
+          <Route path={`${match.path}/training-plans`} component={Trainings} />
         </Switch>
       </main>
     </div>
