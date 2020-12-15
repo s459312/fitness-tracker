@@ -83,11 +83,11 @@ namespace FitnessTracker.Data
             );
 
             modelBuilder.Entity<TrainingHistory>().HasData(
-                new TrainingHistory { Id = 1, UserId = 1, TrainingId = 1, Date = DateTime.Parse("2020-12-03") },
-                new TrainingHistory { Id = 2, UserId = 1, TrainingId = 2, Date = DateTime.Parse("2020-12-04") },
-                new TrainingHistory { Id = 3, UserId = 1, TrainingId = 3, Date = DateTime.Parse("2020-12-05") },
-                new TrainingHistory { Id = 4, UserId = 2, TrainingId = 3, Date = DateTime.Parse("2020-12-03") },
-                new TrainingHistory { Id = 5, UserId = 2, TrainingId = 3, Date = DateTime.Parse("2020-12-04") }
+                new TrainingHistory { Id = 1, UserId = 1, TrainingId = 3, Date = DateTime.Parse("2020-12-05") },
+                new TrainingHistory { Id = 2, UserId = 2, TrainingId = 3, Date = DateTime.Parse("2020-12-03") },
+                new TrainingHistory { Id = 3, UserId = 2, TrainingId = 3, Date = DateTime.Parse("2020-12-04") },
+                new TrainingHistory { Id = 4, UserId = 1, TrainingId = 1, Date = DateTime.Parse("2020-12-03") },
+                new TrainingHistory { Id = 5, UserId = 1, TrainingId = 2, Date = DateTime.Parse("2020-12-04") }
             );
         }
 

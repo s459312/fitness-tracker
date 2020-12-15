@@ -56,6 +56,15 @@ namespace FitnessTracker.Services
 
         public async Task<bool> DeleteUserAsync(User user)
         {
+            var userTrainings = 
+                await _context.UserTraining.Where(x => x.UserId == user.Id)
+                    .Select(x => x.TrainingId).ToListAsync();
+
+            var userPrivateTrainings = await _context.Training
+                .Where(x => userTrainings.Contains(x.Id) && x.IsPublic == false)
+                .ToListAsync();
+            
+            _context.RemoveRange(userPrivateTrainings);
             _context.Remove(user);
 
             return await _context.SaveChangesAsync() > 0;

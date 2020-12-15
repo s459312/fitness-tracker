@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Contracts.Request.Auth;
+using FitnessTracker.Services.Interfaces;
 using FitnessTracker.Validators.Rules;
 using FluentValidation;
 
@@ -6,7 +7,7 @@ namespace FitnessTracker.Validators.Auth
 {
     public class AuthRegisterRequestValidator : AbstractValidator<AuthRegisterRequest>
     {
-        public AuthRegisterRequestValidator()
+        public AuthRegisterRequestValidator(IGoalService goalService)
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
@@ -17,13 +18,22 @@ namespace FitnessTracker.Validators.Auth
 
             RuleFor(x => x.ConfirmPassword)
                 .NotEmpty()
-                .Equal(x => x.Password).WithMessage("'Confirm Password' does not match 'Password'");
+                .Equal(x => x.Password).WithMessage("Podane hasła nie są identyczne");
 
             RuleFor(x => x.Name)
                 .NotEmpty();
 
             RuleFor(x => x.Surname)
                 .NotEmpty();
+            
+            RuleFor(x => x.GoalId)
+                .NotEmpty().WithMessage("Podaj poprwany cel ćwiczenia")
+                .DependentRules(() =>
+                {
+                    RuleFor(x => x.GoalId)
+                        .Must(roleId => goalService.GoalExists(roleId))
+                        .WithMessage("Podany cel nie istnieje");
+                });
         }
     }
 }

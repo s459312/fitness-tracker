@@ -24,6 +24,7 @@ namespace FitnessTracker.Controllers
     [ApiController]
     [Produces("application/json")]
     [Consumes("application/json")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -49,7 +50,7 @@ namespace FitnessTracker.Controllers
         ///  <response code="400"></response>
         [SwaggerResponse(200, "", typeof(PagedResponse<List<UserResponse>>))]
         //
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet(ApiRoutes.User.GetAll)]
         public async Task<IActionResult> GetAll([FromQuery] PaginationQuery paginationQuery)
         {
@@ -118,7 +119,7 @@ namespace FitnessTracker.Controllers
         [SwaggerResponse(200)]
         [SwaggerResponse(400, "", typeof(ErrorResponse))]
         //
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPatch(ApiRoutes.User.UpdateRole)]
         public async Task<IActionResult> UpdateRole([FromRoute] int userId, [FromBody] UpdateUserRoleRequest request)
         {
@@ -145,7 +146,7 @@ namespace FitnessTracker.Controllers
         [SwaggerResponse(404)]
         [SwaggerResponse(400, "", typeof(ErrorResponse))]
         //
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete(ApiRoutes.User.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int userId)
         {
