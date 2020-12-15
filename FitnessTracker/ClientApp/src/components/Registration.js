@@ -83,6 +83,7 @@ const Registration = () => {
           />
           <TextField
             id="password"
+            type="password"
             label="Hasło"
             variant="outlined"
             value={state.password}
@@ -93,6 +94,7 @@ const Registration = () => {
           />
           <TextField
             id="repeat-password"
+            type="password"
             label="Powtórz hasło"
             variant="outlined"
             value={state.confirmPassword}
