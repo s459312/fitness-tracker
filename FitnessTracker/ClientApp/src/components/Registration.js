@@ -23,7 +23,14 @@ const useStyles = makeStyles((theme) => ({
 const Registration = () => {
   const classes = useStyles();
 
-  const [state, setState] = useState({});
+  const [state, setState] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    goalId: 1,
+  });
 
   const register = async () => {
     try {
@@ -44,7 +51,7 @@ const Registration = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: '15vh'
+        marginTop: "15vh",
       }}
     >
       <Typography variant="h3" gutterBottom>
@@ -111,7 +118,7 @@ const Registration = () => {
               id="demo-simple-select-outlined"
               value={state.goalId ?? 1}
               onChange={({ target: { value } }) =>
-                setState({ ...state, goalId: value })
+                setState((prevState) => ({ ...prevState, goalId: value }))
               }
               label="Cel"
             >
