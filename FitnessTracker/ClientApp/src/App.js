@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import "./App.css";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import ResponsiveDrawer from "./components/ResponsiveDrawer";
+import LandingPage from "./components/LandingPage";
+import Registration from "./components/Registration";
+import Login from "./components/Login";
+import { PrivateRoute } from "./components/PrivateRoute";
 
-import './custom.css'
+const App = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/register" component={Registration} />
+        <Route path="/login" component={Login} />
+        <PrivateRoute path="/app" component={ResponsiveDrawer} />
+      </Switch>
+    </Router>
+  );
+};
 
-export default class App extends Component {
-  static displayName = App.name;
-
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
-    );
-  }
-}
+export default App;
