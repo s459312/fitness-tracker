@@ -27,23 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Coaches = () => {
   const classes = useStyles();
-  const defaultList = [
-    {
-      id: 1,
-      name: "John",
-      surname: "Test",
-      email: "test@example.com",
-      phone: "123123123",
-    },
-    {
-      id: 2,
-      name: "Andrew",
-      surname: "Test",
-      email: "test@example.com",
-      phone: "123123123",
-    },
-  ];
-  const [coaches, setCoaches] = useState(defaultList);
+  const [coaches, setCoaches] = useState([]);
 
   useEffect(() => {
     const getCoaches = async () => {
@@ -59,7 +43,7 @@ const Coaches = () => {
 
   return (
     <div className={classes.root}>
-      {coaches.map((item) => (
+      {coaches?.map((item) => (
         <Accordion style={{ margin: 10 }} key={item.id}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <div className={classes.headingWrapper}>

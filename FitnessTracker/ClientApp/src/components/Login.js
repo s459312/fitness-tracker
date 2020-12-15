@@ -46,6 +46,7 @@ const Login = () => {
           <TextField
             id="password"
             label="Hasło"
+            type="password"
             variant="outlined"
             style={{ margin: "0.5rem" }}
             value={password}
