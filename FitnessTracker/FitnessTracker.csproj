@@ -14,6 +14,7 @@
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
+        <UserSecretsId>b7354077-01cd-44e0-b3ad-686b2e0d71b6</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -59,8 +60,7 @@
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
-
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" /><!--ptak-->
         <!-- Include the newly-built files in the publish output -->
         <ItemGroup>
             <DistFiles Include="$(SpaRoot)build\**" />

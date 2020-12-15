@@ -187,7 +187,7 @@ namespace FitnessTracker.Controllers
         }
 
         /// <summary>
-        /// Aktualizuje prywatnu trening użytkownika
+        /// Aktualizuje prywatny trening użytkownika
         /// </summary>
         /// <param name="trainingId"></param>
         /// <param name="request"></param>
@@ -304,7 +304,7 @@ namespace FitnessTracker.Controllers
         }
 
         /// <summary>
-        /// Przypisuję liste ćwiczeń do prywatnego treningu użytkownika
+        /// Przypisuje listę ćwiczeń do prywatnego treningu użytkownika
         /// </summary>
         /// <param name="trainingId"></param>
         /// <param name="request"></param>

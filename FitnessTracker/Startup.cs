@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -90,7 +91,15 @@ namespace FitnessTracker
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "ClientApp\\build\\static")),
+                RequestPath = "/static"
+            });
+
             app.UseRouting();
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -194,7 +203,7 @@ namespace FitnessTracker
         {
             service.AddSwaggerGen(x =>
             {
-                
+
                 x.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",

@@ -211,6 +211,7 @@ namespace FitnessTracker.Services
                 _context.TrainingExercise
                     .RemoveRange(_context.TrainingExercise.Where(x => x.TrainingId == training.Id));
                 await _context.TrainingExercise.AddRangeAsync(trainingExercises);
+                await _context.SaveChangesAsync();
             }
             catch
             {

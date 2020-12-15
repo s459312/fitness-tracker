@@ -1,0 +1,784 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="FitnessTracker.Program" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Startup" Collapsed="true">
+    <Position X="14.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAEAgAAAAAACAgACACAAAAQA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Auth.AuthChangePasswordRequest" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAFAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Auth\AuthChangePasswordRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Auth.AuthLoginRequest" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Auth\AuthLoginRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Auth.AuthRefreshTokenRequest" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Contracts\Request\Auth\AuthRefreshTokenRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Auth.AuthRegisterRequest" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQABAAAAAAiAAAAAAAAIAA=</HashCode>
+      <FileName>Contracts\Request\Auth\AuthRegisterRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Coach.CreateCoach" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQABAAAAAAgAAAAIAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Coach\CreateCoach.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Exercise.CreateExerciseRequest" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAgAAAAAAgAAAQCAAAAAAAgAAABAAAAAAE=</HashCode>
+      <FileName>Contracts\Request\Exercise\CreateExerciseRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Exercise.UpdateExerciseRequest" Collapsed="true">
+    <Position X="11" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAgAAAAAAgAAAQCAAAAAAAgAAABAAAAAAE=</HashCode>
+      <FileName>Contracts\Request\Exercise\UpdateExerciseRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Queries.ExerciseQuery" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Queries\ExerciseQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Queries.PaginationQuery" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Queries\PaginationQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.AddPublicTrainingToUserRequest" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\AddPublicTrainingToUserRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.AddTrainingToFavouritesRequest" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\AddTrainingToFavouritesRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.AddTrainingToHistoryRequest" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\AddTrainingToHistoryRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.CreateTrainingRequest" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\CreateTrainingRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.ExerciseHistoryRequest" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\ExerciseHistoryRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.ExerciseHistoryStatsRequest" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAgAAAACAAAAAAAAAAABAAAAAAE=</HashCode>
+      <FileName>Contracts\Request\Training\ExerciseHistoryStatsRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.UpdateTrainingExercisesRequest" Collapsed="true">
+    <Position X="14.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\UpdateTrainingExercisesRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.Training.UpdateTrainingRequest" Collapsed="true">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\Training\UpdateTrainingRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.User.UpdateUserRequest" Collapsed="true">
+    <Position X="4" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQABAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\User\UpdateUserRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Request.User.UpdateUserRoleRequest" Collapsed="true">
+    <Position X="7.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Request\User\UpdateUserRoleRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Auth.AuthSuccessResponse" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Contracts\Response\Auth\AuthSuccessResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Errors.ErrorResponse" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Errors\ErrorResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Errors.ValidationErrorModel" Collapsed="true">
+    <Position X="5.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Errors\ValidationErrorModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Errors.ValidationErrorResponse" Collapsed="true">
+    <Position X="7.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Errors\ValidationErrorResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Exercise.ExerciseMinifiedResponse" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCCAAAAAAAgAAAAAAgAAAQCAAAAAAAAAAABAAAAAAE=</HashCode>
+      <FileName>Contracts\Response\Exercise\ExerciseMinifiedResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Exercise.ExerciseResponse" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCCAAAAAAAgAAAAAAgAAAQCAAAAAAAAAAABAAAAAAE=</HashCode>
+      <FileName>Contracts\Response\Exercise\ExerciseResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Goal.GoalResponse" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Goal\GoalResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Role.RoleResponse" Collapsed="true">
+    <Position X="9.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Role\RoleResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Training.PublicTrainingResponse" Collapsed="true">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Training\PublicTrainingResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Training.TrainingFullResponse" Collapsed="true">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAABAAAAAAAQACCAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Training\TrainingFullResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Training.TrainingMinifiedResponse" Collapsed="true">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABAAAAAAAQAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Training\TrainingMinifiedResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.User.UserMinifiedResponse" Collapsed="true">
+    <Position X="16.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\User\UserMinifiedResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.User.UserResponse" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAACAAAAAAEAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\User\UserResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.PagedResponse&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\PagedResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.PagedResponseMeta" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAgAAAAAAAAAAAAAAAACAAAAAQAAAABAAkAACAAA=</HashCode>
+      <FileName>Contracts\Response\PagedResponseMeta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.Response.Response&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\Response\Response.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Contracts.ApiRoutes" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.User" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.Role" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.Goal" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.Auth" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.Exercise" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.Coach" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.Training" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FitnessTracker.Contracts.ApiRoutes.History" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Contracts\ApiRoutes.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Contracts\ApiRoutes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.AuthController" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAgAAAAAAAAAAgAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\AuthController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.CoachController" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAQgAAAAABAAEBAABAAAAAAAAAAAAAAEEAABAAAA=</HashCode>
+      <FileName>Controllers\CoachController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.ExerciseController" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAABAAAAAAEAAkAAAgAAAABAAIA=</HashCode>
+      <FileName>Controllers\ExerciseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.GoalController" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAQAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Controllers\GoalController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.HistoryController" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAQAAAAAABAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HistoryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.RoleController" Collapsed="true">
+    <Position X="7.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAAAACAAA=</HashCode>
+      <FileName>Controllers\RoleController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.TrainingController" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAAEAAAAAABBICAAAEEAEAgIABAAAAQBUA=</HashCode>
+      <FileName>Controllers\TrainingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Controllers.UserController" Collapsed="true">
+    <Position X="14.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAQAAAAAABAAAAAABAAAAAAEAAAAAAgAEAABAAIA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Data.DatabaseContext" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAAASAAAQIAAAAAAAEAIAAAEgAAICBAAAAAAAAAgAA=</HashCode>
+      <FileName>Data\DatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Data.Seeder" Collapsed="true">
+    <Position X="12.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAQAgAAAAAAAAAAAAAAAEAAAAAAAAIAAAQAAABAAAA=</HashCode>
+      <FileName>Data\Seeder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Extensions.JsonDateConverterExtension" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Extensions\JsonDateConverterExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Extensions.JsonDateConverterExtensionNullable" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Extensions\JsonDateConverterExtensionNullable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Filters.AuthResponsesOperationFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filters\AuthResponsesOperationFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Filters.ValidationFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filters\ValidationFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Helpers.AuthHelper" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAIIAAATAAAAABAAEAAAAAAAAA=</HashCode>
+      <FileName>Helpers\AuthHelper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Helpers.PaginationHelper" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQASAA=</HashCode>
+      <FileName>Helpers\PaginationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.MappingProfiles.ModelToResponseProfile" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingProfiles\ModelToResponseProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.MappingProfiles.RequestToModelProfile" Collapsed="true">
+    <Position X="2.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MappingProfiles\RequestToModelProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Migrations.Bonjour" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20201207181145_Bonjour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Migrations.DatabaseContextModelSnapshot" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Migrations\DatabaseContextModelSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Filters.ExerciseFilter" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Filters\ExerciseFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Filters.PaginationFilter" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\Filters\PaginationFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.AuthenticationResult" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAQAAAAAAAAAAAgAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\AuthenticationResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Coach" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAACAAAAAAAAAAAAQABAAAAAAgAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Coach.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Exercise" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCCAAAAAAAgAAAAAAgAAAQCAAAAAAAgAAABAAAAAAE=</HashCode>
+      <FileName>Models\Exercise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.ExerciseHistory" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAAAAAAAAAAEAAAgAEAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ExerciseHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.ExerciseHistoryStats" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAAAAAAAAAEAgAAAACAAAAAAAAAAABAAAAAAE=</HashCode>
+      <FileName>Models\ExerciseHistoryStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Goal" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Goal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.RefreshToken" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAVAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAQAAAABAEA=</HashCode>
+      <FileName>Models\RefreshToken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Role" Collapsed="true">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.Training" Collapsed="true">
+    <Position X="16.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAQACCAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Training.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.TrainingExercise" Collapsed="true">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAEAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TrainingExercise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.TrainingHistory" Collapsed="true">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAAAAAgAEAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TrainingHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.User" Collapsed="true">
+    <Position X="12.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQCCAAIAACAAgAAAEAAAIAQABAAAAAAgAAAAAACAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Models.UserTraining" Collapsed="true">
+    <Position X="4" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAABAAAAAAAgAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserTraining.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Options.JwtSettings" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Options\JwtSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Pages.ErrorModel" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Pages\Error.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Services.AuthService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAQAQIAAARQAgAAABAIAAAoAAAAAgAAIAAAAAAAA=</HashCode>
+      <FileName>Services\AuthService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Services.ExerciseService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiIIBAAEgEAQAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Services\ExerciseService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Services.GoalService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\GoalService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Services.RoleService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAABAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Services\RoleService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Services.TrainingService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAgAQAAAAAAFCQAAAYDBAABAAAAIAAAAAAAAACAggQ=</HashCode>
+      <FileName>Services\TrainingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Services.UriService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Services\UriService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Services.UserService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAIAAABQAAAAAAAAAAAAABAAAACAAAAAQAAAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FitnessTracker.Validators.Auth.AuthChangePasswordRequestValidator" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Auth\AuthChangePasswordRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Auth.AuthLoginRequestValidator" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Auth\AuthLoginRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Auth.AuthRefreshTokenRequestValidator" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Auth\AuthRefreshTokenRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Auth.AuthRegisterRequestValidator" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Auth\AuthRegisterRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.AddCoach.AddCoachRequestValidator" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Coach\AddCoach.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Exercise.CreateExerciseRequestValidator" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Exercise\CreateExerciseRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Exercise.UpdateExerciseRequestValidator" Collapsed="true">
+    <Position X="12.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Exercise\UpdateExerciseRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Rules.PasswordRule" Collapsed="true">
+    <Position X="12.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Rules\PasswordRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Training.AddTrainingToHistoryRequestValidator" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Training\AddTrainingToHistoryRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Training.CreateTrainingRequestValidator" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Training\CreateTrainingRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Training.UpdateTrainingExercisesRequestValidator" Collapsed="true">
+    <Position X="16.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Training\UpdateTrainingExercisesRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.Training.UpdateTrainingRequestValidator" Collapsed="true">
+    <Position X="2.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\Training\UpdateTrainingRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.User.UpdateUserRequestValidator" Collapsed="true">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\User\UpdateUserRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FitnessTracker.Validators.User.UpdateUserRoleRequestValidator" Collapsed="true">
+    <Position X="9.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validators\User\UpdateUserRoleRequestValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="FitnessTracker.Helpers.IAuthHelper" Collapsed="true">
+    <Position X="0.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAIIAAADAAAAABAAEAAAAAAAAA=</HashCode>
+      <FileName>Helpers\IAuthHelper.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.IAuthService" Collapsed="true">
+    <Position X="2.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAQAAgAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Interfaces\IAuthService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.IExerciseService" Collapsed="true">
+    <Position X="4" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiIIAAAAgEAQAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Services\Interfaces\IExerciseService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.IGoalService" Collapsed="true">
+    <Position X="5.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\Interfaces\IGoalService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.IRoleService" Collapsed="true">
+    <Position X="7.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Services\Interfaces\IRoleService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.ITrainingService" Collapsed="true">
+    <Position X="9.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAgAAAAAAAAECQAAAYCBAABAAAAIAAAAAAAAACAggQ=</HashCode>
+      <FileName>Services\Interfaces\ITrainingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.IUriService" Collapsed="true">
+    <Position X="11" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Services\Interfaces\IUriService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FitnessTracker.Services.Interfaces.IUserService" Collapsed="true">
+    <Position X="12.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAQAAAAAAAAAAAAABAAAACAAAAAQAAAA=</HashCode>
+      <FileName>Services\Interfaces\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
