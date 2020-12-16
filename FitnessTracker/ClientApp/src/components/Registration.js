@@ -47,7 +47,6 @@ const Registration = () => {
                 console.log(data.errors);
             }
 
-
         } catch (err) {
             console.error(err);
         }
