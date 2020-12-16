@@ -5,38 +5,47 @@ import {getFakeExerciseData} from "./Chart/utils";
 
 export default class HomePage extends React.Component {
     state = {
-        exercisesPool: []
+        exercisesRawDataPool: [],
     }
 
     componentDidMount() {
         this.fetchData();
     }
 
-    fetchData = () => {
+    fetchData = async () => {
         Api.get("/exercise/mine")
             .then(({data}) => {
                 if (data) {
                     console.log('fetched ', data);
-                    // this.setState({
-                    //     exercisesPool: [...data]
-                    // })
+                    data.forEach(async (exerciseId) => {
+                        const rawData = await Api.get(`/history/exercise/${exerciseId}`);
+                        const exercise = await Api.get(`exercise/${exerciseId}`);
+
+                        const rawDataPool = this.state.exercisesRawDataPool;
+                        rawDataPool[exerciseId] = ({
+                            label: exercise.data.name,
+                            raw: rawData.data
+                        });
+
+
+                        this.setState({
+                            exercisesRawDataPool: rawDataPool,
+                        })
+
+                    })
+
+
                 }
             })
     }
 
-    renderExerciseChart = async (exerciseId) => {
+    renderExerciseChart = (exerciseRawData) => {
         const exerciseAttributesToShow = ['powtorzenia', 'serie', 'obciazenie'];
 
-        //@info - this function creates fake exercise data for 15 days in row
+        // @info - this function creates fake exercise data for 15 days in row
         // const exerciseRawData = getFakeExerciseData(15);
 
-        const exerciseRawData = await Api.get(`/history/exercise/${exerciseId}`);
-        console.log('raaaw', exerciseRawData);
         return <div>
-            <div>
-                <h1>Twoje Postępy dla ćwiczenia o numerze {exerciseId} </h1>
-            </div>
-
             <div>
                 <h3> Wykres Słupkowy</h3>
                 <Chart type={"bar"} rawData={exerciseRawData}
@@ -53,12 +62,16 @@ export default class HomePage extends React.Component {
 
 
     render() {
-
-
         return <div>
-            {this.state.exercisesPool.map((exerciseId) => (
-                <div key={exerciseId}>
-                    {this.renderExerciseChart(exerciseId)}
+            {this.state.exercisesRawDataPool.map((exerciseRawData, key) => (
+                <div key={key}>
+                    <div>
+                        <h1>Twoje Postępy dla ćwiczenia <i>{exerciseRawData.label}</i></h1>
+                    </div>
+
+                    <div key={key}>
+                        {this.renderExerciseChart(exerciseRawData.raw)}
+                    </div>
                 </div>
             ))}
         </div>
