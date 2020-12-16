@@ -35,8 +35,6 @@ export default class HomePage extends React.Component {
                     </div>
                 ))}
             </div>
-
-
         </div>
     }
 }
