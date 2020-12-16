@@ -13,10 +13,14 @@ const Login = () => {
 
     const login = async () => {
         try {
-            const {data} = (await Api.post("/auth/login", {email, password})).response;
-            console.log('dataaaaa', data)
+            let serverAnswer = (await Api.post("/auth/login", {email, password}));
+            if (serverAnswer.response) {
+                serverAnswer = serverAnswer.response;
+            }
+
+            const {data} = serverAnswer;
+
             if (!data.errors && !data.message) {
-                console.log('twoj stgary')
                 localStorage.setItem("token", data.token);
                 // eslint-disable-next-line no-restricted-globals
                 location.replace("/app");
