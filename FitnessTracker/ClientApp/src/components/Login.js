@@ -3,69 +3,92 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Api from "../Api";
-import { useState } from "react";
+import {useState} from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const [loginErrorMsg, setErrorMsg] = useState("");
 
-  const login = async () => {
-    try {
-      const { data } = await Api.post("/auth/login", { email, password });
-      localStorage.setItem("token", data.token);
-      console.log('token', data.token);
-      // eslint-disable-next-line no-restricted-globals
-      location.replace("/app");
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "30vh",
-      }}
-    >
-      <Typography variant="h3" gutterBottom>
-        LOGOWANIE
-      </Typography>
-      <form noValidate autoComplete="off">
-        <Grid container direction="column">
-          <TextField
-            id="email"
-            label="Email"
-            variant="outlined"
-            style={{ margin: "0.5rem" }}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            id="password"
-            label="Hasło"
-            type="password"
-            variant="outlined"
-            style={{ margin: "0.5rem" }}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ margin: "0.5rem" }}
-            size="large"
-            onClick={login}
-          >
-            Zaloguj się
-          </Button>
-        </Grid>
-      </form>
-    </div>
-  );
+    const login = async () => {
+        try {
+            const {data} = (await Api.post("/auth/login", {email, password})).response;
+            console.log('dataaaaa', data)
+            if (!data.errors && !data.message) {
+                console.log('twoj stgary')
+                localStorage.setItem("token", data.token);
+                // eslint-disable-next-line no-restricted-globals
+                location.replace("/app");
+            } else {
+                if (data.errors) {
+                    setErrorMsg(data.errors[0].errors[0])
+                } else {
+                    setErrorMsg(data.message)
+                }
+            }
+
+
+        } catch (err) {
+            console.log('dupa catch');
+            console.error(err);
+        }
+
+
+    };
+
+    return (
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "30vh",
+            }}
+        >
+            <Typography variant="h3" gutterBottom>
+                LOGOWANIE
+            </Typography>
+            <form noValidate autoComplete="off">
+                <Grid container direction="column">
+                    <TextField
+                        id="email"
+                        label="Email"
+                        variant="outlined"
+                        style={{margin: "0.5rem"}}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                        id="password"
+                        label="Hasło"
+                        type="password"
+                        variant="outlined"
+                        style={{margin: "0.5rem"}}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <div style={{
+                        color: 'red',
+                        textAlign: 'center'
+                    }}>
+                        {loginErrorMsg}
+                    </div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{margin: "0.5rem"}}
+                        size="large"
+                        onClick={login}
+                    >
+                        Zaloguj się
+                    </Button>
+                </Grid>
+            </form>
+        </div>
+    );
 };
 
 export default Login;

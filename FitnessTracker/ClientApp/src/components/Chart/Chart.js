@@ -24,7 +24,6 @@ export default class Chart extends React.Component {
     }
 
     componentDidMount() {
-
         const rawData = this.props.rawData;
         const chartSetsAttributes = this.props.attributesToShow;
 
@@ -56,8 +55,6 @@ export default class Chart extends React.Component {
                 labels: datesLabels,
                 datasets: chartSets
             }
-        }, () => {
-            console.log('this.state', this.state)
         })
     }
 
