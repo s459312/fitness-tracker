@@ -10,10 +10,14 @@ namespace FitnessTracker.Validators.Auth
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress();
+                .WithMessage("Podaj E-Mail")
+                .EmailAddress()
+                .WithMessage("Błędny E-Mail");
 
             RuleFor(x => x.Password)
-                .SetValidator(new PasswordRule());
+                .NotEmpty()
+                .WithMessage("Podaj hasło");
+                //.SetValidator(new PasswordRule());
         }
     }
 }

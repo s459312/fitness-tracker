@@ -67,11 +67,11 @@ namespace FitnessTracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment() || env.IsEnvironment("Test") || env.IsEnvironment("Backend"))
+            if (env.IsDevelopment() || env.IsEnvironment("Test") || env.IsEnvironment("Backend") || true) //TODO
             {
                 app.UseDeveloperExceptionPage();
 
-                if (!env.IsEnvironment("Test"))
+                if (!env.IsEnvironment("Test") || true) //TODO
                 {
                     app.UseSwagger(options =>
                     {

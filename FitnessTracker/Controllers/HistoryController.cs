@@ -41,10 +41,10 @@ namespace FitnessTracker.Controllers
             Ok(from his in _context.TrainingHistory.Where(x => x.UserId == _authHelper.GetAuthenticatedUserId()) orderby his.Date select new { his.Date, his.Training.Id, his.Training.Name });
 
         [HttpGet(ApiRoutes.History.Exercise)]
-        public async Task<IActionResult> GetCoach(int exerciseId)
+        public async Task<IActionResult> GetExercise(int exerciseId)
         {
 
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == 1);
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == _authHelper.GetAuthenticatedUserId());
             if (user == null) return NotFound();
 
             var exerciseStatsResult =

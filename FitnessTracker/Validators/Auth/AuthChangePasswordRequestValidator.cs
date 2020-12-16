@@ -10,15 +10,19 @@ namespace FitnessTracker.Validators.Auth
         {
             RuleFor(x => x.OldPassword)
                 .NotEmpty()
-                .SetValidator(new PasswordRule()); ;
+                .WithMessage("Podaj stare hasło")
+                .SetValidator(new PasswordRule());
 
             RuleFor(x => x.NewPassword)
                 .NotEmpty()
-                .SetValidator(new PasswordRule()); ;
+                .WithMessage("Podaj nowe hasło")
+                .SetValidator(new PasswordRule());
 
             RuleFor(x => x.ConfirmNewPassword)
                 .NotEmpty()
-                .Equal(x => x.NewPassword);
+                .WithMessage("Powtórz hasło")
+                .Equal(x => x.NewPassword)
+                .WithMessage("Hasła muszą się zgadzać");
 
         }
     }

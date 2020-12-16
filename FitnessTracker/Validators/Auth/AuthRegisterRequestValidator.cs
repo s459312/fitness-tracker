@@ -11,7 +11,9 @@ namespace FitnessTracker.Validators.Auth
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress();
+                .WithMessage("Podaj E-Mail")
+                .EmailAddress()
+                .WithMessage("Nieprawidłowy E-Mail");
 
             RuleFor(x => x.Password)
                 .SetValidator(new PasswordRule());
@@ -21,10 +23,10 @@ namespace FitnessTracker.Validators.Auth
                 .Equal(x => x.Password).WithMessage("Podane hasła nie są identyczne");
 
             RuleFor(x => x.Name)
-                .NotEmpty();
+                .NotEmpty().WithMessage("Podaj imię");
 
             RuleFor(x => x.Surname)
-                .NotEmpty();
+                .NotEmpty().WithMessage("Podaj nazwisko");
             
             RuleFor(x => x.GoalId)
                 .NotEmpty().WithMessage("Podaj poprwany cel ćwiczenia")
