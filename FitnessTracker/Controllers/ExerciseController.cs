@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FitnessTracker.Contracts;
@@ -7,6 +8,7 @@ using FitnessTracker.Contracts.Request.Queries;
 using FitnessTracker.Contracts.Response;
 using FitnessTracker.Contracts.Response.Errors;
 using FitnessTracker.Contracts.Response.Exercise;
+using FitnessTracker.Data;
 using FitnessTracker.Helpers;
 using FitnessTracker.Models;
 using FitnessTracker.Models.Filters;
@@ -28,12 +30,16 @@ namespace FitnessTracker.Controllers
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
         private readonly IExerciseService _exerciseService;
+        private readonly IAuthHelper _authHelper;
+        private readonly DatabaseContext _context;
 
-        public ExerciseController(IMapper mapper, IUriService uriService, IExerciseService exerciseService)
+        public ExerciseController(IMapper mapper, IUriService uriService, IExerciseService exerciseService, IAuthHelper authHelper, DatabaseContext context)
         {
             _mapper = mapper;
             _uriService = uriService;
             _exerciseService = exerciseService;
+            _authHelper = authHelper;
+            _context = context;
         }
 
         /// <summary>
@@ -59,6 +65,17 @@ namespace FitnessTracker.Controllers
                 PaginationHelper.Paginate(_uriService, paginationFilter, exerciseResponse, exerciseCount);
             
             return Ok(paginatedResponse);
+        }
+
+        /// <summary>
+        /// Zwraca tablicę Id wszystkich ćwiczeń użytkownika
+        /// </summary>
+        /// <response code="200"></response>
+        [SwaggerResponse(200, "", typeof(int[]))]
+        [HttpGet(ApiRoutes.Exercise.GetMine)]
+        public async Task<IActionResult> GetMine()
+        {
+            return Ok((from obj in (await _authHelper.GetAuthenticatedUserModel(_context)).ExerciseHistories select obj.Exercise.Id).Distinct());
         }
 
         /// <summary>

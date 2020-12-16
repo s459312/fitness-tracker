@@ -62,7 +62,7 @@ namespace FitnessTracker.Controllers
             var authResponse = await _authService.LoginAsync(request);
 
             if (!authResponse.Success)
-                return BadRequest(new ErrorResponse(authResponse.Error));
+                return BadRequest(new ErrorResponse("Próba logowania nie powiodła się"/*authResponse.Error*/));
 
             return Ok(new AuthSuccessResponse
             {

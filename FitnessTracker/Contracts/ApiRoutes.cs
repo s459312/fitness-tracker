@@ -40,6 +40,7 @@
             public const string Create = Base + "exercise";
             public const string Update = Base + "exercise/{exerciseId}";
             public const string Delete = Base + "exercise/{exerciseId}";
+            public const string GetMine = Base + "exercise/mine";
         }
 
         public static class Coach
