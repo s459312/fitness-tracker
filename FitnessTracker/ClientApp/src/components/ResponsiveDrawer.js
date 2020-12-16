@@ -21,6 +21,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Coaches from "./Coaches";
 import Exercises from "./Exercises";
 import Trainings from "./Trainings";
+import HomePage from "./HomePage";
 
 const drawerWidth = 240;
 
@@ -221,6 +222,7 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
+          <Route path={`${match.path}/`} component={HomePage} exact={true} />
           <Route path={`${match.path}/coaches`} component={Coaches} />
           <Route path={`${match.path}/exercises`} component={Exercises} />
           <Route path={`${match.path}/training-plans`} component={Trainings} />

@@ -4,6 +4,7 @@ let instance = axios.create({
   baseURL: "https://fitness-tracker.germanywestcentral.cloudapp.azure.com/api/",
   responseType: "json",
 });
+
 instance.interceptors.request.use((request) => {
   const token = localStorage.getItem("token");
   if (token) {
