@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -66,11 +67,11 @@ namespace FitnessTracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment() || env.IsEnvironment("Test") || env.IsEnvironment("Backend"))
+            if (env.IsDevelopment() || env.IsEnvironment("Test") || env.IsEnvironment("Backend") || true) //TODO
             {
                 app.UseDeveloperExceptionPage();
 
-                if (!env.IsEnvironment("Test"))
+                if (!env.IsEnvironment("Test") || true) //TODO
                 {
                     app.UseSwagger(options =>
                     {
@@ -90,7 +91,15 @@ namespace FitnessTracker
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "ClientApp\\build\\static")),
+                RequestPath = "/static"
+            });
+
             app.UseRouting();
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -107,6 +116,11 @@ namespace FitnessTracker
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<DatabaseContext>().Database.Migrate();
+            }
         }
 
 
@@ -194,7 +208,7 @@ namespace FitnessTracker
         {
             service.AddSwaggerGen(x =>
             {
-                
+
                 x.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
