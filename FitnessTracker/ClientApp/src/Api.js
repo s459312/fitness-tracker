@@ -3,7 +3,7 @@
 let instance = axios.create({
     //baseURL: "https://fitness-tracker.germanywestcentral.cloudapp.azure.com/api/",
     //baseURL: "https://localhost:44355/api/",
-    baseURL: "https://fitnesstracker20210201112349.azurewebsites.net/api/",
+    baseURL: "https://fitnesstrackerio.azurewebsites.net/api/",
     responseType: "json",
 });
 
