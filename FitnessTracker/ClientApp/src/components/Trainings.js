@@ -168,6 +168,7 @@ const Trainings = () => {
           <>
             <Typography gutterBottom variant="h5">
               {selectedTraining?.name}
+            {/* 
               <Button
                 variant="contained"
                 style={{ marginLeft: 20 }}
@@ -182,6 +183,7 @@ const Trainings = () => {
               >
                 Dodaj do historii
               </Button>
+            */}
             </Typography>
             {selectedTraining.description && (
               <Typography gutterBottom variant="h6">

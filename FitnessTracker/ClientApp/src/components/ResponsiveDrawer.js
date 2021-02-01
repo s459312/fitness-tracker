@@ -182,9 +182,11 @@ function ResponsiveDrawer(props) {
               open={open}
               onClose={handleClose}
             >
+            {/*
               <MenuItem onClick={handleClose}>Moje konto</MenuItem>
               <MenuItem onClick={handleClose}>Ustawienia</MenuItem>
-              <MenuItem onClick={logout}>Wyloguj</MenuItem>
+            */}
+              <MenuItem onClick={logout}>Wyloguj</MenuItem> 
             </Menu>
           </div>
         </Toolbar>

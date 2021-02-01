@@ -46,6 +46,7 @@ export default class HomePage extends React.Component {
         // const exerciseRawData = getFakeExerciseData(15);
 
         return <div>
+            {/*
             <div>
                 <h3> Wykres Słupkowy</h3>
                 <Chart type={"bar"} rawData={exerciseRawData}
@@ -56,6 +57,7 @@ export default class HomePage extends React.Component {
                 <Chart type={"line"} rawData={exerciseRawData}
                        attributesToShow={exerciseAttributesToShow}/>
             </div>
+            */}
 
         </div>
     }
@@ -63,6 +65,11 @@ export default class HomePage extends React.Component {
 
     render() {
         return <div>
+            <h1>Witaj w aplikacji Fitness Tracker!</h1>
+            <p>W zakładce <b>Trenerzy</b> możesz uzyskać informacje na temat trenerów personalnych.</p>
+            <p>W zakładce <b>Baza ćwiczeń</b> możesz znaleźć interesujące Cię ćwiczenia i dodawać je do swoich planów treningowych.</p>
+            <p>W zakładce <b>Plany treningowe</b> możesz przeglądać i tworzyć nowe plany treningowe.</p>
+            {/*
             {this.state.exercisesRawDataPool.map((exerciseRawData, key) => (
                 <div key={key}>
                     <div>
@@ -74,6 +81,7 @@ export default class HomePage extends React.Component {
                     </div>
                 </div>
             ))}
+            */}
         </div>
 
     }
