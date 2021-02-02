@@ -116,6 +116,11 @@ namespace FitnessTracker
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<DatabaseContext>().Database.Migrate();
+            }
         }
 
 
