@@ -54,6 +54,8 @@ const Login = () => {
             <Typography variant="h3" gutterBottom>
                 LOGOWANIE
             </Typography>
+            <p>Strona logowania</p>
+            {/*
             <form noValidate autoComplete="off">
                 <Grid container direction="column">
                     <TextField
@@ -91,6 +93,7 @@ const Login = () => {
                     </Button>
                 </Grid>
             </form>
+            */}
         </div>
     );
 };

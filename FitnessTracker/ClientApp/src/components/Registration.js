@@ -65,6 +65,8 @@ const Registration = () => {
             <Typography variant="h3" gutterBottom>
                 REJESTRACJA
             </Typography>
+            <p>Strona rejestracji</p>
+            {/*
             <form noValidate autoComplete="off">
                 <Grid container direction="column">
                     <TextField
@@ -153,6 +155,7 @@ const Registration = () => {
                     </Button>
                 </Grid>
             </form>
+            */}
         </div>
     );
 };
