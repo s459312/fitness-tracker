@@ -28,16 +28,16 @@ namespace FitnessTracker.Data
         public static void SeedCoach(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Coach>().HasData(
-                new Coach { Id = 1, Email = "coach_1@example.com", Name = "CoachName_1", Surname = "CoachSurname_1", Phone = "123456789", GoalId = 1 },
-                new Coach { Id = 2, Email = "coach_2@example.com", Name = "CoachName_2", Surname = "CoachSurname_2", Phone = "987654321", GoalId = 2 }
+                new Coach { Id = 1, Email = "coach_1@example.com", Name = "CoachName_1", Surname = "CoachSurname_1", Phone = "123456789", Description = "Hello, I'm a best coach ever", GoalId = 1 },
+                new Coach { Id = 2, Email = "coach_2@example.com", Name = "CoachName_2", Surname = "CoachSurname_2", Phone = "987654321", Description = "Hi, I'm John Kowalski and with me, you'll be a strongman!", GoalId = 2 }
             );
         }
 
         public static void SeedExercise(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Exercise>().HasData(
-                new Exercise { Id = 1, Name = "Przysiad ze sztangą", Serie = 4, Powtorzenia = 8, GoalId = 1 },
-                new Exercise { Id = 2, Name = "Wykroki ze sztangielkami", Serie = 4, Powtorzenia = 8, GoalId = 3 },
+                new Exercise { Id = 1, Name = "Przysiad ze sztangą", Serie = 4, Powtorzenia = 8, GoalId = 1, Description = "Zrób przysiad trzymająć sztangę" },
+                new Exercise { Id = 2, Name = "Wykroki ze sztangielkami", Serie = 4, Powtorzenia = 8, GoalId = 3, Description = "Zrób wykrok ze sztangielkami" },
                 new Exercise { Id = 3, Name = "Przysiad w szerokim rozkroku", Serie = 4, Powtorzenia = 8, GoalId = 3 },
                 new Exercise { Id = 4, Name = "Wyciskanie sztangielek w pozycji leżącej", Serie = 3, Powtorzenia = 12, GoalId = 3 },
                 new Exercise { Id = 5, Name = "Brzuszki z nogami uniesionymi", Serie = 3, Powtorzenia = 25, GoalId = 3 },
