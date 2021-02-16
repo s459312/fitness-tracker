@@ -28,8 +28,39 @@ namespace FitnessTracker.Data
         public static void SeedCoach(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Coach>().HasData(
-                new Coach { Id = 1, Email = "coach_1@example.com", Name = "CoachName_1", Surname = "CoachSurname_1", Phone = "123456789", Description = "Hello, I'm a best coach ever", GoalId = 1 },
-                new Coach { Id = 2, Email = "coach_2@example.com", Name = "CoachName_2", Surname = "CoachSurname_2", Phone = "987654321", Description = "Hi, I'm John Kowalski and with me, you'll be a strongman!", GoalId = 2 }
+                new Coach { Id = 1, Email = "piotr.dunaj@gmail.com", Name = "Piotr", Surname = "Dunaj", Phone = "+48 88 661 59 08", Description = 
+                    @"Od najmłodszych lat uwielbiałem sport i starałem się zawsze, aby był on integralną częścią mojego życia. 
+                    Przez 12 lat grałem w piłkę nożną, a w wieku 18 lat pierwszy raz poszedłem na siłownię i jest to do dzisiaj mój drugi dom.", GoalId = 2 },
+                new Coach { Id = 2, Email = "emilia.skorobek@gmail.com", Name = "Emilia", Surname = "Skrobek", Phone = "+48 69 102 81 03", Description = 
+                    @"Na początku ukończyłam kurs na Instruktora Fitness i od tego się zaczęło. Kolejne kursy, warsztaty i szkolenia, aż zdecydowałam się na pracę w charakterze Trenera Personalnego. 
+                    Ukończyłam licencjonowany kurs i od tego momentu zakochałam się w treningu siłowym. Obecnie rozwijam się w tym kierunku i myślę, że na tym nie poprzestanę.", GoalId = 1 },
+                new Coach { Id = 3, Email = "bartek.janiak@gmail.com", Name = "Bartek", Surname = "Janiak", Phone = "+48 66 410 26 80", Description = 
+                    @"Specjalizuję się w przygotowaniu motorycznym sportowców oraz zarządzaniu w sporcie. Na co dzień zajmuję się przygotowaniem fizycznym 
+                    zawodników AKS SMS Łódź oraz treningami personalnymi i grupowymi w klubie.  Jestem także studentem AWFiS w Gdańsku na kierunku wychowanie fizyczne.", GoalId = 3 },
+                new Coach { Id = 4, Email = "piotr.kaminski@gmail.com", Name = "Piotr", Surname = "Kamiński", Phone = "+48 69 446 63 81", Description = 
+                    @"Jestem studentem dietetyki w Wyższej Szkole Biznesu i Nauk o Zdrowiu. Ze sportem mam styczność od 7 roku życia. Wtedy właśnie rodzice zapisali mnie na karate w stylu Shotokan. 
+                    Przygoda z tą dyscypliną trwała 7 lat. Następnie 2 lata trenowałem koszykówkę, 1 rok tenis ziemny i 2 lata Jeet Kune Do. Po tym czasie zainteresowałem się sportem siłowo-sylwetkowym i ogólnie rozumianą 
+                    aktywnością fizyczną, która towarzyszy mi do dziś.", GoalId = 1 },
+                new Coach { Id = 5, Email = "kasia.barcicka@gmail.com", Name = "Kasia", Surname = "Barcicka", Phone = "+48 53 166 77 40", Description = 
+                    @"W praktyce i nauczaniu istotna jest dla mnie uważność oraz odnalezienie balansu pomiędzy wysiłkiem i relaksem. 
+                    „Doskonałość w asanie osiąga się, kiedy wysiłek wkładany w jej wykonanie staje się bezwysiłkowy” (YS.II.47)", GoalId = 3 },
+                new Coach { Id = 6, Email = "tomasz.lebiedzik@gmail.com", Name = "Tomasz", Surname = "Lebiedzik", Phone = "+48 88 302 27 30", Description = 
+                    @"Moje życie z większymi lub mniejszymi przerwami zawsze kręciło się wokół sportu. Doświadczenie ze starej, dobrej szkoły lekkoatletycznej przeniosłem na pracę w zawodzie 
+                    instruktora sportów siłowych i skoncentrowałem się na pracy w siłowni. Każdy dzień pracy z klientami jest dla mnie wyzwaniem, które, będąc niepoprawnym pracoholikiem, 
+                    chętnie podejmuję, ale do swojej pracy podchodzę z dużą pokorą.", GoalId = 2 },
+                new Coach { Id = 7, Email = "paulina.szternel@gmail.com", Name = "Paulina", Surname = "Szternel", Phone = "+48 79 650 23 17", Description = 
+                    @"Jestem absolwentką Uniwersytetu Łódzkiego. Finanse i Rachunkowość oraz Zarządzanie to dziedziny, które pochłonęły kilka lat mojego życia. 
+                    Umysł ścisły jednak nie wyklucza mojego zamiłowania do sportu i aktywnego trybu życia.", GoalId = 1 },
+                new Coach { Id = 8, Email = "anaa.szlendak@gmail.com", Name = "Anna", Surname = "Szlendak", Phone = "+48 88 165 57 95", Description = 
+                    @"Jako zodiakalny bliźniak lubię, kiedy wokół mnie dzieje się wciąż coś nowego. Całe życie próbuję swoich sił w najróżniejszych dziedzinach. 
+                    Stawianie pierwszych kroków, robienie postępów i wreszcie odnoszenie małych sukcesów jest niezastąpionym doznaniem. 
+                    Z wykształcenia jestem wizażystką i charakteryzatorką filmową. Pomagam kobietom odnaleźć w sobie.", GoalId = 3 },
+                new Coach { Id = 9, Email = "magda.kazmierczak@gmail.com", Name = "Magda", Surname = "Kaźmierczak", Phone = "+48 67 297 73 45", Description = 
+                    @"Magister Pedagogiki Kultury Fizycznej i Zdrowotnej na Uniwersytecie Łódzkim, dyplomowany technik masażysta, instruktor rekreacji ruchowej ze specjalnością: aerobik, 
+                    instruktor Indoor Cycling, trener personalny, wykładowca na AHE: gimnastyka korekcyjna w edukacji szkolnej i przedszkolnej.", GoalId = 2 },
+                new Coach { Id = 10, Email = "witek.gluck@gmail.com", Name = "Witek", Surname = "Gluck", Phone = "+48 88 564 60 57", Description = 
+                    @"Ukończyłem wiele lat temu Politechnikę Łódzką i jestem inżynierem mechanikiem. Do fitnessu trafiłem, jak wiele osób, drogą – od pasji do zawodu jednak niewielu udało się zadebiutować, 
+                    mając ukończone lat 50. Jestem przykładem, że można, że ograniczenia są do przejścia, cały czas się uczę i mam kolejne plany.", GoalId = 1 }
             );
         }
 
